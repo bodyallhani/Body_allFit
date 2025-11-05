@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>BodyAllFit 랜딩</title>
+  <style>
+    :root { --dock-h: 76px; --bg:#202536; --icon:#f4f5f9; --text:#ffffff; }
+    /* 전체 리셋 & 모바일 최적화 */
+    html,body{margin:0;padding:0;background:#000;}
+    body{font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", Pretendard, "Noto Sans KR", Roboto, "Segoe UI", system-ui, sans-serif; padding-bottom: var(--dock-h);}
+    /* 이미지 스택: 간격 0 / 가로폭 100% */
+    .stack{font-size:0; line-height:0; background:#000;}
+    .stack img, .stack a{display:block; width:100%;}
+    .stack img{height:auto; border:0; margin:0; padding:0; vertical-align:top;}
+    .stack a{margin:0; padding:0;}
+    /* 하단 고정 도크 */
+    .dock{
+      position:fixed; left:0; right:0; bottom:0;
+      height:var(--dock-h); background:var(--bg);
+      display:flex; z-index:9999; border-top:1px solid rgba(255,255,255,.06);
+    }
+    .dock a{
+      flex:1; text-decoration:none; display:flex; flex-direction:column; align-items:center; justify-content:center;
+      gap:6px;
+    }
+    .dock a svg{width:24px; height:24px; fill:var(--icon); flex:0 0 auto;}
+    .dock a span{font-size:12px; line-height:1; color:var(--text); letter-spacing:.2px;}
+    /* 터치 영역 확장 */
+    @media (hover:hover){
+      .dock a:hover{filter:brightness(1.08);}
+    }
+    @media (min-width:480px){
+      :root{ --dock-h: 84px; }
+      .dock a span{font-size:13px;}
+      .dock a svg{width:26px;height:26px;}
+    }
+    /* 안전 영역(iOS 홈 인디케이터 피하기) */
+    .dock{padding-bottom: max(env(safe-area-inset-bottom), 0px);}
+    body{padding-bottom: calc(var(--dock-h) + env(safe-area-inset-bottom, 0px));}
+  </style>
+</head>
+<body>
+
+  <!-- 이미지 스택 (세로, 간격 0) -->
+  <main class="stack" role="main" aria-label="BodyAllFit 랜딩 이미지">
+    <!-- 1) 링크 없음 -->
+    <img src="https://raw.githubusercontent.com/bodyallhani/Body_allFit/main001.png" alt="BodyAllFit 이미지 1" />
+
+    <!-- 2) 링크 있음 -->
+    <a href="https://body-all.co.kr/1970018529" aria-label="자세히 보기로 이동">
+      <img src="https://raw.githubusercontent.com/bodyallhani/Body_allFit/main002.png" alt="BodyAllFit 이미지 2 (자세히 보기 링크)" />
+    </a>
+
+    <!-- 3) 링크 없음 -->
+    <img src="https://raw.githubusercontent.com/bodyallhani/Body_allFit/main003.png" alt="BodyAllFit 이미지 3" />
+
+    <!-- 4) 링크 없음 -->
+    <img src="https://raw.githubusercontent.com/bodyallhani/Body_allFit/main004.png" alt="BodyAllFit 이미지 4" />
+
+    <!-- 5) 링크 있음 (이미지 경로는 4와 동일, 링크만 다름) -->
+    <a href="https://forms.gle/cAtpNjx7uoKj5hF87" aria-label="다이어트 신청 폼으로 이동" target="_blank" rel="noopener">
+      <img src="https://raw.githubusercontent.com/bodyallhani/Body_allFit/main004.png" alt="BodyAllFit 이미지 5 (신청 링크)" />
+    </a>
+  </main>
+
+  <!-- 하단 고정 4버튼 -->
+  <nav class="dock" aria-label="빠른 실행 버튼">
+    <!-- 1. 전화상담 -->
+    <a href="tel:031-8067-5825" aria-label="전화상담">
+      <!-- 전화 아이콘 (단색) -->
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1V21a1 1 0 01-1 1C10.85 22 2 13.15 2 2a1 1 0 011-1h3.49a1 1 0 011 1c0 1.24.2 2.45.57 3.57a1 1 0 01-.24 1.02l-2.2 2.2z"/></svg>
+      <span>전화상담</span>
+    </a>
+
+    <!-- 2. 다이어트 시작하기 (AllFit 텍스트 아이콘 대체) -->
+    <a href="https://forms.gle/cAtpNjx7uoKj5hF87" target="_blank" rel="noopener" aria-label="다이어트 시작하기">
+      <!-- 텍스트를 SVG로(아이콘 색상 적용) -->
+      <svg viewBox="0 0 200 40" aria-hidden="true">
+        <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="20" font-family="Arial, Helvetica, sans-serif" fill="#f4f5f9">AllFit</text>
+      </svg>
+      <span>다이어트 시작하기</span>
+    </a>
+
+    <!-- 3. 네이버톡톡 -->
+    <a href="https://talk.naver.com/ct/w4eflu?frm=pnmb&frm=nmb_detail" target="_blank" rel="noopener" aria-label="네이버 톡톡">
+      <!-- 네이버 'N' 아이콘 (단색) -->
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3h16a1 1 0 011 1v16a1 1 0 01-1 1H4a1 1 0 01-1-1V4a1 1 0 011-1zm5 4v6.06L9.02 13 15 7h-3l-3 3.06V7H9z"/></svg>
+      <span>네이버톡톡</span>
+    </a>
+
+    <!-- 4. 카톡상담 -->
+    <a href="https://pf.kakao.com/_wdtXK" target="_blank" rel="noopener" aria-label="카카오톡 상담">
+      <!-- 카카오 말풍선 모양 (단색) -->
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3C6.48 3 2 6.58 2 11c0 2.49 1.5 4.69 3.83 6.1L5 21l3.37-1.86c1.09.3 2.26.46 3.63.46 5.52 0 10-3.58 10-8s-4.48-8-10-8z"/></svg>
+      <span>카톡상담</span>
+    </a>
+  </nav>
+</body>
+</html>
