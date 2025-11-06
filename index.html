@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
 <title>BodyAllFit 랜딩</title>
 <style>
   :root { --dock-h: 80px; --bg:#202536; --icon:#f4f5f9; --text:#ffffff; }
@@ -26,16 +26,16 @@
   }
   .dock a{
     flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
-    text-decoration:none;gap:6px; min-width:0;
+    text-decoration:none;gap:6px;min-width:0;
   }
   .dock a .icon{
     width:28px;height:28px;display:flex;align-items:center;justify-content:center;
-    line-height:1; color:var(--icon);
+    line-height:1;color:var(--icon);
   }
   .dock a .icon svg{width:100%;height:100%;display:block;}
-  .dock a .icon-text{ /* AllFit 아이콘 전용 */
-    font-size:18px; font-weight:800; color:var(--icon); letter-spacing:.5px;
-    display:flex; align-items:center; justify-content:center; width:100%; height:100%;
+  .dock a .icon-text{
+    font-size:18px;font-weight:800;color:var(--icon);letter-spacing:.5px;
+    display:flex;align-items:center;justify-content:center;width:100%;height:100%;
   }
   .dock a span{font-size:12px;line-height:1;color:var(--text);letter-spacing:.2px;white-space:nowrap;}
   @media (hover:hover){ .dock a:hover{filter:brightness(1.08);} }
@@ -49,82 +49,11 @@
 </head>
 <body>
 
-<!-- 이미지 스택 (세로, 간격 0) -->
+<!-- 이미지 스택 -->
 <main class="stack" role="main" aria-label="BodyAllFit 랜딩 이미지">
-  <!-- 1) 링크 없음 -->
   <img src="https://raw.githubusercontent.com/bodyallhani/Body_allFit/main/main001.png" alt="BodyAllFit 이미지 1" />
-
-  <!-- 2) 링크 없음 -->
   <img src="https://raw.githubusercontent.com/bodyallhani/Body_allFit/main/main002.png" alt="BodyAllFit 이미지 2" />
-
-  <!-- 3) 링크 있음 -->
-  <a href="https://body-all.co.kr/1970018529" aria-label="자세히 보기로 이동">
+  <a href="https://body-all.co.kr/1970018529">
     <img src="https://raw.githubusercontent.com/bodyallhani/Body_allFit/main/main003.png" alt="BodyAllFit 이미지 3 (자세히 보기 링크)" />
   </a>
-
-  <!-- 4) 링크 없음 -->
-  <img src="https://raw.githubusercontent.com/bodyallhani/Body_allFit/main/main004.png" alt="BodyAllFit 이미지 4" />
-
-  <!-- 5) 링크 없음 -->
-  <img src="https://raw.githubusercontent.com/bodyallhani/Body_allFit/main/main005.png" alt="BodyAllFit 이미지 5" />
-
-  <!-- 6) 링크 있음 -->
-  <a href="https://forms.gle/cAtpNjx7uoKj5hF87" target="_blank" rel="noopener" aria-label="다이어트 신청 폼으로 이동">
-    <img src="https://raw.githubusercontent.com/bodyallhani/Body_allFit/main/main006.png" alt="BodyAllFit 이미지 6 (신청 링크)" />
-  </a>
-</main>
-
-<!-- 하단 고정 4버튼 도크 -->
-<nav class="dock" aria-label="빠른 실행 버튼">
-  <!-- 1. 전화상담 -->
-  <a href="tel:031-8067-5825" aria-label="전화상담">
-    <div class="icon">
-      <!-- 전화기 아이콘 -->
-      <svg viewBox="0 0 24 24" aria-hidden="true" fill="var(--icon)">
-        <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1V21a1 1 0 01-1 1C10.85 22 2 13.15 2 2a1 1 0 011-1h3.49a1 1 0 011 1c0 1.24.2 2.45.57 3.57a1 1 0 01-.24 1.02l-2.2 2.2z"/>
-      </svg>
-    </div>
-    <span>전화상담</span>
-  </a>
-
-  <!-- 2. 다이어트 시작하기 (AllFit 텍스트를 '아이콘'으로 큼직하게) -->
-  <a href="https://forms.gle/cAtpNjx7uoKj5hF87" target="_blank" rel="noopener" aria-label="다이어트 시작하기">
-    <div class="icon"><div class="icon-text">AllFit</div></div>
-    <span>다이어트 시작하기</span>
-  </a>
-
-  <!-- 3. 네이버톡톡 (단색 모티프, 중앙정렬 보정) -->
-  <a href="https://talk.naver.com/ct/w4eflu?frm=pnmb&frm=nmb_detail" target="_blank" rel="noopener" aria-label="네이버 톡톡">
-    <div class="icon">
-      <svg viewBox="0 0 48 48" aria-hidden="true">
-        <!-- 라운드 사각형 테두리 -->
-        <rect x="4" y="4" width="40" height="40" rx="8" ry="8"
-              fill="none" stroke="var(--icon)" stroke-width="4"/>
-        <!-- 중앙 'N' -->
-        <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle"
-              font-size="22" font-weight="900" font-family="Arial, Helvetica, sans-serif"
-              fill="var(--icon)">N</text>
-      </svg>
-    </div>
-    <span>네이버톡톡</span>
-  </a>
-
-  <!-- 4. 카톡상담 (단색 말풍선 + 중앙 TALK) -->
-  <a href="https://pf.kakao.com/_wdtXK" target="_blank" rel="noopener" aria-label="카카오톡 상담">
-    <div class="icon">
-      <svg viewBox="0 0 48 48" aria-hidden="true">
-        <!-- 말풍선 외곽 -->
-        <path d="M24 6c-9.94 0-18 6.63-18 14.8 0 5.24 3.45 9.82 8.68 12.42l-.83 5.4c-.06.47.33.85.8.78l5.72-.82c1.37.29 2.83.44 4.33.44 9.94 0 18-6.63 18-14.8S33.94 6 24 6Z"
-              fill="none" stroke="var(--icon)" stroke-width="3" stroke-linejoin="round"/>
-        <!-- 중앙 TALK -->
-        <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle"
-              font-size="10" font-weight="900" font-family="Arial, Helvetica, sans-serif"
-              fill="var(--icon)">TALK</text>
-      </svg>
-    </div>
-    <span>카톡상담</span>
-  </a>
-</nav>
-
-</body>
-</html>
+  <img src="https://r
