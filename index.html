@@ -56,4 +56,82 @@
   <a href="https://body-all.co.kr/1970018529">
     <img src="https://raw.githubusercontent.com/bodyallhani/Body_allFit/main/main003.png" alt="BodyAllFit 이미지 3 (자세히 보기 링크)" />
   </a>
-  <img src="https://r
+  <img src="https://raw.githubusercontent.com/bodyallhani/Body_allFit/main/main004.png" alt="BodyAllFit 이미지 4" />
+  <img src="https://raw.githubusercontent.com/bodyallhani/Body_allFit/main/main005.png" alt="BodyAllFit 이미지 5" />
+  <a href="https://forms.gle/cAtpNjx7uoKj5hF87" target="_blank" rel="noopener">
+    <img src="https://raw.githubusercontent.com/bodyallhani/Body_allFit/main/main006.png" alt="BodyAllFit 이미지 6 (신청 링크)" />
+  </a>
+</main>
+
+<!-- 하단 고정 버튼 -->
+<nav class="dock" aria-label="빠른 실행 버튼">
+  <!-- 전화상담 -->
+  <a href="tel:031-8067-5825">
+    <div class="icon">
+      <svg viewBox="0 0 24 24" fill="var(--icon)">
+        <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1V21a1 1 0 01-1 1C10.85 22 2 13.15 2 2a1 1 0 011-1h3.49a1 1 0 011 1c0 1.24.2 2.45.57 3.57a1 1 0 01-.24 1.02l-2.2 2.2z"/>
+      </svg>
+    </div>
+    <span>전화상담</span>
+  </a>
+
+  <!-- 다이어트 시작하기 -->
+  <a href="https://forms.gle/cAtpNjx7uoKj5hF87" target="_blank" rel="noopener">
+    <div class="icon"><div class="icon-text">AllFit</div></div>
+    <span>다이어트 시작하기</span>
+  </a>
+
+  <!-- 네이버톡톡 -->
+  <a href="https://talk.naver.com/ct/w4eflu?frm=pnmb&frm=nmb_detail" target="_blank" rel="noopener">
+    <div class="icon">
+      <svg viewBox="0 0 48 48">
+        <rect x="4" y="4" width="40" height="40" rx="8" ry="8"
+              fill="none" stroke="var(--icon)" stroke-width="4"/>
+        <text x="50%" y="52%" text-anchor="middle" dominant-baseline="middle"
+              font-size="22" font-weight="900" font-family="Arial, Helvetica, sans-serif"
+              fill="var(--icon)">N</text>
+      </svg>
+    </div>
+    <span>네이버톡톡</span>
+  </a>
+
+  <!-- 카톡상담 (정확한 말풍선 비율) -->
+  <a href="https://pf.kakao.com/_wdtXK" target="_blank" rel="noopener">
+    <div class="icon">
+      <svg viewBox="0 0 240 240">
+        <path d="M120 20c-52.8 0-96 33.6-96 75 0 26.5 17.4 49.6 43.4 62.4L64 212l31.3-17.8c7.3 1.5 15 2.3 22.7 2.3 52.8 0 96-33.6 96-75S172.8 20 120 20z"
+              fill="none" stroke="var(--icon)" stroke-width="10" stroke-linejoin="round"/>
+        <text x="50%" y="56%" text-anchor="middle"
+              font-size="48" font-weight="900" font-family="Arial, Helvetica, sans-serif"
+              fill="var(--icon)">TALK</text>
+      </svg>
+    </div>
+    <span>카톡상담</span>
+  </a>
+</nav>
+
+<!-- 확대/축소 차단 스크립트 -->
+<script>
+['gesturestart','gesturechange','gestureend'].forEach(evt=>{
+  window.addEventListener(evt,e=>e.preventDefault(),{passive:false});
+});
+let lastTouchEnd=0;
+document.addEventListener('touchend',e=>{
+  const now=Date.now();
+  if(now-lastTouchEnd<=300)e.preventDefault();
+  lastTouchEnd=now;
+},{passive:false});
+document.addEventListener('touchstart',e=>{
+  if(e.touches && e.touches.length>1)e.preventDefault();
+},{passive:false});
+window.addEventListener('wheel',e=>{
+  if(e.ctrlKey)e.preventDefault();
+},{passive:false});
+window.addEventListener('keydown',e=>{
+  const k=e.key;
+  if((e.ctrlKey||e.metaKey)&&(k==='+'||k==='-'||k==='='||k==='0'))e.preventDefault();
+});
+</script>
+
+</body>
+</html>
