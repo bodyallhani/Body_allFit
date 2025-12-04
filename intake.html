@@ -1077,331 +1077,285 @@
       </div>
     </div>
   </div>
+<script>
+  // ★ 새 웹앱 URL (그대로 사용)
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwzdmIcbFnV1VX0HjsIQV4U8lUfRnKhCnqRBszb_42DlB7jnzNU7ALKOSSukP1MPcBa/exec";
 
-  <script>
-    // === 공통 유틸 ===
-    function getCheckedValues(name) {
-      const nodes = document.querySelectorAll('input[name="' + name + '"]:checked');
-      return Array.from(nodes).map(function (n) { return n.value; });
+  // 체크박스 복수값 가져오기
+  function getCheckedValues(name) {
+    const nodes = document.querySelectorAll('input[name="' + name + '"]:checked');
+    return Array.from(nodes).map(function (n) { return n.value; });
+  }
+
+  // 장해독 단독 선택 방지 + 유효성 검사
+  function validateProgramSelection(programArr) {
+    if (!programArr.length) {
+      alert("희망 프로그램을 최소 1개 이상 선택해주세요.");
+      return false;
     }
 
-    function isMainProgram(code) {
-      return (
-        code === "4주(2+1)" ||
-        code === "8주(4+2)" ||
-        code === "12주(8+3)" ||
-        code === "요요2x(16+4)" ||
-        code === "요요3x(24+5)"
-      );
+    const mainPrograms = programArr.filter(v =>
+      v.includes("4주 프로그램") ||
+      v.includes("8주 프로그램") ||
+      v.includes("12주 프로그램") ||
+      v.includes("Double") ||
+      v.includes("Triplet")
+    );
+
+    const detoxPrograms = programArr.filter(v =>
+      v.includes("장해독환 1달") || v.includes("장해독환 3달")
+    );
+
+    if (detoxPrograms.length > 0 && mainPrograms.length === 0) {
+      alert("장해독환은 4·8·12주 또는 요요방지 프로그램과 함께만 처방 가능합니다.\n다이어트 프로그램을 먼저 선택해주세요.");
+      return false;
     }
+    return true;
+  }
 
-    function isDetoxProgram(code) {
-      return code === "장해독1달(1통)" || code === "장해독3달(3통)";
-    }
+  // 프로그램 선택 → 총 결제금액 계산
+  function calculateTotalAmount(programArr) {
+    let total = 0;
 
-    // 장해독 단독 선택 방지
-    function validateDetoxSelection() {
-      const codes = getCheckedValues("program");
-      const hasMain = codes.some(isMainProgram);
-      const hasDetox = codes.some(isDetoxProgram);
-
-      if (hasDetox && !hasMain) {
-        document.querySelectorAll('input[name="program"]').forEach(function (cb) {
-          if (isDetoxProgram(cb.value)) cb.checked = false;
-        });
-        alert(
-          "장해독환은 다이어트 프로그램(4주, 8주, 12주, 요요2x, 요요3x)과 함께만 처방 가능합니다.\n먼저 다이어트 프로그램을 하나 이상 선택해 주세요."
-        );
-      }
-    }
-
-    // 총 결제금액 계산
-    function computeTotal(programArr) {
-      let programAmount = 0;
-      let detoxAmount = 0;
-      let shippingFee = 0;
-
-      let has4 = false, has8 = false, has12 = false, hasY2 = false, hasY3 = false;
-
-      programArr.forEach(function (code) {
-        switch (code) {
-          case "4주(2+1)":
-            programAmount += 98000;
-            has4 = true;
-            break;
-          case "8주(4+2)":
-            programAmount += 187000;
-            has8 = true;
-            break;
-          case "12주(8+3)":
-            programAmount += 317000;
-            has12 = true;
-            break;
-          case "요요2x(16+4)":
-            programAmount += 547000;
-            hasY2 = true;
-            break;
-          case "요요3x(24+5)":
-            programAmount += 752000;
-            hasY3 = true;
-            break;
-          case "장해독1달(1통)":
-            detoxAmount += 10000;
-            break;
-          case "장해독3달(3통)":
-            detoxAmount += 20000;
-            break;
-        }
-      });
-
-      const hasFreeShip = has12 || hasY2 || hasY3;
-      const hasPaidShip = has4 || has8;
-
-      if (hasFreeShip) {
-        shippingFee = 0;
-      } else if (hasPaidShip) {
-        shippingFee = 4000;
-      } else {
-        shippingFee = 0;
-      }
-
-      return programAmount + detoxAmount + shippingFee;
-    }
-
-    // Apps Script 웹앱 URL
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyRhxLdsP9eNSfIx_LQcrym5xgBkWZKqyTEHn6IzC9yO_6VItubM73rmibLs8DFCf7J/exec";
-
-    function sendToSheet(payload) {
-      fetch(SCRIPT_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      }).catch(function (err) {
-        console.error("시트 전송 오류:", err);
-      });
-    }
-
-    document.addEventListener("DOMContentLoaded", function () {
-      document.querySelectorAll('input[name="program"]').forEach(function (cb) {
-        cb.addEventListener("change", validateDetoxSelection);
-      });
+    programArr.forEach(function (v) {
+      if (v.includes("4주 프로그램")) total += 98000;
+      else if (v.includes("8주 프로그램")) total += 187000;
+      else if (v.includes("12주 프로그램")) total += 317000;
+      else if (v.includes("Double")) total += 547000;
+      else if (v.includes("Triplet")) total += 752000;
+      else if (v.includes("장해독환 1달")) total += 10000;
+      else if (v.includes("장해독환 3달")) total += 20000;
     });
 
-    function makeSummary() {
-      const form = document.getElementById("dietForm");
-      if (!form.checkValidity()) {
-        form.reportValidity();
-        return;
-      }
+    // 택배비: 4·8주는 +4,000 / 12주·요요2x·요요3x는 택배비 없음
+    const has4or8 = programArr.some(v =>
+      v.includes("4주 프로그램") || v.includes("8주 프로그램")
+    );
+    const hasFreeShip = programArr.some(v =>
+      v.includes("12주 프로그램") ||
+      v.includes("Double") ||
+      v.includes("Triplet")
+    );
 
-      // 체크박스 필수 문항 수동 검사
-      if (getCheckedValues("pregnancy").length === 0) {
-        alert("11번 임신 관련 사항은 필수 항목입니다.");
-        return;
-      }
-      if (getCheckedValues("diet_exp").length === 0) {
-        alert("12번 다이어트 약 경험은 필수 항목입니다.");
-        return;
-      }
-      if (getCheckedValues("body_status").length === 0) {
-        alert("13번 현재 몸상태는 필수 항목입니다.");
-        return;
-      }
-      if (getCheckedValues("program").length === 0) {
-        alert("15번 희망 프로그램을 하나 이상 선택해 주세요.");
-        return;
-      }
-      if (getCheckedValues("consult_time").length === 0) {
-        alert("16번 전화상담 희망시간을 하나 이상 선택해 주세요.");
-        return;
-      }
-      if (!document.getElementById("consent").checked) {
-        alert("20번 개인정보 제공 및 카카오톡 전송 동의가 필요합니다.");
-        return;
-      }
-
-      const visit = (document.querySelector('input[name="visit_experience"]:checked') || {}).value || "미응답";
-
-      const name = document.getElementById("name").value.trim();
-      const gender = document.getElementById("gender").value || "미응답";
-      const age = document.getElementById("age").value.trim();
-      const height = document.getElementById("height").value.trim();
-      const weight = document.getElementById("weight").value.trim();
-      const phone = document.getElementById("phone").value.trim();
-      const rrn1 = document.getElementById("rrn1").value.trim();
-      const rrn2 = document.getElementById("rrn2").value.trim();
-      const referrer = document.getElementById("referrer").value.trim() || "기입 없음";
-      const diseases = document.getElementById("diseases").value.trim();
-      const meds = document.getElementById("medications").value.trim();
-
-      const pregArr = getCheckedValues("pregnancy");
-      const pregOther = document.getElementById("pregnancy_other").value.trim();
-      if (pregOther) pregArr.push("그 외: " + pregOther);
-
-      const dietArr = getCheckedValues("diet_exp");
-      const dietOther = document.getElementById("diet_exp_other").value.trim();
-
-      const bodyArr = getCheckedValues("body_status");
-      const bodyOther = document.getElementById("body_status_other").value.trim();
-      if (bodyOther) bodyArr.push("기타: " + bodyOther);
-
-      const shipName = document.getElementById("ship_name").value.trim();
-      const shipPhone = document.getElementById("ship_phone").value.trim();
-      const shipAddress = document.getElementById("ship_address").value.trim();
-
-      const programArr = getCheckedValues("program");
-      const consultTimeArr = getCheckedValues("consult_time");
-      const consultType =
-        (document.querySelector('input[name="consult_type"]:checked') || {}).value ||
-        "일반 전화통화";
-
-      const depositorName = document.getElementById("depositor_name").value.trim() || "기입 없음";
-      const receiptType = document.getElementById("receipt_type").value;
-      const receiptValue = document.getElementById("receipt_value").value.trim();
-      let receiptText = "기입 없음";
-      if (receiptType && receiptValue) {
-        receiptText = receiptType + ": " + receiptValue;
-      } else if (receiptType || receiptValue) {
-        receiptText = (receiptType || "종류 미선택") + " / 번호: " + (receiptValue || "미기입");
-      }
-
-      const cardCompany = document.getElementById("card_company").value.trim();
-      const cn1 = document.getElementById("cardnum1").value.trim();
-      const cn2 = document.getElementById("cardnum2").value.trim();
-      const cn3 = document.getElementById("cardnum3").value.trim();
-      const cn4 = document.getElementById("cardnum4").value.trim();
-      const cardExpiry = document.getElementById("card_expiry").value.trim();
-      const cardInstallment = document.getElementById("card_installment").value.trim();
-
-      let cardinfo = "기입 없음";
-      const cardNumberJoined = [cn1, cn2, cn3, cn4].filter(Boolean).join("-");
-      if (cardCompany || cn1 || cn2 || cn3 || cn4 || cardExpiry || cardInstallment) {
-        cardinfo =
-          "카드회사: " + (cardCompany || "미기입") + "\n" +
-          "카드번호: " + (cardNumberJoined || "미기입") + "\n" +
-          "유효기간: " + (cardExpiry || "미기입") + "\n" +
-          "할부: " + (cardInstallment || "미기입");
-      }
-
-      const consent = document.getElementById("consent").checked ? "동의함" : "미동의";
-
-      const totalAmount = computeTotal(programArr);
-
-      // 스프레드시트 전송용 payload
-      const payload = {
-        consent: consent,
-        visit_experience: visit,
-        name: name,
-        rrn1: rrn1,
-        rrn2: rrn2,
-        phone: phone,
-        gender: gender,
-        age: age,
-        height: height,
-        weight: weight,
-        referrer: referrer,
-        ship_name: shipName,
-        ship_phone: shipPhone,
-        ship_address: shipAddress,
-        program: programArr,
-        total_amount: totalAmount,
-        consult_time: consultTimeArr,
-        consult_type: consultType,
-        depositor_name: depositorName,
-        receipt_type: receiptType,
-        receipt_value: receiptValue,
-        card_company: cardCompany,
-        card_number: cardNumberJoined,
-        card_expiry: cardExpiry,
-        card_installment: cardInstallment
-      };
-
-      sendToSheet(payload);
-
-      // 카카오톡 전송용 요약
-      let summary = "";
-      summary += "【바디올핏 DIET 비대면 설문 요약】\n\n";
-      summary += "1) 내원 경험: " + visit + "\n";
-      summary += "2) 성함: " + name + "\n";
-      summary += "3) 성별 / 나이: " + gender + " / " + age + "세\n";
-      summary += "4) 키 / 몸무게: " + height + "cm / " + weight + "kg\n";
-      summary += "5) 연락처: " + phone + "\n";
-      summary += "6) 주민등록번호: " + rrn1 + "-" + rrn2 + "\n";
-      summary += "7) 바디올한의원 알게된 경로: " + referrer + "\n\n";
-
-      summary += "[앓고 있는 질환]\n" + (diseases || "기입 없음") + "\n\n";
-      summary += "[복용중인 약물, 건기식]\n" + (meds || "기입 없음") + "\n\n";
-
-      summary += "[임신 관련 사항 *]\n";
-      summary += pregArr.length ? pregArr.join("\n") + "\n\n" : "체크 없음\n\n";
-
-      summary += "[다이어트약 경험 *]\n";
-      if (dietArr.length || dietOther) {
-        if (dietArr.length) summary += dietArr.join("\n") + "\n";
-        if (dietOther) summary += "기타: " + dietOther + "\n\n";
-        else summary += "\n";
-      } else {
-        summary += "체크 없음\n\n";
-      }
-
-      summary += "[현재 몸상태]\n";
-      summary += bodyArr.length ? bodyArr.join("\n") + "\n\n" : "체크 없음\n\n";
-
-      summary += "[희망 프로그램]\n";
-      summary += programArr.length ? programArr.join("\n") + "\n\n" : "체크 없음\n\n";
-
-      summary += "[희망 상담시간]\n";
-      summary += consultTimeArr.length ? consultTimeArr.join("\n") + "\n\n" : "체크 없음\n\n";
-
-      summary += "[상담 방법]\n" + consultType + "\n\n";
-
-      summary += "[총 결제금액]\n" + totalAmount.toLocaleString("ko-KR") + "원\n\n";
-
-      summary += "[계좌이체 입금자명 / 현금영수증 정보]\n";
-      summary += "입금자명: " + depositorName + "\n";
-      summary += "현금영수증: " + receiptText + "\n\n";
-
-      summary += "[카드결제 정보]\n" + cardinfo + "\n\n";
-
-      summary += "[개인정보 제공 및 카카오톡 전송 동의]\n" + consent + "\n\n";
-
-      summary += "※ 위 내용은 바디올핏 DIET 비대면 진료를 위한 문진 내용입니다.\n";
-      summary += "※ \"" + name + " 설문 작성완료\" 라고 함께 보내주세요.\n";
-
-      const textarea = document.getElementById("summaryText");
-      textarea.value = summary;
-      textarea.scrollIntoView({ behavior: "smooth" });
+    if (has4or8 && !hasFreeShip) {
+      total += 4000;
     }
 
-    function copySummary() {
-      const textarea = document.getElementById("summaryText");
-      const text = textarea.value;
-      if (!text) {
-        alert("먼저 위 설문을 작성하신 뒤 ‘요약 생성하기’를 눌러 주세요.");
-        return;
-      }
+    return total;
+  }
 
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).then(function () {
-          alert("요약 내용을 복사했습니다. 카카오톡 채널에 붙여넣기 해주세요.");
-        }).catch(function () {
-          fallbackCopy(textarea);
-        });
-      } else {
-        fallbackCopy(textarea);
-      }
+  // Apps Script로 JSON POST
+  function sendToSheet(payload) {
+    fetch(SCRIPT_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    }).catch(function (err) {
+      console.error("시트 전송 중 오류:", err);
+    });
+  }
+
+  function makeSummary() {
+    const form = document.getElementById("dietForm");
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
     }
 
-    function fallbackCopy(textarea) {
-      textarea.focus();
-      textarea.select();
-      try {
-        document.execCommand("copy");
+    // --- 기본 정보 ---
+    const visit = (document.querySelector('input[name="visit_experience"]:checked') || {}).value || "미응답";
+    const name = document.getElementById("name").value.trim();
+    const gender = document.getElementById("gender").value || "미응답";
+    const age = document.getElementById("age").value.trim();
+    const height = document.getElementById("height").value.trim();
+    const weight = document.getElementById("weight").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const rrn1 = document.getElementById("rrn1").value.trim();
+    const rrn2 = document.getElementById("rrn2").value.trim();
+    const referrer = document.getElementById("referrer").value.trim() || "기입 없음";
+    const diseases = document.getElementById("diseases").value.trim();
+    const meds = document.getElementById("medications").value.trim();
+
+    // --- 임신/다이어트 경험/몸상태 ---
+    const pregArr = getCheckedValues("pregnancy");
+    const pregOther = document.getElementById("pregnancy_other").value.trim();
+    if (pregOther) pregArr.push("그 외: " + pregOther);
+
+    const dietArr = getCheckedValues("diet_exp");
+    const dietOther = document.getElementById("diet_exp_other").value.trim();
+    const dietText =
+      (dietArr.length ? dietArr.join(", ") : "체크 없음") +
+      (dietOther ? " / 상세: " + dietOther : "");
+
+    const bodyArrBase = getCheckedValues("body_status");
+    const bodyOther = document.getElementById("body_status_other").value.trim();
+    const bodyArr = bodyArrBase.slice();
+    if (bodyOther) bodyArr.push("기타: " + bodyOther);
+
+    // --- 배송 정보 ---
+    const shipName = document.getElementById("ship_name").value.trim();
+    const shipPhone = document.getElementById("ship_phone").value.trim();
+    const shipAddress = document.getElementById("ship_address").value.trim();
+
+    // --- 프로그램 / 상담시간 ---
+    const programArr = getCheckedValues("program");
+    if (!validateProgramSelection(programArr)) {
+      return;
+    }
+    const consultTimeArr = getCheckedValues("consult_time");
+    const consultType =
+      (document.querySelector('input[name="consult_type"]:checked') || {}).value ||
+      "일반 전화통화";
+
+    // --- 결제 정보 ---
+    const depositorName = document.getElementById("depositor_name").value.trim() || "기입 없음";
+    const receiptType = document.getElementById("receipt_type").value;
+    const receiptValue = document.getElementById("receipt_value").value.trim();
+    let receiptText = "기입 없음";
+    if (receiptType && receiptValue) {
+      receiptText = receiptType + ": " + receiptValue;
+    } else if (receiptType || receiptValue) {
+      receiptText = (receiptType || "종류 미선택") + " / 번호: " + (receiptValue || "미기입");
+    }
+
+    const cardCompany = document.getElementById("card_company").value.trim();
+    const cn1 = document.getElementById("cardnum1").value.trim();
+    const cn2 = document.getElementById("cardnum2").value.trim();
+    const cn3 = document.getElementById("cardnum3").value.trim();
+    const cn4 = document.getElementById("cardnum4").value.trim();
+    const cardExpiry = document.getElementById("card_expiry").value.trim();
+    const cardInstallment = document.getElementById("card_installment").value.trim();
+
+    let cardinfo = "기입 없음";
+    let cardNumberCombined = "";
+    if (cardCompany || cn1 || cn2 || cn3 || cn4 || cardExpiry || cardInstallment) {
+      cardNumberCombined = [cn1, cn2, cn3, cn4].filter(Boolean).join("-");
+      cardinfo =
+        "카드회사: " + (cardCompany || "미기입") + "\n" +
+        "카드번호: " + (cardNumberCombined || "미기입") + "\n" +
+        "유효기간: " + (cardExpiry || "미기입") + "\n" +
+        "할부: " + (cardInstallment || "미기입");
+    }
+
+    const consentChecked = document.getElementById("consent").checked;
+    const consentText = consentChecked ? "동의함" : "미동의";
+
+    // --- 총 결제금액 계산 ---
+    const totalAmount = calculateTotalAmount(programArr);
+
+    // --- 요약 텍스트 생성 (기존 형식 유지) ---
+    let summary = "";
+    summary += "【바디올핏 DIET 비대면 설문 요약】\n\n";
+    summary += "1) 내원 경험: " + visit + "\n";
+    summary += "2) 성함: " + name + "\n";
+    summary += "3) 성별 / 나이: " + gender + " / " + age + "세\n";
+    summary += "4) 키 / 몸무게: " + height + "cm / " + weight + "kg\n";
+    summary += "5) 연락처: " + phone + "\n";
+    summary += "6) 주민등록번호: " + rrn1 + "-" + rrn2 + "\n";
+    summary += "7) 바디올한의원 알게된 경로: " + referrer + "\n\n";
+
+    summary += "8) 현재 앓고 있는 질환:\n" + diseases + "\n\n";
+    summary += "9) 현재 복용 중인 약 / 건강보조식품:\n" + meds + "\n\n";
+
+    summary += "10) 임신·출산·수유 관련 사항:\n";
+    summary += pregArr.length ? pregArr.join(", ") + "\n\n" : "체크 없음\n\n";
+
+    summary += "11) 다이어트 한약/양약 복용 경험:\n" + dietText + "\n\n";
+
+    summary += "12) 현재 몸상태:\n";
+    summary += bodyArr.length ? bodyArr.join(", ") + "\n\n" : "체크 없음\n\n";
+
+    summary += "13) 택배 수령 정보:\n";
+    summary += "   - 성함: " + shipName + "\n";
+    summary += "   - 연락처: " + shipPhone + "\n";
+    summary += "   - 주소: " + shipAddress + "\n\n";
+
+    summary += "14) 선택한 프로그램:\n";
+    summary += programArr.length ? programArr.join("\n") + "\n\n" : "체크 없음\n\n";
+
+    summary += "15) 전화상담 희망시간:\n";
+    summary += consultTimeArr.length ? consultTimeArr.join(", ") + "\n\n" : "체크 없음\n\n";
+
+    summary += "16) 상담 방법: " + consultType + "\n\n";
+
+    summary += "17) 계좌이체 입금자명 / 현금영수증 정보:\n";
+    summary += "   - 입금자명: " + depositorName + "\n";
+    summary += "   - 현금영수증: " + receiptText + "\n\n";
+
+    summary += "18) 카드결제 정보:\n" + cardinfo + "\n\n";
+
+    summary += "19) 개인정보 제공 및 카카오톡 전송 동의: " + consentText + "\n\n";
+    summary += "20) 총 결제 예상금액: " + (totalAmount ? totalAmount.toLocaleString("ko-KR") + "원" : "미산정") + "\n\n";
+
+    summary += "※ 위 내용은 바디올핏 DIET 비대면 진료를 위한 문진 내용입니다.\n";
+    summary += "※ \"" + name + " 설문 작성완료\" 라고 함께 보내주세요.\n";
+
+    const textarea = document.getElementById("summaryText");
+    textarea.value = summary;
+    textarea.scrollIntoView({ behavior: "smooth" });
+
+    // --- 시트로 전송할 Payload 구성 (App Script doPost와 맞춤) ---
+    const payload = {
+      consent: consentText,
+      visit_experience: visit,
+      name: name,
+      rrn1: rrn1,
+      rrn2: rrn2,
+      phone: phone,
+      gender: gender,
+      age: age,
+      height: height,
+      weight: weight,
+      referrer: referrer,
+      ship_name: shipName,
+      ship_phone: shipPhone,
+      ship_address: shipAddress,
+      program: programArr,
+      total_amount: totalAmount,
+      consult_time: consultTimeArr,
+      consult_type: consultType,
+      depositor_name: depositorName,
+      receipt_type: receiptType,
+      receipt_value: receiptValue,
+      card_company: cardCompany,
+      card_number: cardNumberCombined,
+      card_expiry: cardExpiry,
+      card_installment: cardInstallment
+    };
+
+    // Apps Script 웹앱으로 전송
+    sendToSheet(payload);
+  }
+
+  function copySummary() {
+    const textarea = document.getElementById("summaryText");
+    const text = textarea.value;
+    if (!text) {
+      alert("먼저 위 설문을 작성하신 뒤 ‘요약 생성하기’를 눌러 주세요.");
+      return;
+    }
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () {
         alert("요약 내용을 복사했습니다. 카카오톡 채널에 붙여넣기 해주세요.");
-      } catch (e) {
-        alert("복사에 실패했습니다. 직접 전체 선택 후 복사해 주세요.");
-      }
+      }).catch(function () {
+        fallbackCopy(textarea);
+      });
+    } else {
+      fallbackCopy(textarea);
     }
-  </script>
+  }
+
+  function fallbackCopy(textarea) {
+    textarea.focus();
+    textarea.select();
+    try {
+      document.execCommand("copy");
+      alert("요약 내용을 복사했습니다. 카카오톡 채널에 붙여넣기 해주세요.");
+    } catch (e) {
+      alert("복사에 실패했습니다. 직접 전체 선택 후 복사해 주세요.");
+    }
+  }
+</script>
 </body>
 </html>
