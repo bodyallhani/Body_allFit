@@ -208,7 +208,7 @@
       white-space: pre-wrap;
     }
 
-        /* 카드번호 한 줄 + 하이픈 (모바일에서 4칸 모두 한 줄에 보이도록 폭 축소) */
+    /* 카드번호 한 줄 + 하이픈 (모바일에서 4칸 모두 한 줄에 보이도록 폭 축소) */
     .cardnum-row {
       align-items: center;
       flex-wrap: nowrap;   /* 한 줄 유지 */
@@ -216,8 +216,9 @@
     }
 
     .cardnum-row .inline-field {
-      flex: 0 0 auto;
-      width: 48px;         /* 기존보다 더 좁게: 한 칸당 숫자 4개만 들어갈 정도 */
+      flex: 0 0 48px;      /* flex-basis까지 48px로 고정 */
+      width: 48px;
+      min-width: 48px;     /* ★ 기존 min-width:90px 완전히 덮어쓰기 */
     }
 
     .cardnum-row .inline-field input {
@@ -234,7 +235,6 @@
       font-size: 1rem;
       color: #5f6368;
     }
-
 
     @media (max-width: 640px) {
       .card {
@@ -1003,7 +1003,7 @@
               id="card_expiry"
               name="card_expiry"
               inputmode="numeric"
-              placeholder="유효기간 (예: 0826(월-년도))"
+              placeholder="유효기간 (예:0826-월,년)"
             />
           </div>
           <div class="inline-field">
