@@ -73,8 +73,21 @@
       border-radius: 6px;
     }
 
+    /* 상단 두 이미지 폭 맞추기 */
+    .hero-img {
+      width: 260px;
+      max-width: 80%;
+      height: auto;
+      object-fit: cover;
+    }
+
     .field {
-      margin: 24px 0 32px; /* 질문 사이 간격 넉넉하게 */
+      margin: 24px 0 32px;
+    }
+
+    /* 11번 이후 문항 간격 확대 */
+    .field-large {
+      margin: 40px 0 54px;
     }
 
     .field-label {
@@ -238,20 +251,21 @@
         <li>
           예약이 밀려 상담전화와 처방이 다소 늦어질 수 있습니다.
           최대한 빠르게 약을 받으실 수 있도록 최선을 다하겠습니다.
-        </li>       
+        </li>
       </ul>
 
+      <!-- 빨간 박스 내용 교체 -->
       <div class="highlight-box">
-          <strong>질문에 굵은 글씨와 함께 빨간 <span style="color:#d93025">*</span> 표시는 필수
-          응답</strong> 부탁드립니다.
+        <strong>질문에 굵은 글씨와 함께 빨간
+          <span style="color:#d93025">*</span> 표시는 필수 응답 부탁드립니다.</strong>
       </div>
 
-      <!-- (1) 요청대로 제목 없이 바로 이미지 두 개 -->
+      <!-- 이미지 두 개 (같은 폭) -->
       <div class="image-wrapper">
-        <img src="img1.jpg" alt="바디올핏 제품 이미지" />
+        <img src="img1.jpg" alt="바디올핏 제품 이미지" class="hero-img" />
       </div>
       <div class="image-wrapper">
-        <img src="img2.png" alt="바디올한의원 원장 프로필" />
+        <img src="img2.png" alt="바디올한의원 원장 프로필" class="hero-img" />
       </div>
     </div>
 
@@ -446,7 +460,7 @@
       </div>
 
       <!-- 11 임신 관련 -->
-      <div class="field">
+      <div class="field field-large">
         <div class="field-label">
           11. 임신 관련 사항 여부를 알려주세요. (복수선택 가능)
           <span class="required-mark">*</span>
@@ -500,7 +514,7 @@
       </div>
 
       <!-- 12 다이어트 한약/양약 경험 -->
-      <div class="field">
+      <div class="field field-large">
         <div class="field-label">
           12. 다이어트 한약이나 양약을 기존에 드신 경험이 있으신가요?
           <span class="required-mark">*</span>
@@ -563,7 +577,7 @@
       <div class="section-title">현재 몸상태 · 배송 · 프로그램 선택</div>
 
       <!-- 13 현재 몸상태 -->
-      <div class="field">
+      <div class="field field-large">
         <div class="field-label">
           13. 현재 몸상태에 대해 알려주세요. (중복체크 가능)
           <span class="required-mark">*</span>
@@ -640,7 +654,7 @@
       </div>
 
       <!-- 14 배송 정보 -->
-      <div class="field">
+      <div class="field field-large">
         <div class="field-label">
           14. 택배 받으실 ① 성함 ② 주소 ③ 전화번호를 적어주세요.
           <span class="required-mark">*</span>
@@ -686,7 +700,7 @@
       </div>
 
       <!-- 15 프로그램 선택 -->
-      <div class="field">
+      <div class="field field-large">
         <div class="field-label">
           15. 원하시는 다이어트 프로그램을 선택해주세요.
           (중복체크 가능) <span class="required-mark">*</span>
@@ -759,7 +773,7 @@
       </div>
 
       <!-- 16 상담 희망시간 -->
-      <div class="field">
+      <div class="field field-large">
         <div class="field-label">
           16. 전화상담 희망시간을 체크해주세요. (중복체크 가능)
           <span class="required-mark">*</span>
@@ -804,7 +818,7 @@
       </div>
 
       <!-- 17 상담방법 -->
-      <div class="field">
+      <div class="field field-large">
         <div class="field-label">
           17. [비대면시 필수] 상담 방법을 선택해주세요.
         </div>
@@ -827,8 +841,8 @@
         </div>
       </div>
 
-      <!-- 18 계좌이체 / 현금영수증 (구조 변경) -->
-      <div class="field">
+      <!-- 18 계좌이체 / 현금영수증 -->
+      <div class="field field-large">
         <div class="field-label">
           18. [비대면시 필수] 계좌이체하실 입금자명과 현금영수증 정보를 적어주세요.
         </div>
@@ -867,8 +881,8 @@
         </div>
       </div>
 
-      <!-- 19 카드결제 정보 (구조 변경) -->
-      <div class="field">
+      <!-- 19 카드결제 정보 -->
+      <div class="field field-large">
         <div class="field-label">
           19. [비대면시 필수] 카드결제를 원하시는 경우, 아래 내용을 적어주세요.
         </div>
@@ -956,7 +970,7 @@
       </div>
 
       <!-- 20 개인정보 동의 -->
-      <div class="field">
+      <div class="field field-large">
         <div class="field-label">
           20. 다이어트 진료 목적을 위하여 개인정보 제공 및
           작성해주신 휴대폰 번호로 카카오톡 전송하는 것에
@@ -1083,7 +1097,6 @@
         (document.querySelector('input[name="consult_type"]:checked') || {}).value ||
         "일반 전화통화";
 
-      // 18번: 계좌/현금영수증
       const depositorName = document.getElementById("depositor_name").value.trim() || "기입 없음";
       const receiptType = document.getElementById("receipt_type").value;
       const receiptValue = document.getElementById("receipt_value").value.trim();
@@ -1094,7 +1107,6 @@
         receiptText = (receiptType || "종류 미선택") + " / 번호: " + (receiptValue || "미기입");
       }
 
-      // 19번: 카드정보
       const cardCompany = document.getElementById("card_company").value.trim();
       const cn1 = document.getElementById("cardnum1").value.trim();
       const cn2 = document.getElementById("cardnum2").value.trim();
