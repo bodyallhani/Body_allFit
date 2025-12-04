@@ -209,13 +209,13 @@
     }
 
     /* 카드번호 한 줄 + 하이픈 */
-    .cardnum-row {
+     .cardnum-row {
       align-items: center;
-      flex-wrap: nowrap;
+      flex-wrap: nowrap;  /* 항상 한 줄 유지 */
     }
     .cardnum-row .inline-field {
       flex: 0 0 auto;
-      width: 70px;
+      width: 64px;        /* 조금 더 좁게 */
     }
     .card-hyphen {
       flex: 0 0 auto;
@@ -232,10 +232,9 @@
         margin: -18px -16px 18px;
         padding: 12px 16px 6px;
       }
-      .cardnum-row {
-        flex-wrap: wrap; /* 모바일에선 줄바꿈 허용 */
-      }
+      /* cardnum-row 에 대한 flex-wrap 설정은 모바일에서도 따로 변경하지 않음 */
     }
+
   </style>
 </head>
 <body>
@@ -933,7 +932,7 @@
         </div>
 
                <!-- 카드번호 4칸 (한 줄, 하이픈 포함, 폭 70%) -->
-        <div style="width:70%; max-width:420px;">
+        <div style="max-width:280px;">
           <div style="font-size:0.85rem; color:#5f6368; margin-bottom:4px;">
             카드번호 16자리
           </div>
