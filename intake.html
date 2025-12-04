@@ -208,21 +208,33 @@
       white-space: pre-wrap;
     }
 
-    /* 카드번호 한 줄 + 하이픈 */
-     .cardnum-row {
+        /* 카드번호 한 줄 + 하이픈 (모바일에서 4칸 모두 한 줄에 보이도록 폭 축소) */
+    .cardnum-row {
       align-items: center;
-      flex-wrap: nowrap;  /* 항상 한 줄 유지 */
+      flex-wrap: nowrap;   /* 한 줄 유지 */
+      gap: 4px;            /* 기본 inline-row gap(8px)보다 줄이기 */
     }
+
     .cardnum-row .inline-field {
       flex: 0 0 auto;
-      width: 64px;        /* 조금 더 좁게 */
+      width: 48px;         /* 기존보다 더 좁게: 한 칸당 숫자 4개만 들어갈 정도 */
     }
+
+    .cardnum-row .inline-field input {
+      width: 100%;
+      padding: 4px;
+      text-align: center;
+      font-size: 0.9rem;
+      box-sizing: border-box;
+    }
+
     .card-hyphen {
       flex: 0 0 auto;
-      padding: 0 2px;
-      font-size: 1.1rem;
+      padding: 0 1px;
+      font-size: 1rem;
       color: #5f6368;
     }
+
 
     @media (max-width: 640px) {
       .card {
@@ -991,7 +1003,7 @@
               id="card_expiry"
               name="card_expiry"
               inputmode="numeric"
-              placeholder="유효기간 (예: 2608)"
+              placeholder="유효기간 (예: 0826(월-년도))"
             />
           </div>
           <div class="inline-field">
