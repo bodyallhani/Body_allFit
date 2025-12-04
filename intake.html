@@ -74,13 +74,13 @@
     }
 
     .field {
-      margin-bottom: 18px;
+      margin: 24px 0 32px; /* 질문 사이 간격 넉넉하게 */
     }
 
     .field-label {
       font-size: 0.98rem;
       font-weight: 600;
-      margin-bottom: 4px;
+      margin-bottom: 8px;
     }
 
     .field-label .required-mark {
@@ -92,7 +92,7 @@
     .field-desc {
       font-size: 0.85rem;
       color: #5f6368;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
 
     input[type="text"],
@@ -130,7 +130,7 @@
 
     .inline-row .inline-field {
       flex: 1 1 0;
-      min-width: 120px;
+      min-width: 90px;
     }
 
     .unit-label {
@@ -255,14 +255,11 @@
         <strong>"○○○(이름) 설문 작성완료"</strong> 메시지를 꼭 보내주세요.
       </div>
 
-      <div class="section-title">바디올핏 & 담당 원장</div>
-
+      <!-- (1) 요청대로 제목 없이 바로 이미지 두 개 -->
       <div class="image-wrapper">
-        <!-- 제품 이미지 -->
         <img src="img1.jpg" alt="바디올핏 제품 이미지" />
       </div>
       <div class="image-wrapper">
-        <!-- 원장 프로필 이미지 -->
         <img src="img2.png" alt="바디올한의원 원장 프로필" />
       </div>
     </div>
@@ -839,40 +836,132 @@
         </div>
       </div>
 
-      <!-- 18 입금자명 -->
+      <!-- 18 계좌이체 / 현금영수증 (구조 변경) -->
       <div class="field">
         <div class="field-label">
-          18. [비대면시 필수] 계좌이체하실 입금자명을 적어주세요.
+          18. [비대면시 필수] 계좌이체하실 입금자명과 현금영수증 정보를 적어주세요.
         </div>
         <div class="field-desc">
-          현금영수증을 원하시는 경우, 휴대폰 번호 또는 사업자번호를
-          함께 적어주세요.<br />
+          먼저 입금자명을 적어주시고, 그 아래에서 <strong>전화번호 또는 사업자번호</strong>를 선택한 뒤 번호를 적어주세요.<br />
           (비어있는 경우, 위 주민번호로 현금영수증이 발행됩니다)<br />
           입금계좌 : 이동해 — 신한은행 110-522-009056
         </div>
-        <textarea
-          id="depositor"
-          name="depositor"
-          placeholder="예시) 홍길동 / 휴대폰번호 010-0000-0000 (현금영수증 발행용)"
-        ></textarea>
+
+        <!-- 이름 공란 -->
+        <input
+          type="text"
+          id="depositor_name"
+          name="depositor_name"
+          placeholder="예시) 홍길동"
+        />
+
+        <!-- 전화번호 / 사업자번호 선택 + 숫자 입력 -->
+        <div style="margin-top:8px;" class="inline-row">
+          <div class="inline-field">
+            <select id="receipt_type" name="receipt_type">
+              <option value="">현금영수증 종류 선택</option>
+              <option value="전화번호">전화번호</option>
+              <option value="사업자번호">사업자번호</option>
+            </select>
+          </div>
+          <div class="inline-field">
+            <input
+              type="text"
+              id="receipt_value"
+              name="receipt_value"
+              inputmode="numeric"
+              placeholder="예시) 01042847283"
+            />
+          </div>
+        </div>
       </div>
 
-      <!-- 19 카드결제 정보 -->
+      <!-- 19 카드결제 정보 (구조 변경) -->
       <div class="field">
         <div class="field-label">
           19. [비대면시 필수] 카드결제를 원하시는 경우, 아래 내용을 적어주세요.
         </div>
         <div class="field-desc">
-          카드회사, 카드번호, 유효기간, 무이자 00개월<br />
-          *** 무이자: 신한·삼성 2~3개월 / 하나 2~4개월 / 비씨·국민·롯데
-          2~5개월 / 농협 2~6개월 ***<br />
-          카드 이용 불가: 법인·기업·체크·선불·기프트카드
+          카드회사, 카드번호, 유효기간, 할부(일시불/무이자 개월 수)를 적어주세요.<br />
+          ★ 무이자: 신한·삼성 2~3개월 / 하나 2~4개월 / 비씨·국민·롯데 2~5개월 / 농협 2~6개월<br />
+          ★ 카드 이용 불가: 법인·기업·체크·선불·기프트카드
         </div>
-        <textarea
-          id="cardinfo"
-          name="cardinfo"
-          placeholder="예시) 신한 / 1234-5678-0000-0000 / 26-08 / 무이자 3개월"
-        ></textarea>
+
+        <!-- 카드회사 -->
+        <div class="inline-row" style="margin-bottom:8px;">
+          <div class="inline-field">
+            <input
+              type="text"
+              id="card_company"
+              name="card_company"
+              placeholder="카드회사 (예시: 신한)"
+            />
+          </div>
+        </div>
+
+        <!-- 카드번호 4칸 + 유효기간 + 할부 -->
+        <div class="inline-row">
+          <div class="inline-field">
+            <input
+              type="text"
+              id="cardnum1"
+              name="cardnum1"
+              maxlength="4"
+              inputmode="numeric"
+              placeholder="1234"
+            />
+          </div>
+          <div class="inline-field">
+            <input
+              type="text"
+              id="cardnum2"
+              name="cardnum2"
+              maxlength="4"
+              inputmode="numeric"
+              placeholder="5678"
+            />
+          </div>
+          <div class="inline-field">
+            <input
+              type="text"
+              id="cardnum3"
+              name="cardnum3"
+              maxlength="4"
+              inputmode="numeric"
+              placeholder="0000"
+            />
+          </div>
+          <div class="inline-field">
+            <input
+              type="text"
+              id="cardnum4"
+              name="cardnum4"
+              maxlength="4"
+              inputmode="numeric"
+              placeholder="0000"
+            />
+          </div>
+        </div>
+
+        <div class="inline-row" style="margin-top:8px;">
+          <div class="inline-field">
+            <input
+              type="text"
+              id="card_expiry"
+              name="card_expiry"
+              inputmode="numeric"
+              placeholder="유효기간 (예: 2608)"
+            />
+          </div>
+          <div class="inline-field">
+            <input
+              type="text"
+              id="card_installment"
+              name="card_installment"
+              placeholder="할부 (예: 일시불 / 3개월)"
+            />
+          </div>
+        </div>
       </div>
 
       <!-- 20 개인정보 동의 -->
@@ -905,7 +994,8 @@
       <div class="highlight-box">
         ★★★ 비대면 안내 ★★★<br />
         맨 아래 <strong>‘요약 생성하기’</strong> 버튼을 눌러 나온 내용을<br />
-        전체 선택 후 복사하여
+        전체 선택해서 복사하거나,
+        <strong>‘텍스트 복사하기’ 버튼</strong>을 눌러 자동 복사한 뒤<br />
         <a href="https://pf.kakao.com/_wdtXK/chat" target="_blank">
           바디올한의원 카카오 채널
         </a>
@@ -926,7 +1016,8 @@
     <div class="card">
       <div class="section-title">카카오톡 전송용 문진 내용 요약</div>
       <p class="field-desc">
-        아래 내용을 전체 선택(Ctrl+A 또는 길게 누르기 → 전체선택) 후 복사하여<br />
+        아래 내용을 전체 선택(Ctrl+A 또는 길게 누르기 → 전체선택) 후 복사하거나,<br />
+        바로 아래 <strong>‘텍스트 복사하기’ 버튼</strong>을 눌러 복사한 뒤<br />
         <a href="https://pf.kakao.com/_wdtXK/chat" target="_blank">
           바디올한의원 카카오 채널 (https://pf.kakao.com/_wdtXK/chat)
         </a>
@@ -936,8 +1027,17 @@
         id="summaryText"
         class="summary-textarea"
         readonly
-        placeholder="먼저 위 설문을 작성하신 뒤 ‘요약 생성하기’를 눌러주세요."
+        placeholder="먼저 위 설문을 모두 작성하신 뒤 ‘요약 생성하기’를 눌러주세요.
+
+※ 붉은색 *표시가 있는 필수 문항이 하나라도 비어 있으면 요약이 생성되지 않습니다.
+   빠진 항목이 없는지 먼저 확인해 주세요."
       ></textarea>
+
+      <div class="button-row">
+        <button type="button" class="primary-btn" onclick="copySummary()">
+          텍스트 복사하기
+        </button>
+      </div>
     </div>
   </div>
 
@@ -992,8 +1092,35 @@
         (document.querySelector('input[name="consult_type"]:checked') || {}).value ||
         "일반 전화통화";
 
-      const depositor = document.getElementById("depositor").value.trim() || "기입 없음";
-      const cardinfo = document.getElementById("cardinfo").value.trim() || "기입 없음";
+      // 18번: 계좌/현금영수증
+      const depositorName = document.getElementById("depositor_name").value.trim() || "기입 없음";
+      const receiptType = document.getElementById("receipt_type").value;
+      const receiptValue = document.getElementById("receipt_value").value.trim();
+      let receiptText = "기입 없음";
+      if (receiptType && receiptValue) {
+        receiptText = receiptType + ": " + receiptValue;
+      } else if (receiptType || receiptValue) {
+        receiptText = (receiptType || "종류 미선택") + " / 번호: " + (receiptValue || "미기입");
+      }
+
+      // 19번: 카드정보
+      const cardCompany = document.getElementById("card_company").value.trim();
+      const cn1 = document.getElementById("cardnum1").value.trim();
+      const cn2 = document.getElementById("cardnum2").value.trim();
+      const cn3 = document.getElementById("cardnum3").value.trim();
+      const cn4 = document.getElementById("cardnum4").value.trim();
+      const cardExpiry = document.getElementById("card_expiry").value.trim();
+      const cardInstallment = document.getElementById("card_installment").value.trim();
+
+      let cardinfo = "기입 없음";
+      if (cardCompany || cn1 || cn2 || cn3 || cn4 || cardExpiry || cardInstallment) {
+        cardinfo =
+          "카드회사: " + (cardCompany || "미기입") + "\n" +
+          "카드번호: " + [cn1, cn2, cn3, cn4].filter(Boolean).join("-") + "\n" +
+          "유효기간: " + (cardExpiry || "미기입") + "\n" +
+          "할부: " + (cardInstallment || "미기입");
+      }
+
       const consent = document.getElementById("consent").checked ? "동의함" : "미동의";
 
       let summary = "";
@@ -1030,7 +1157,10 @@
 
       summary += "16) 상담 방법: " + consultType + "\n\n";
 
-      summary += "17) 계좌이체 입금자명/현금영수증 정보:\n" + depositor + "\n\n";
+      summary += "17) 계좌이체 입금자명 / 현금영수증 정보:\n";
+      summary += "   - 입금자명: " + depositorName + "\n";
+      summary += "   - 현금영수증: " + receiptText + "\n\n";
+
       summary += "18) 카드결제 정보:\n" + cardinfo + "\n\n";
 
       summary += "19) 개인정보 제공 및 카카오톡 전송 동의: " + consent + "\n\n";
@@ -1041,6 +1171,36 @@
       const textarea = document.getElementById("summaryText");
       textarea.value = summary;
       textarea.scrollIntoView({ behavior: "smooth" });
+    }
+
+    function copySummary() {
+      const textarea = document.getElementById("summaryText");
+      const text = textarea.value;
+      if (!text) {
+        alert("먼저 위 설문을 작성하신 뒤 ‘요약 생성하기’를 눌러 주세요.");
+        return;
+      }
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () {
+          alert("요약 내용을 복사했습니다. 카카오톡 채널에 붙여넣기 해주세요.");
+        }).catch(function () {
+          fallbackCopy(textarea);
+        });
+      } else {
+        fallbackCopy(textarea);
+      }
+    }
+
+    function fallbackCopy(textarea) {
+      textarea.focus();
+      textarea.select();
+      try {
+        document.execCommand("copy");
+        alert("요약 내용을 복사했습니다. 카카오톡 채널에 붙여넣기 해주세요.");
+      } catch (e) {
+        alert("복사에 실패했습니다. 직접 전체 선택 후 복사해 주세요.");
+      }
     }
   </script>
 </body>
