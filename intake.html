@@ -1093,25 +1093,27 @@
     return Array.from(nodes).map(function (n) { return n.value; });
   }
 
-  // 장해독 단독 선택 방지 + 유효성 검사
+    // 장해독 단독 선택 방지 + 유효성 검사
   function validateProgramSelection(programArr) {
     if (!programArr.length) {
       alert("희망 프로그램을 최소 1개 이상 선택해주세요.");
       return false;
     }
 
+    // 실제 value 값에 맞춰서 판별
     const mainPrograms = programArr.filter(v =>
-      v.includes("4주 프로그램") ||
-      v.includes("8주 프로그램") ||
-      v.includes("12주 프로그램") ||
-      v.includes("Double") ||
-      v.includes("Triplet")
+      v.startsWith("4주(") ||
+      v.startsWith("8주(") ||
+      v.startsWith("12주(") ||
+      v.startsWith("요요2x") ||
+      v.startsWith("요요3x")
     );
 
     const detoxPrograms = programArr.filter(v =>
-      v.includes("장해독환 1달") || v.includes("장해독환 3달")
+      v.startsWith("장해독1달") || v.startsWith("장해독3달")
     );
 
+    // 장해독만 선택한 경우 막기
     if (detoxPrograms.length > 0 && mainPrograms.length === 0) {
       alert("장해독환은 4·8·12주 또는 요요방지 프로그램과 함께만 처방 가능합니다.\n다이어트 프로그램을 먼저 선택해주세요.");
       return false;
@@ -1124,23 +1126,24 @@
     let total = 0;
 
     programArr.forEach(function (v) {
-      if (v.includes("4주 프로그램")) total += 98000;
-      else if (v.includes("8주 프로그램")) total += 187000;
-      else if (v.includes("12주 프로그램")) total += 317000;
-      else if (v.includes("Double")) total += 547000;
-      else if (v.includes("Triplet")) total += 752000;
-      else if (v.includes("장해독환 1달")) total += 10000;
-      else if (v.includes("장해독환 3달")) total += 20000;
+      // 실제 value 기준으로 금액 매칭
+      if (v.startsWith("4주("))        total += 98000;
+      else if (v.startsWith("8주("))   total += 187000;
+      else if (v.startsWith("12주("))  total += 317000;
+      else if (v.startsWith("요요2x")) total += 547000;
+      else if (v.startsWith("요요3x")) total += 752000;
+      else if (v.startsWith("장해독1달")) total += 10000;
+      else if (v.startsWith("장해독3달")) total += 20000;
     });
 
     // 택배비: 4·8주는 +4,000 / 12주·요요2x·요요3x는 택배비 없음
     const has4or8 = programArr.some(v =>
-      v.includes("4주 프로그램") || v.includes("8주 프로그램")
+      v.startsWith("4주(") || v.startsWith("8주(")
     );
     const hasFreeShip = programArr.some(v =>
-      v.includes("12주 프로그램") ||
-      v.includes("Double") ||
-      v.includes("Triplet")
+      v.startsWith("12주(") ||
+      v.startsWith("요요2x") ||
+      v.startsWith("요요3x")
     );
 
     if (has4or8 && !hasFreeShip) {
@@ -1150,14 +1153,30 @@
     return total;
   }
 
-  // Apps Script로 JSON POST
+   // Apps Script로 전송 (CORS 우회: FormData + no-cors)
   function sendToSheet(payload) {
+    const formData = new FormData();
+
+    Object.keys(payload).forEach(function (key) {
+      const value = payload[key];
+
+      if (Array.isArray(value)) {
+        // 체크박스 등 복수값
+        value.forEach(function (v) {
+          formData.append(key, v);
+        });
+      } else {
+        formData.append(key, value);
+      }
+    });
+
+    // CORS 에러 안 나오게 no-cors 모드로 전송
     fetch(SCRIPT_URL, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
+      body: formData,
+      mode: "no-cors"
     }).catch(function (err) {
-      console.error("시트 전송 중 오류:", err);
+      console.error("시트 전송 중 오류 (전송 시도는 됨):", err);
     });
   }
 
