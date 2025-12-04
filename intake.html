@@ -1279,52 +1279,64 @@
 
     // --- 총 결제금액 계산 ---
     const totalAmount = calculateTotalAmount(programArr);
-
-    // --- 요약 텍스트 생성 (기존 형식 유지) ---
+    // --- 요약 텍스트 생성 (수정 버전) ---
     let summary = "";
     summary += "【바디올핏 DIET 비대면 설문 요약】\n\n";
+
     summary += "1) 내원 경험: " + visit + "\n";
     summary += "2) 성함: " + name + "\n";
     summary += "3) 성별 / 나이: " + gender + " / " + age + "세\n";
     summary += "4) 키 / 몸무게: " + height + "cm / " + weight + "kg\n";
-    summary += "5) 연락처: " + phone + "\n";
-    summary += "6) 주민등록번호: " + rrn1 + "-" + rrn2 + "\n";
-    summary += "7) 바디올한의원 알게된 경로: " + referrer + "\n\n";
+    summary += "5) 연락처: " + phone + "\n\n";
 
-    summary += "8) 현재 앓고 있는 질환:\n" + diseases + "\n\n";
-    summary += "9) 현재 복용 중인 약 / 건강보조식품:\n" + meds + "\n\n";
+    summary += "6) 바디올한의원을 알게된 경로: " + referrer + " \n\n";
 
-    summary += "10) 임신·출산·수유 관련 사항:\n";
-    summary += pregArr.length ? pregArr.join(", ") + "\n\n" : "체크 없음\n\n";
+    summary += "7) 현재 앓고 있는 질환:\n";
+    summary += (diseases ? diseases : "기입 없음") + "\n\n";
 
-    summary += "11) 다이어트 한약/양약 복용 경험:\n" + dietText + "\n\n";
+    summary += "8) 현재 복용 중인 약 / 건강보조식품:\n";
+    summary += (meds ? meds : "기입 없음") + "\n\n";
 
-    summary += "12) 현재 몸상태:\n";
-    summary += bodyArr.length ? bodyArr.join(", ") + "\n\n" : "체크 없음\n\n";
+    // 임신·출산·수유: 항목별 줄바꿈
+    summary += "9) 임신·출산·수유 관련 사항:\n";
+    if (pregArr.length) {
+      summary += pregArr.join("\n") + "\n\n";
+    } else {
+      summary += "체크 없음\n\n";
+    }
 
-    summary += "13) 택배 수령 정보:\n";
-    summary += "   - 성함: " + shipName + "\n";
-    summary += "   - 연락처: " + shipPhone + "\n";
-    summary += "   - 주소: " + shipAddress + "\n\n";
+    // 다이어트 한약/양약: 항목 줄바꿈 + 상세는 따로
+    summary += "10) 다이어트 한약/양약 복용 경험:\n";
+    if (dietArr.length) {
+      summary += dietArr.join("\n") + "\n";
+    }
+    if (dietOther) {
+      summary += "상세: " + dietOther + "\n";
+    }
+    if (!dietArr.length && !dietOther) {
+      summary += "체크 없음\n";
+    }
+    summary += "\n";
 
-    summary += "14) 선택한 프로그램:\n";
-    summary += programArr.length ? programArr.join("\n") + "\n\n" : "체크 없음\n\n";
+    // 현재 몸상태: 항목별 줄바꿈
+    summary += "11) 현재 몸상태:\n";
+    if (bodyArr.length) {
+      summary += bodyArr.join("\n") + "\n\n";
+    } else {
+      summary += "체크 없음\n\n";
+    }
 
-    summary += "15) 전화상담 희망시간:\n";
-    summary += consultTimeArr.length ? consultTimeArr.join(", ") + "\n\n" : "체크 없음\n\n";
+    // 선택 프로그램: 기존처럼 한 줄씩
+    summary += "12) 선택한 프로그램:\n";
+    if (programArr.length) {
+      summary += programArr.join("\n") + "\n\n";
+    } else {
+      summary += "체크 없음\n\n";
+    }
 
-    summary += "16) 상담 방법: " + consultType + "\n\n";
-
-    summary += "17) 계좌이체 입금자명 / 현금영수증 정보:\n";
-    summary += "   - 입금자명: " + depositorName + "\n";
-    summary += "   - 현금영수증: " + receiptText + "\n\n";
-
-    summary += "18) 카드결제 정보:\n" + cardinfo + "\n\n";
-
-    summary += "19) 개인정보 제공 및 카카오톡 전송 동의: " + consentText + "\n\n";
-    summary += "20) 총 결제 예상금액: " + (totalAmount ? totalAmount.toLocaleString("ko-KR") + "원" : "미산정") + "\n\n";
-
-    summary += "※ 위 내용은 바디올핏 DIET 비대면 진료를 위한 문진 내용입니다.\n";
+    summary += "13) 개인정보 제공 및 카카오톡 전송 동의: " + consentText + "\n\n";
+    summary += "14) 총 결제 예상금액: " +
+      (totalAmount ? totalAmount.toLocaleString("ko-KR") + "원" : "미산정") + "\n";
 
     const textarea = document.getElementById("summaryText");
     textarea.value = summary;
