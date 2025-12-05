@@ -727,18 +727,26 @@
       </div>
     </form>
 
-    <!-- 요약 출력 카드 -->
+    <!-- 요약 출력 카드 (비대면 설문지와 같은 구조) -->
     <div class="card">
-      <div class="section-title">내원용 진료 차트 요약</div>
+      <div class="section-title">카카오톡 전송용 문진 내용 요약</div>
       <p class="field-desc">
-        아래 요약 내용은 원장 진료 및 차트정리에 활용할 수 있습니다.<br />
-        필요시 복사하여 카카오톡/메신저/차트에 붙여넣기 하셔도 됩니다.
+        아래 내용을 전체 선택(Ctrl+A 또는 길게 누르기 → 전체선택) 후 복사하거나,<br />
+        바로 아래 <strong>‘텍스트 복사하기’ 버튼</strong>을 눌러 복사한 뒤<br />
+        <a href="https://pf.kakao.com/_wdtXK/chat" target="_blank">
+          바디올한의원 카카오 채널 (https://pf.kakao.com/_wdtXK/chat)
+        </a>
+        1:1 채팅으로 보내주세요.<br /><br />
+        <strong>※ 붉은색 * 표시가 있는 필수 문항이 하나라도 비어 있으면 요약·전송이 되지 않습니다.</strong>
       </p>
       <textarea
         id="summaryText"
         class="summary-textarea"
         readonly
-        placeholder="먼저 위 설문을 모두 작성하신 뒤 ‘요약 생성하기’를 눌러주세요."
+        placeholder="먼저 위 설문을 모두 작성하신 뒤 ‘요약 생성하기’를 눌러주세요.
+
+※ 붉은색 *표시가 있는 필수 문항이 하나라도 비어 있으면 요약이 생성되지 않습니다.
+   빠진 항목이 없는지 먼저 확인해 주세요."
       ></textarea>
 
       <div class="button-row">
@@ -986,7 +994,7 @@
 
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(text).then(function () {
-        alert("요약 내용을 복사했습니다.");
+        alert("요약 내용을 복사했습니다. 카카오톡 채널에 붙여넣기 해주세요.");
       }).catch(function () {
         fallbackCopy(textarea);
       });
@@ -1000,7 +1008,7 @@
     textarea.select();
     try {
       document.execCommand("copy");
-      alert("요약 내용을 복사했습니다.");
+      alert("요약 내용을 복사했습니다. 카카오톡 채널에 붙여넣기 해주세요.");
     } catch (e) {
       alert("복사에 실패했습니다. 직접 전체 선택 후 복사해 주세요.");
     }
