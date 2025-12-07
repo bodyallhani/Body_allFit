@@ -195,7 +195,7 @@
 
   <script>
     // 기존 바디올핏 설문에서 쓰던 Web App URL 그대로 사용
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby-Zg2W8Fa5wab-W8lbR4SMSaxqjgrfKFyk1D4O-LWWXaAh_FAYkdTLaczuNmdcFiiT/exec";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxlGqwgn0qQWLDDITweHN836RSDkjjfl3BL0c1NA_RRq8unXlIxkbokL737NwrO_Yqx/exec";
     const KAKAO_URL = "https://pf.kakao.com/_wdtXK/chat";
 
     document.getElementById("leadForm").addEventListener("submit", function (e) {
