@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <title>바디올핏 DIET 비대면 설문지 (2차 문진)</title>
+  <title>바디올핏 비대면 문진</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     * { box-sizing: border-box; }
@@ -73,6 +73,7 @@
       border-radius: 6px;
     }
 
+    /* 상단 두 이미지 폭 맞추기 */
     .hero-img {
       width: 260px;
       max-width: 80%;
@@ -84,6 +85,7 @@
       margin: 24px 0 32px;
     }
 
+    /* 11번 이후 문항 간격 확대 */
     .field-large {
       margin: 40px 0 54px;
     }
@@ -206,6 +208,34 @@
       white-space: pre-wrap;
     }
 
+    /* 카드번호 관련 (카드 섹션 삭제했지만 다른 곳 영향 없도록 유지) */
+    .cardnum-row {
+      align-items: center;
+      flex-wrap: nowrap;
+      gap: 4px;
+    }
+
+    .cardnum-row .inline-field {
+      flex: 0 0 48px;
+      width: 48px;
+      min-width: 48px;
+    }
+
+    .cardnum-row .inline-field input {
+      width: 100%;
+      padding: 4px;
+      text-align: center;
+      font-size: 0.9rem;
+      box-sizing: border-box;
+    }
+
+    .card-hyphen {
+      flex: 0 0 auto;
+      padding: 0 1px;
+      font-size: 1rem;
+      color: #5f6368;
+    }
+
     @media (max-width: 640px) {
       .card {
         padding: 18px 16px 22px;
@@ -215,6 +245,7 @@
         padding: 12px 16px 6px;
       }
     }
+
   </style>
 </head>
 <body>
@@ -222,24 +253,43 @@
     <!-- 소개 카드 -->
     <div class="card">
       <div class="card-header">
-        <h1>바디올핏 DIET 비대면 설문지 (2차 문진)</h1>
+        <h1>바디올핏 비대면 문진</h1>
         <div class="subtitle">
-          바디올한의원 · 바디올핏 다이어트 처방 전용 문진표 (2단계)
+          바디올한의원 · 바디올핏 다이어트 비대면 상담 전용 문진표
         </div>
       </div>
 
       <p>
-        1차 간편 문진을 통해 기본 정보를 확인했고,<br />
-        이 문진은 실제 처방 가능 여부와 약 선택을 위해<br />
-        조금 더 자세히 여쭤보는 단계입니다.
+        바디올핏은 가격거품을 빼고,<br />
+        오로지 <strong>#치료효과</strong> 만을 목표로 만들어진<br />
+        <strong>#간편하고 #쉬운 #다이어트 프로그램</strong>입니다.
       </p>
 
       <div class="highlight-box">
-        <strong>※ 붉은색 <span style="color:#d93025">*</span> 표시가 있는 문항은 필수입니다.</strong><br />
-        불편하시더라도 빠짐없이 적어주실수록<br />
-        부작용 없이 효과적인 다이어트 처방에 도움이 됩니다.
+        <strong>※ 아래 내용과, 설문지를 꼼꼼히 읽고 답변해주세요!!</strong>
       </div>
 
+      <p><strong>[병원 방문없이 집에서 전화로 간편하게]</strong></p>
+      <p>
+        ※ 비대면의 경우, 진행과정은 아래와 같습니다.<br />
+        <strong>[설문작성 → 카카오톡 연락 → 전화상담 → 결제확인 → 택배발송]</strong>
+      </p>
+      <ul>
+        <li>확인 후 순서대로 원장이 전화 상담을 진행합니다.</li>
+        <li>전화상담 후 1~3일 내에 택배로 처방을 받으실 수 있습니다.</li>
+        <li>
+          예약이 밀려 상담전화와 처방이 다소 늦어질 수 있습니다.
+          최대한 빠르게 약을 받으실 수 있도록 최선을 다하겠습니다.
+        </li>
+      </ul>
+
+      <!-- 빨간 박스 내용 교체 -->
+      <div class="highlight-box">
+        <strong>질문에 굵은 글씨와 함께 빨간
+          <span style="color:#d93025">*</span> 표시는 필수 응답 부탁드립니다.</strong>
+      </div>
+
+      <!-- 이미지 두 개 (같은 폭) -->
       <div class="image-wrapper">
         <img src="img1.jpg" alt="바디올핏 제품 이미지" class="hero-img" />
       </div>
@@ -248,11 +298,8 @@
       </div>
     </div>
 
-    <!-- 설문 카드 (2차) -->
+    <!-- 설문 카드 -->
     <form class="card" id="dietForm">
-      <!-- 2차 표기용 히든 필드 -->
-      <input type="hidden" name="formType" value="2차" />
-
       <div class="section-title">기본 정보</div>
 
       <!-- 1 -->
@@ -276,10 +323,13 @@
         </div>
       </div>
 
-      <!-- 2 이름 -->
+      <!-- 2 실명 (이전: 성함) -->
       <div class="field">
         <div class="field-label">
-          2. 성함 <span class="required-mark">*</span>
+          2. 실명 <span class="required-mark">*</span>
+        </div>
+        <div class="field-desc">
+          실명이 아닌 경우, 처방이 불가합니다. 주민등록상 성함을 정확히 적어주세요.
         </div>
         <input
           type="text"
@@ -287,6 +337,7 @@
           name="name"
           required
           autocomplete="name"
+          placeholder="예: 홍길동 (실명)"
         />
       </div>
 
@@ -368,7 +419,7 @@
         />
       </div>
 
-      <!-- 7 주민번호 -->
+      <!-- 7 주민번호 (뒷자리 마스킹 및 유효성 검사) -->
       <div class="field">
         <div class="field-label">
           7. 주민등록번호 <span class="required-mark">*</span>
@@ -387,63 +438,60 @@
             />
           </div>
           <div class="inline-field">
+            <!-- 표시용 -->
             <input
               type="text"
-              id="rrn2"
-              name="rrn2"
+              id="rrn2_display"
               maxlength="7"
               inputmode="numeric"
               pattern="\d*"
               required
               placeholder="뒤 7자리"
             />
+            <!-- 실제 값 (Apps Script/시트로 전송되는 값) -->
+            <input
+              type="hidden"
+              id="rrn2"
+              name="rrn2"
+            />
           </div>
         </div>
         <div class="small-note">
-          개인정보 보호법에 따라, 차트 작성과 연말정산 소득공제에만 사용됩니다.
+          뒷자리는 입력 시 첫 번째 숫자만 보이고, 나머지는 자동으로 * 처리됩니다.<br />
+          해당 정보는 차트작성 및 연말정산 소득공제에만 사용됩니다.
         </div>
       </div>
 
-      <!-- 8 알게된 경로 -->
+      <!-- 8 (기존 9) 현재 질환 -->
       <div class="field">
         <div class="field-label">
-          8. 바디올한의원을 알게되신 경로
-        </div>
-        <div class="field-desc">
-          예) 인스타, 유튜브, 틱톡 / 블로그, 맘카페, 네이버 검색, 지인 소개 등
-        </div>
-        <input type="text" id="referrer" name="referrer" />
-      </div>
-
-      <!-- 9 현재 질환 -->
-      <div class="field">
-        <div class="field-label">
-          9. 현재 앓고 계신 질환을 전부 써주세요.
+          8. 현재 앓고 계신 질환을 전부 써주세요.
           <span class="required-mark">*</span>
         </div>
         <div class="field-desc">
-          예) 뇌혈관질환, 고혈압, 당뇨, 간질환, 심장질환, 신장질환, 우울증,
+          예시) 뇌혈관질환, 고혈압, 당뇨, 간질환, 심장질환, 신장질환, 우울증,
           천식, 갑상선질환 등
         </div>
         <textarea id="diseases" name="diseases" required></textarea>
       </div>
 
-      <!-- 10 현재 복용 약 / 건강보조식품 -->
+      <!-- 9 (기존 10) 현재 복용 약 / 건강보조식품 -->
       <div class="field">
         <div class="field-label">
-          10. 현재 드시고 계신 약물 혹은 건강보조식품을 가급적 전부 써주세요.
+          9. 현재 드시고 계신 약물 혹은 건강보조식품을 가급적 전부 써주세요.
           <span class="required-mark">*</span>
         </div>
         <div class="field-desc">
-          다이어트 처방에서 주의해야 하는 약을 확인하기 위한 문항입니다.
+          다이어트 처방 불가 예시) 암페타민류, 독세---- , --프라민, 노르트-----,
+          클로니딘류, 코데인류, 테오필린류, 신지로이드류, 아스피린 정기복용 등
         </div>
         <textarea id="medications" name="medications" required></textarea>
       </div>
 
-      <!-- 11 임신 관련 -->
+      <!-- 10 (기존 11) 임신 관련 -->
       <div class="field field-large">
         <div class="field-label">
-          11. 임신 관련 사항 여부를 알려주세요. (복수선택 가능)
+          10. 임신 관련 사항 여부를 알려주세요. (복수선택 가능)
           <span class="required-mark">*</span>
         </div>
         <div class="options">
@@ -494,14 +542,19 @@
         />
       </div>
 
-      <!-- 12 다이어트 한약/양약 경험 -->
+      <!-- 11 (기존 12) 다이어트 한약/양약 경험 -->
       <div class="field field-large">
         <div class="field-label">
-          12. 다이어트 한약이나 양약을 기존에 드신 경험이 있으신가요?
+          11. 다이어트 한약이나 양약을 기존에 드신 경험이 있으신가요?
           <span class="required-mark">*</span>
         </div>
         <div class="field-desc">
-          복용약 종류와 복용 기간, 마지막 복용 시점을 알려주세요.
+          복용약 종류와 복용 기간을 알려주세요.<br />
+          아래 ‘기타’ 부분에는 중복 체크해서<br />
+          ① 해당 다이어트를 지금으로부터 몇 개월 혹은 몇 년 전에
+          시작하셨는지,<br />
+          ② 가르시니아 같은 건강기능식품을 현재 드시고 계신다면
+          알려주세요.
         </div>
         <div class="options">
           <label>
@@ -546,20 +599,37 @@
         <textarea
           id="diet_exp_other"
           name="diet_exp_other"
-          placeholder="예) 양약을 1개월 전에 시작했다가 중단했습니다. 한약은 1년 전에 마지막으로 복용했습니다. 가르시니아를 현재 복용 중입니다."
+          placeholder="예시) 양약을 1개월 전에 시작했다가 중단했어요. 다이어트한약을 1년 전에 마지막으로 먹었었어요. 가르시니아를 현재 복용 중입니다."
+        ></textarea>
+      </div>
+
+      <!-- 12 (신규) 가장 걱정되는 점 -->
+      <div class="field field-large">
+        <div class="field-label">
+          12. 현재 몸 상태나 체중과 관련해서 <strong>가장 걱정되는 점</strong>을 알려주세요.
+          <span class="required-mark">*</span>
+        </div>
+        <div class="field-desc">
+          상담·처방 방향을 잡는 데 가장 중요한 항목입니다.
+        </div>
+        <textarea
+          id="main_concern"
+          name="main_concern"
+          required
+          placeholder="예) 살이 빠져도 금방 다시 찔까봐 걱정됩니다.&#10;예) 허리 통증 때문에 운동을 못 하는데 체중이 더 늘까 걱정됩니다."
         ></textarea>
       </div>
 
       <div class="section-title">현재 몸상태 · 배송 · 프로그램 선택</div>
 
-      <!-- 13 현재 몸상태 -->
+      <!-- 13 (기존 13) 현재 몸상태 -->
       <div class="field field-large">
         <div class="field-label">
           13. 현재 몸상태에 대해 알려주세요. (중복체크 가능)
           <span class="required-mark">*</span>
         </div>
         <div class="field-desc">
-          ‘기타’ 부분에 특이한 증상이 있다면 적어주세요.
+          ‘기타’ 부분에 혹시 알려주실 특이한 증상이 있다면 적어주세요.
         </div>
         <div class="options">
           <label>
@@ -629,15 +699,15 @@
         ></textarea>
       </div>
 
-      <!-- 14 배송 정보 -->
+      <!-- 14 (기존 14) 배송 정보 -->
       <div class="field field-large">
         <div class="field-label">
           14. 택배 받으실 ① 성함 ② 주소 ③ 전화번호를 적어주세요.
           <span class="required-mark">*</span>
         </div>
         <div class="field-desc">
-          예) 김바디 / 수원시 팔달구 인계동 1114-7, 3층 바디올한의원 /
-          01080675825(전화번호는 숫자만 기입)
+          정확한 배송을 위해 기록 후 다시 한 번 확인 부탁드립니다.
+          (예시) 김바디 / 수원시 팔달구 인계동 1114-7, 3층 바디올한의원 / 01080675825(전화번호는 숫자만 기입)
         </div>
         <div class="inline-row">
           <div class="inline-field">
@@ -674,7 +744,7 @@
         <img src="img3.jpg" alt="바디올핏 이벤트 가격 안내" />
       </div>
 
-      <!-- 15 프로그램 선택 -->
+      <!-- 15 (기존 15) 프로그램 선택 -->
       <div class="field field-large">
         <div class="field-label">
           15. 원하시는 다이어트 프로그램을 선택해주세요.
@@ -742,16 +812,21 @@
           </label>
         </div>
 
+        <!-- 필독 안내 (빨간박스 + 검은글씨) -->
         <div class="highlight-box" style="border-left-color:#d93025;background:#fde7e7;">
-          <strong>[처방 및 결제 안내]</strong><br /><br />
-          이 문진은 <strong>약이 맞는지, 어떤 프로그램이 안전한지</strong>를 판단하기 위한 단계입니다.<br />
-          실제 결제와 처방 확정은<br />
-          <strong>대표원장과의 전화 상담 후</strong> 직원 안내에 따라<br />
-          계좌이체 또는 카드결제로 진행됩니다.
+          <strong>[처방 구매시 필독사항!!]</strong><br /><br />
+
+          비대면의 경우,<br />
+          [체험 프로그램, 장해독환]은 단독처방이 불가능합니다. (대면만 가능)<br /><br />
+
+          다이어트 프로그램 중에서,<br />
+          [4주, 8주 프로그램]은 4,000원의 '택배비'가 발생하며,<br />
+          <strong>[12주 프로그램, 요요방지프로그램]은 '택배비'가 발생하지 않습니다.</strong>
         </div>
+
       </div>
 
-      <!-- 16 상담 희망시간 -->
+      <!-- 16 (기존 16) 상담 희망시간 -->
       <div class="field field-large">
         <div class="field-label">
           16. 전화상담 희망시간을 체크해주세요. (중복체크 가능)
@@ -796,11 +871,10 @@
         </div>
       </div>
 
-      <!-- 17 상담방법 -->
+      <!-- 17 (기존 17) 상담방법 -->
       <div class="field field-large">
         <div class="field-label">
-          17. 상담 방법을 선택해주세요.
-          <span class="required-mark">*</span>
+          17. [비대면시 필수] 상담 방법을 선택해주세요.
         </div>
         <div class="options">
           <label>
@@ -821,19 +895,66 @@
         </div>
       </div>
 
-      <!-- 18 개인정보 동의 -->
+      <!-- 18 (기존 18) 계좌이체 / 현금영수증 -->
       <div class="field field-large">
         <div class="field-label">
-          18. 다이어트 진료 목적을 위하여 개인정보 제공 및
+          18. [비대면시 필수] 계좌이체하실 입금자명과 현금영수증 정보를 적어주세요.
+        </div>
+        <div class="field-desc">
+          현재는 시스템 사정상 <strong>계좌이체만 결제가 가능</strong>합니다.
+          카드/간편결제(PG)는 추후 별도 안내 예정입니다.<br /><br />
+          먼저 입금자명을 적어주시고, 그 아래에서 <strong>전화번호 또는 사업자번호</strong>를 선택한 뒤 번호를 적어주세요.<br />
+          (비어있는 경우, 위 주민번호로 현금영수증이 발행됩니다)<br />
+          입금계좌 : 이동해 — 신한은행 110-522-009056
+        </div>
+
+        <!-- 이름 공란 -->
+        <input
+          type="text"
+          id="depositor_name"
+          name="depositor_name"
+          placeholder="예시) 홍길동"
+        />
+
+        <!-- 전화번호 / 사업자번호 선택 + 숫자 입력 -->
+        <div style="margin-top:8px;" class="inline-row">
+          <div class="inline-field">
+            <select id="receipt_type" name="receipt_type">
+              <option value="">현금영수증 종류 선택</option>
+              <option value="전화번호">전화번호</option>
+              <option value="사업자번호">사업자번호</option>
+            </select>
+          </div>
+          <div class="inline-field">
+            <input
+              type="text"
+              id="receipt_value"
+              name="receipt_value"
+              inputmode="numeric"
+              placeholder="예시) 01042847283"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- (삭제됨: 19번 카드결제 정보 블록 전체) -->
+
+      <!-- 19 (기존 20) 개인정보 동의 -->
+      <div class="field field-large">
+        <div class="field-label">
+          19. 다이어트 진료 목적을 위하여 개인정보 제공 및
           작성해주신 휴대폰 번호로 카카오톡 전송하는 것에
-          동의하십니까? (필수)
+          동의하십니까? (대면·비대면 모두 필수)
           <span class="required-mark">*</span>
         </div>
         <div class="field-desc">
-          수집 항목: 성명, 주민등록번호, 연락처, 주소, 진료 관련 정보<br />
-          이용 목적: 비대면·대면 진료 및 상담, 처방, 택배 발송, 연말정산 소득공제 처리<br />
-          보유 기간: 의료법 및 세법 등 관련 법령에서 정한 기간 동안 보관 후 파기<br />
-          동의를 거부하실 수 있으나, 이 경우 비대면 다이어트 진료 진행이 어려울 수 있습니다.
+          수집 항목: 성명, 생년월일/주민등록번호, 연락처, 주소, 진료 관련 정보<br />
+          이용 목적: 비대면·대면 진료 및 상담, 처방·결제, 택배 발송, 연말정산
+          소득공제 처리<br />
+          보유 기간: 의료법 및 세법 등 관련 법령에서 정한 기간 동안 보관 후
+          파기<br />
+          동의를 거부하실 수 있으나, 이 경우 비대면 다이어트 진료 진행이
+          어려울 수 있습니다.
         </div>
         <label class="options-inline">
           <input
@@ -846,7 +967,7 @@
       </div>
 
       <div class="highlight-box">
-        ★★★ 전송 방법 안내 ★★★<br />
+        ★★★ 비대면 안내 ★★★<br />
         맨 아래 <strong>‘요약 생성하기’</strong> 버튼을 눌러 나온 내용을<br />
         전체 선택해서 복사하거나,
         <strong>‘텍스트 복사하기’ 버튼</strong>을 눌러 자동 복사한 뒤<br />
@@ -895,14 +1016,69 @@
       </div>
     </div>
   </div>
-
 <script>
-  // 기존 쓰시던 바디올핏 Web App URL 그대로 사용
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxlGqwgn0qQWLDDITweHN836RSDkjjfl3BL0c1NA_RRq8unXlIxkbokL737NwrO_Yqx/exec";
+  // ★ 새 웹앱 URL (그대로 사용)
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby-Zg2W8Fa5wab-W8lbR4SMSaxqjgrfKFyk1D4O-LWWXaAh_FAYkdTLaczuNmdcFiiT/exec";
 
+  document.addEventListener("DOMContentLoaded", function () {
+    setupRrnBackMasking();
+  });
+
+  // 체크박스 복수값 가져오기
   function getCheckedValues(name) {
     const nodes = document.querySelectorAll('input[name="' + name + '"]:checked');
     return Array.from(nodes).map(function (n) { return n.value; });
+  }
+
+  // 주민번호 뒷자리 마스킹 + 실제 값 hidden 저장
+  function setupRrnBackMasking() {
+    const displayInput = document.getElementById("rrn2_display");
+    const hiddenInput  = document.getElementById("rrn2");
+
+    if (!displayInput || !hiddenInput) return;
+
+    displayInput.addEventListener("input", function () {
+      let raw = displayInput.value.replace(/\D/g, "");
+      if (raw.length > 7) raw = raw.slice(0, 7);
+      hiddenInput.value = raw;
+
+      if (raw.length === 0) {
+        displayInput.value = "";
+      } else {
+        const first = raw[0];
+        const masked = first + "*".repeat(raw.length - 1);
+        displayInput.value = masked;
+      }
+    });
+
+    displayInput.addEventListener("blur", function () {
+      if (hiddenInput.value && hiddenInput.value.length !== 7) {
+        alert("주민등록번호 뒷자리는 7자리 숫자로 입력해주세요.");
+        displayInput.focus();
+      }
+    });
+  }
+
+  // 주민번호 전체 유효성 검사
+  function validateRRN(front, back) {
+    const rrn = (front || "").replace(/\D/g, "") + (back || "").replace(/\D/g, "");
+    if (rrn.length !== 13) return false;
+    if (!/^\d{13}$/.test(rrn)) return false;
+
+    const yy = parseInt(rrn.slice(0, 2), 10);
+    const mm = parseInt(rrn.slice(2, 4), 10);
+    const dd = parseInt(rrn.slice(4, 6), 10);
+    if (mm < 1 || mm > 12) return false;
+    if (dd < 1 || dd > 31) return false;
+
+    const digits = rrn.split("").map(Number);
+    const weights = [2,3,4,5,6,7,8,9,2,3,4,5];
+    let sum = 0;
+    for (let i = 0; i < 12; i++) {
+      sum += digits[i] * weights[i];
+    }
+    const mod = (11 - (sum % 11)) % 10;
+    return mod === digits[12];
   }
 
   // 장해독 단독 선택 방지 + 유효성 검사
@@ -931,7 +1107,7 @@
     return true;
   }
 
-  // 프로그램 선택 → 총 결제금액 계산 (상담 참고용)
+  // 프로그램 선택 → 총 결제금액 계산
   function calculateTotalAmount(programArr) {
     let total = 0;
 
@@ -961,7 +1137,7 @@
     return total;
   }
 
-  // Apps Script로 전송
+  // Apps Script로 전송 (CORS 우회: FormData + no-cors)
   function sendToSheet(payload) {
     const formData = new FormData();
 
@@ -1002,11 +1178,22 @@
     const weight = document.getElementById("weight").value.trim();
     const phone = document.getElementById("phone").value.trim();
     const rrn1 = document.getElementById("rrn1").value.trim();
-    const rrn2 = document.getElementById("rrn2").value.trim();
-    const referrer = document.getElementById("referrer").value.trim() || "기입 없음";
+    const rrn2 = document.getElementById("rrn2").value.trim(); // hidden 실제 값
+
+    // 주민번호 유효성 검사
+    if (!validateRRN(rrn1, rrn2)) {
+      alert("주민등록번호가 유효하지 않습니다. 다시 확인해주세요.");
+      document.getElementById("rrn1").focus();
+      return;
+    }
+
+    // referrer 문항은 UI에서 삭제 → 시트용은 공란으로 보냄
+    const referrer = "";
+
     const diseases = document.getElementById("diseases").value.trim();
     const meds = document.getElementById("medications").value.trim();
 
+    // --- 임신/다이어트 경험/몸상태 ---
     const pregArr = getCheckedValues("pregnancy");
     const pregOther = document.getElementById("pregnancy_other").value.trim();
     if (pregOther) pregArr.push("그 외: " + pregOther);
@@ -1019,10 +1206,15 @@
     const bodyArr = bodyArrBase.slice();
     if (bodyOther) bodyArr.push("기타: " + bodyOther);
 
+    // --- 가장 걱정되는 점 ---
+    const mainConcern = document.getElementById("main_concern").value.trim();
+
+    // --- 배송 정보 ---
     const shipName = document.getElementById("ship_name").value.trim();
     const shipPhone = document.getElementById("ship_phone").value.trim();
     const shipAddress = document.getElementById("ship_address").value.trim();
 
+    // --- 프로그램 / 상담시간 ---
     const programArr = getCheckedValues("program");
     if (!validateProgramSelection(programArr)) {
       return;
@@ -1032,22 +1224,43 @@
       (document.querySelector('input[name="consult_type"]:checked') || {}).value ||
       "일반 전화통화";
 
+    // --- 결제 정보 (계좌) ---
+    const depositorName = document.getElementById("depositor_name").value.trim() || "기입 없음";
+    const receiptType = document.getElementById("receipt_type").value;
+    const receiptValue = document.getElementById("receipt_value").value.trim();
+    let receiptText = "기입 없음";
+    if (receiptType && receiptValue) {
+      receiptText = receiptType + ": " + receiptValue;
+    } else if (receiptType || receiptValue) {
+      receiptText = (receiptType || "종류 미선택") + " / 번호: " + (receiptValue || "미기입");
+    }
+
     const consentChecked = document.getElementById("consent").checked;
     const consentText = consentChecked ? "동의함" : "미동의";
 
+    // --- 총 결제금액 계산 ---
     const totalAmount = calculateTotalAmount(programArr);
 
-    // --- 요약 텍스트 (주민번호/주소/결제정보는 포함하지 않음) ---
+    // --- 카드 정보는 더 이상 받지 않으므로 공란으로 처리 (시트 열 유지용) ---
+    const cardCompany = "";
+    const cardNumberCombined = "";
+    const cardExpiry = "";
+    const cardInstallment = "";
+
+    // --- 요약 텍스트 생성 (가장 걱정되는 점을 최상단) ---
     let summary = "";
     summary += "【바디올핏 DIET 비대면 설문 요약】\n\n";
 
-    summary += "1) 내원 경험: " + visit + "\n";
-    summary += "2) 성함: " + name + "\n";
-    summary += "3) 성별 / 나이: " + gender + " / " + age + "세\n";
-    summary += "4) 키 / 몸무게: " + height + "cm / " + weight + "kg\n";
-    summary += "5) 연락처: " + phone + "\n\n";
+    if (mainConcern) {
+      summary += "1) 가장 걱정되는 점:\n";
+      summary += mainConcern + "\n\n";
+    }
 
-    summary += "6) 바디올한의원을 알게된 경로: " + referrer + " \n\n";
+    summary += "2) 내원 경험: " + visit + "\n";
+    summary += "3) 성함: " + name + "\n";
+    summary += "4) 성별 / 나이: " + gender + " / " + age + "세\n";
+    summary += "5) 키 / 몸무게: " + height + "cm / " + weight + "kg\n";
+    summary += "6) 연락처: " + phone + "\n\n";
 
     summary += "7) 현재 앓고 있는 질환:\n";
     summary += (diseases ? diseases : "기입 없음") + "\n\n";
@@ -1081,22 +1294,34 @@
       summary += "체크 없음\n\n";
     }
 
-    summary += "12) 선택한 프로그램:\n";
+    summary += "12) 배송 정보:\n";
+    summary += "수령인: " + shipName + "\n";
+    summary += "연락처: " + shipPhone + "\n";
+    summary += "주소: " + shipAddress + "\n\n";
+
+    summary += "13) 선택한 프로그램:\n";
     if (programArr.length) {
       summary += programArr.join("\n") + "\n\n";
     } else {
       summary += "체크 없음\n\n";
     }
 
-    summary += "13) 개인정보 제공 및 카카오톡 전송 동의: " + consentText + "\n\n";
-    summary += "14) 총 결제 예상금액(상담 참고용): " +
+    summary += "14) 상담 희망시간: " + (consultTimeArr.length ? consultTimeArr.join(", ") : "체크 없음") + "\n";
+    summary += "15) 상담 방법: " + consultType + "\n\n";
+
+    summary += "16) 계좌이체 및 현금영수증 정보:\n";
+    summary += "입금자명: " + depositorName + "\n";
+    summary += "현금영수증: " + receiptText + "\n\n";
+
+    summary += "17) 개인정보 제공 및 카카오톡 전송 동의: " + consentText + "\n\n";
+    summary += "18) 총 결제 예상금액: " +
       (totalAmount ? totalAmount.toLocaleString("ko-KR") + "원" : "미산정") + "\n";
 
     const textarea = document.getElementById("summaryText");
     textarea.value = summary;
     textarea.scrollIntoView({ behavior: "smooth" });
 
-    // --- 시트로 전송할 Payload 구성 ---
+    // --- 시트로 전송할 Payload 구성 (App Script doPost와 맞춤) ---
     const payload = {
       consent: consentText,
       visit_experience: visit,
@@ -1108,7 +1333,7 @@
       age: age,
       height: height,
       weight: weight,
-      referrer: referrer,
+      referrer: referrer, // 문항은 삭제됐지만 키는 유지 (공란)
       ship_name: shipName,
       ship_phone: shipPhone,
       ship_address: shipAddress,
@@ -1116,7 +1341,14 @@
       total_amount: totalAmount,
       consult_time: consultTimeArr,
       consult_type: consultType,
-      formType: "2차"
+      depositor_name: depositorName,
+      receipt_type: receiptType,
+      receipt_value: receiptValue,
+      card_company: cardCompany,
+      card_number: cardNumberCombined,
+      card_expiry: cardExpiry,
+      card_installment: cardInstallment,
+      main_concern: mainConcern // 신규 항목 (시트/스크립트에서 필요 시 활용)
     };
 
     sendToSheet(payload);
