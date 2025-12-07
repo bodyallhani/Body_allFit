@@ -898,7 +898,7 @@
 
 <script>
   // 기존 쓰시던 바디올핏 Web App URL 그대로 사용
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby-Zg2W8Fa5wab-W8lbR4SMSaxqjgrfKFyk1D4O-LWWXaAh_FAYkdTLaczuNmdcFiiT/exec";
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxlGqwgn0qQWLDDITweHN836RSDkjjfl3BL0c1NA_RRq8unXlIxkbokL737NwrO_Yqx/exec";
 
   function getCheckedValues(name) {
     const nodes = document.querySelectorAll('input[name="' + name + '"]:checked');
