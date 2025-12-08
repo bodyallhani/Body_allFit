@@ -32,7 +32,7 @@
       margin-bottom: 16px;
     }
     .field {
-      margin: 14px 0 30px; /* 항목 아래 간격 넉넉하게 */
+      margin: 14px 0 30px;
     }
     .label {
       font-size: 0.9rem;
@@ -123,7 +123,7 @@
       margin-top: 4px;
     }
     .bottom-space {
-      height: 120px; /* 버튼+상담시간 아래 여백(모바일 키보드 대비) */
+      height: 120px;
     }
   </style>
 </head>
@@ -150,7 +150,7 @@
         />
       </div>
 
-      <!-- 나이 (신규) -->
+      <!-- 나이 -->
       <div class="field">
         <div class="label">
           나이 <span class="required">*</span>
@@ -227,10 +227,10 @@
         </div>
       </div>
 
-      <!-- formType: 1차 -->
+      <!-- 단계/방문형태 -->
       <input type="hidden" name="formType" value="1차" />
+      <input type="hidden" name="visit_mode" value="비대면" />
 
-      <!-- 필독 -->
       <div class="hint">
         제출 후<br />
         <strong>바디올한의원 카카오 채널</strong>로 자동 이동하며,<br />
@@ -239,10 +239,8 @@
         * 맨밑에, 상담 가능시간 참고해주세요. <br />
       </div>
 
-      <!-- 응답 보내기 버튼 (안내문 아래, 상담시간 위) -->
       <button type="submit" id="submitBtn">응답 전송하기</button>
 
-      <!-- 상담 가능 시간 안내 -->
       <div class="hours-box">
         <div class="hours-title">[상담 가능 시간 안내]</div>
         <div class="hours-row">
@@ -260,27 +258,25 @@
         <div class="hours-note">
           * 마감 30분전에는 상담요청을 주시는것이 좋습니다.
         </div>
-        
       </div>
 
-      <!-- 버튼+상담시간 아래 여백 (모바일 키보드 대비) -->
       <div class="bottom-space"></div>
     </form>
   </div>
 
   <script>
-    // 기존 바디올핏 설문에서 쓰던 Web App URL 그대로 사용
+    // 통합 Web App URL (2차·3차와 동일)
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzlKD52BulhyKf7fo_fZYGtNv2tYXcPCQcBTtYHKQObwoRMCaHPZt2NI8D1bPwqJRhTow/exec";
-    const KAKAO_URL = "https://pf.kakao.com/_wdtXK/chat";
+    const KAKAO_URL  = "https://pf.kakao.com/_wdtXK/chat";
 
     document.getElementById("leadForm").addEventListener("submit", function (e) {
       e.preventDefault();
 
-      const name = document.getElementById("name").value.trim();
-      const age = document.getElementById("age").value.trim();
-      const phone = document.getElementById("phone").value.trim();
+      const name     = document.getElementById("name").value.trim();
+      const age      = document.getElementById("age").value.trim();
+      const phone    = document.getElementById("phone").value.trim();
       const referrer = document.getElementById("referrer").value.trim();
-      const memo = document.getElementById("memo").value.trim();
+      const memo     = document.getElementById("memo").value.trim();
       const consentChecked = document.getElementById("consent").checked;
 
       if (!name) {
@@ -312,6 +308,7 @@
       formData.append("memo", memo);
       formData.append("consent", "동의함");
       formData.append("formType", "1차");
+      formData.append("visit_mode", "비대면");
 
       fetch(SCRIPT_URL, {
         method: "POST",
