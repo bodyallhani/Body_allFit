@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>바디올핏 DIET 결제시스템 </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 16px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, "Noto Sans KR", sans-serif;
+      background: #f1f3f4;
+      color: #202124;
+    }
+    .card {
+      max-width: 520px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 20px 18px 24px;
+      border-radius: 10px;
+      box-shadow: 0 1px 3px rgba(60, 64, 67, 0.3);
+    }
+    h1 {
+      font-size: 1.2rem;
+      margin: 0 0 4px;
+    }
+    .subtitle {
+      font-size: 0.9rem;
+      color: #5f6368;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+    .field {
+      margin: 14px 0 22px;
+    }
+    .label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .required {
+      color: #d93025;
+      margin-left: 3px;
+    }
+    input[type="text"],
+    input[type="tel"],
+    input[type="number"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 4px;
+      border: 1px solid #dadce0;
+      font-size: 0.95rem;
+    }
+    input::placeholder,
+    textarea::placeholder {
+      font-size: 0.85rem;
+      color: #80868b;
+    }
+    textarea {
+      min-height: 60px;
+      resize: vertical;
+    }
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: #1a73e8;
+      box-shadow: 0 0 0 1px rgba(26,115,232,0.2);
+    }
+    .inline {
+      display: flex;
+      gap: 8px;
+    }
+    .small-hint {
+      font-size: 0.78rem;
+      color: #80868b;
+      margin-top: 2px;
+      line-height: 1.4;
+    }
+    .inline-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 16px;
+      font-size: 0.85rem;
+      margin-top: 4px;
+    }
+    .inline-options label {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .section-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin: 18px 0 6px;
+      padding-top: 6px;
+      border-top: 1px solid #e0e0e0;
+    }
+    .consent-box {
+      font-size: 0.8rem;
+      background: #eef3ff;
+      padding: 8px;
+      border-radius: 6px;
+      margin-top: 6px;
+      line-height: 1.5;
+    }
+    .consent-row {
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+    }
+    button {
+      width: 100%;
+      margin-top: 16px;
+      padding: 10px 0;
+      border-radius: 6px;
+      border: none;
+      background: #1a73e8;
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    button:disabled {
+      opacity: 0.6;
+      cursor: default;
+    }
+    .hint {
+      font-size: 0.8rem;
+      color: #5f6368;
+      margin-top: 10px;
+      text-align: center;
+      line-height: 1.5;
+    }
+    .bottom-space {
+      height: 110px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>바디올핏 결제시스템</h1>
+    <div class="subtitle">
+      원장님과 상담 후 결정하신 <strong>프로그램·금액·결제 방식</strong>을<br />
+      최종으로 확인하는 단계입니다.<br />
+      아래 내용을 작성해주시면 바로 조제 및 배송을 준비합니다.
+    </div>
+
+    <form id="form3">
+      <!-- 1. 본인 정보 -->
+      <div class="section-title">1. 본인 정보 확인</div>
+
+      <div class="field">
+        <div class="label">이름 <span class="required">*</span></div>
+        <input type="text" id="name3" name="name" required
+               placeholder="실명 필수 (익명시 처방 불가). 예: 장원영" />
+      </div>
+
+      <div class="field">
+        <div class="label">연락처 <span class="required">*</span></div>
+        <input type="tel" id="phone3" name="phone" inputmode="numeric" pattern="\d*" required
+               placeholder="택배/상담에 이용될 번호. 예: 01012345678" />
+      </div>
+
+      <div class="field">
+        <div class="label">생년월일(주민번호 앞 6자리) <span class="required">*</span></div>
+        <input type="text" id="rrn1" name="rrn1" inputmode="numeric" pattern="\d*" maxlength="6" required
+               placeholder="예: 940101 (6자리 숫자)" />
+        <div class="small-hint">
+          주민등록번호 앞 6자리만 적어주세요. (연/월/일 6자리)
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="label">주민등록번호 뒷 7자리 <span class="required">*</span></div>
+        <!-- 화면용(마스킹), 실제 전송용 hidden -->
+        <input type="text" id="rrn2_display" inputmode="numeric" pattern="\d*" maxlength="7"
+               placeholder="숫자 7자리. 예: 1XXXXXX" />
+        <input type="hidden" id="rrn2" name="rrn2" />
+        <div class="small-hint">
+          입력 후 자동으로 <code>1******</code> 형태로 가려집니다.<br />
+          연말정산 소득공제 및 진료기록 작성을 위한 필수 항목입니다.
+        </div>
+      </div>
+
+      <!-- 2. 배송 정보 -->
+      <div class="section-title">2. 택배 수령 정보</div>
+
+      <div class="field">
+        <div class="label">수령인 이름 <span class="required">*</span></div>
+        <input type="text" id="ship_name" name="ship_name" required
+               placeholder="본인 수령이 아닐 경우, 실제 받으시는 분 이름" />
+        <div class="small-hint">
+          본인이 직접 받으실 경우, 본인 이름을 한 번 더 적어주세요.
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="label">수령인 연락처 <span class="required">*</span></div>
+        <input type="tel" id="ship_phone" name="ship_phone" inputmode="numeric" pattern="\d*" required
+               placeholder="택배 기사님께 전달될 번호" />
+      </div>
+
+      <div class="field">
+        <div class="label">택배 수령 주소 <span class="required">*</span></div>
+        <textarea id="ship_address" name="ship_address"
+          placeholder="우편번호 + 상세주소까지 정확히 적어주세요."></textarea>
+      </div>
+
+      <!-- 3. 프로그램 / 금액 -->
+      <div class="section-title">3. 프로그램 및 금액 확인</div>
+
+      <div class="field">
+        <div class="label">확정하신 프로그램 <span class="required">*</span></div>
+        <textarea id="program" name="program" required
+          placeholder="예: 8주 프로그램(4주 + 4주), 바디올핏 A+B 조합 등 원장님과 상의하신 그대로 적어주세요."></textarea>
+      </div>
+
+      <div class="field">
+        <div class="label">총 결제 금액(원) <span class="required">*</span></div>
+        <input type="number" id="total_amount" name="total_amount" inputmode="numeric" pattern="\d*"
+               min="0" required placeholder="예: 187000" />
+        <div class="small-hint">
+          원장님 또는 직원이 안내드린 <strong>최종 할인 금액(택배비 포함)</strong>을 적어주세요.
+        </div>
+      </div>
+
+      <!-- 4. 결제 방식 선택 -->
+      <div class="section-title">4. 결제 방식 선택</div>
+
+      <div class="field">
+        <div class="label">결제 방식 <span class="required">*</span></div>
+        <div class="inline-options">
+          <label><input type="radio" name="payment_method" value="카드(PG/전화결제)" /> 카드(PG/전화결제)</label>
+          <label><input type="radio" name="payment_method" value="계좌이체" /> 계좌이체</label>
+          <label><input type="radio" name="payment_method" value="기타" /> 기타 (현장 결제 등)</label>
+        </div>
+        <div class="small-hint">
+          실제 결제 진행은 추후 카카오톡/전화로 한 번 더 안내드릴 수 있습니다.<br />
+          이 문진에서는 <strong>카드/계좌 중 어떤 방식으로 결제하실지</strong>만 선택해주시면 됩니다.
+        </div>
+      </div>
+
+      <div class="field" id="depositBlock">
+        <div class="label">계좌이체 시 입금자명 (계좌이체 선택한 경우)</div>
+        <input type="text" id="depositor_name" name="depositor_name"
+               placeholder="예: 홍길동 (입금자 이름이 다를 경우 꼭 적어주세요)" />
+      </div>
+
+      <!-- 5. 최종 동의 -->
+      <div class="section-title">5. 최종 동의</div>
+
+      <div class="field">
+        <div class="consent-box">
+          위 내용(프로그램, 금액, 개인정보, 결제 방식)을 확인하였으며,<br />
+          바디올한의원 바디올핏 다이어트 처방 및 조제·배송 진행에 동의합니다.
+        </div>
+        <div class="consent-row">
+          <input type="checkbox" id="final_consent" />
+          <label for="final_consent"><strong>위 내용에 최종 동의합니다.</strong></label>
+        </div>
+      </div>
+
+      <!-- hidden: 단계/대면여부 -->
+      <input type="hidden" name="formType" value="3차" />
+      <input type="hidden" name="visit_mode" value="비대면" />
+      <input type="hidden" name="consent" value="동의함" />
+
+      <button type="submit" id="submitBtn3">3차 문진(결제·주소 확인) 완료하기</button>
+
+      <div class="hint">
+        3차 문진이 완료되면, 직원이 결제 및 발송 일정을 확인한 뒤<br />
+        카카오톡 또는 전화로 한 번 더 안내드립니다.
+      </div>
+
+      <div class="bottom-space"></div>
+    </form>
+  </div>
+
+  <script>
+    const SCRIPT_URL_3 = "https://script.google.com/macros/s/여기에_웹앱_URL을_입력/exec";
+
+    // 주민번호 뒷자리 유효성 검사 + 마스킹
+    const rrn2Display = document.getElementById("rrn2_display");
+    const rrn2Hidden  = document.getElementById("rrn2");
+
+    rrn2Display.addEventListener("blur", function() {
+      const raw = rrn2Display.value.replace(/\D/g, "");
+      if (!raw) {
+        rrn2Hidden.value = "";
+        return;
+      }
+      if (raw.length !== 7) {
+        alert("주민등록번호 뒷자리는 숫자 7자리여야 합니다.");
+        rrn2Display.value = "";
+        rrn2Hidden.value  = "";
+        rrn2Display.focus();
+        return;
+      }
+      const firstDigit = raw.charAt(0);
+      if (!/[1-8]/.test(firstDigit)) {
+        alert("주민등록번호 뒷자리 첫 숫자가 올바르지 않습니다.\n(1~8 사이 숫자인지 확인해주세요.)");
+        rrn2Display.value = "";
+        rrn2Hidden.value  = "";
+        rrn2Display.focus();
+        return;
+      }
+      rrn2Hidden.value  = raw;           // 실제 전송 값
+      rrn2Display.value = firstDigit + "******"; // 화면에는 마스킹
+    });
+
+    // 결제 방식에 따라 입금자명 블럭 강조
+    document.querySelectorAll('input[name="payment_method"]').forEach(function(el) {
+      el.addEventListener("change", function() {
+        const val = this.value;
+        const depositBlock = document.getElementById("depositBlock");
+        if (val === "계좌이체") {
+          depositBlock.style.opacity = "1";
+        } else {
+          depositBlock.style.opacity = "0.5";
+        }
+      });
+    });
+
+    document.getElementById("form3").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const name  = document.getElementById("name3").value.trim();
+      const phone = document.getElementById("phone3").value.trim();
+      const rrn1  = document.getElementById("rrn1").value.trim();
+      const rrn2  = rrn2Hidden.value.trim();
+      const program = document.getElementById("program").value.trim();
+      const totalAmount = document.getElementById("total_amount").value.trim();
+      const finalConsent = document.getElementById("final_consent").checked;
+      const payNode = document.querySelector('input[name="payment_method"]:checked');
+
+      if (!name)  { alert("이름을 입력해주세요."); return; }
+      if (!phone) { alert("연락처를 입력해주세요."); return; }
+      if (!rrn1 || rrn1.length !== 6) {
+        alert("생년월일(앞 6자리)을 정확히 입력해주세요."); return;
+      }
+      if (!rrn2) {
+        alert("주민등록번호 뒷 7자리를 입력해주세요."); return;
+      }
+      if (!program) {
+        alert("확정하신 프로그램 내용을 입력해주세요."); return;
+      }
+      if (!totalAmount) {
+        alert("총 결제 금액을 입력해주세요."); return;
+      }
+      if (!payNode) {
+        alert("결제 방식을 선택해주세요."); return;
+      }
+      if (!finalConsent) {
+        alert("최종 동의 체크 후 진행 가능합니다."); return;
+      }
+
+      const btn = document.getElementById("submitBtn3");
+      btn.disabled = true;
+      btn.textContent = "전송 중...";
+
+      const formData = new FormData(this);
+      // 주민번호 앞/뒤, 이름, 연락처, 주소, 프로그램, 총액, 결제방식 등 전송됨
+
+      fetch(SCRIPT_URL_3, {
+        method: "POST",
+        body: formData,
+        mode: "no-cors"
+      }).catch(function(err) {
+        console.error("3차 문진 전송 오류(전송은 시도됨):", err);
+      }).finally(function() {
+        alert(
+          "3차 문진이 전송되었습니다.\n\n직원이 결제 및 발송 일정을 확인 후,\n카카오톡 또는 전화로 다시 안내드리겠습니다."
+        );
+        btn.disabled = false;
+        btn.textContent = "3차 문진(결제·주소 확인) 완료하기";
+      });
+    });
+  </script>
+</body>
+</html>
