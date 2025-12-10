@@ -131,6 +131,18 @@
     .hidden {
       display: none;
     }
+    .rrn-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .rrn-row input {
+      width: 100%;
+    }
+    .rrn-dash {
+      font-size: 1.1rem;
+      padding-top: 2px;
+    }
   </style>
 </head>
 <body>
@@ -170,32 +182,32 @@
       </div>
 
       <div class="field">
-        <div class="label">주민등록번호 앞 6자리 <span class="required">*</span></div>
-        <input
-          type="tel"
-          id="rrn1"
-          name="rrn1"
-          inputmode="numeric"
-          pattern="\d*"
-          maxlength="6"
-          required
-          placeholder="예: 960101"
-        />
-      </div>
-
-      <div class="field">
-        <div class="label">주민등록번호 뒤 7자리 <span class="required">*</span></div>
-        <input
-          type="tel"
-          id="rrn2"
-          name="rrn2"
-          inputmode="numeric"
-          pattern="\d*"
-          maxlength="7"
-          required
-          placeholder="예: 1xxxxxx (숫자 7자리)"
-        />
-        <div class="small-hint">숫자 7자리만 입력해주세요. 하이픈(-)은 빼고 적으시면 됩니다.</div>
+        <div class="label">주민등록번호 <span class="required">*</span></div>
+        <div class="rrn-row">
+          <input
+            type="tel"
+            id="rrn1_view"
+            inputmode="numeric"
+            pattern="\d*"
+            maxlength="6"
+            placeholder="앞 6자리 (예: 960101)"
+          />
+          <span class="rrn-dash">-</span>
+          <input
+            type="tel"
+            id="rrn2_view"
+            inputmode="numeric"
+            pattern="\d*"
+            maxlength="7"
+            placeholder="뒤 7자리"
+          />
+        </div>
+        <div class="small-hint">
+          숫자만 입력해주세요. 하이픈(-)은 자동으로 처리됩니다.
+        </div>
+        <!-- 실제 전송용 hidden 필드 (doPost용) -->
+        <input type="hidden" id="rrn1" name="rrn1" />
+        <input type="hidden" id="rrn2" name="rrn2" />
       </div>
 
       <!-- 2. 택배 수령 정보 -->
@@ -238,14 +250,31 @@
       <!-- 3. 결제 정보 -->
       <div class="section-title">3. 결제 정보</div>
 
+      <!-- 프로그램 안내 이미지 (img3 복원) -->
+      <div class="field">
+        <img
+          id="img3"
+          src="img3"
+          alt="바디올핏 프로그램 안내"
+          style="width:100%; max-width:480px; border-radius:8px; display:block; margin:4px 0 8px;"
+        />
+        <div class="small-hint">
+          * 실제 사용 중인 안내 이미지 URL이 있다면, src 속성만 교체해서 사용하시면 됩니다.
+        </div>
+      </div>
+
       <div class="field">
         <div class="label">선택하신 프로그램</div>
-        <input
-          type="text"
-          id="program"
-          name="program"
-          placeholder="예: 4주 프로그램 / 12주 프로그램 등"
-        />
+        <div class="inline-options">
+          <label><input type="radio" name="program" value="2주 프로그램" /> 2주 프로그램</label>
+          <label><input type="radio" name="program" value="4주 프로그램" /> 4주 프로그램</label>
+          <label><input type="radio" name="program" value="8주 프로그램" /> 8주 프로그램</label>
+          <label><input type="radio" name="program" value="12주 프로그램" /> 12주 프로그램</label>
+          <label><input type="radio" name="program" value="직접 입력" /> 기타 (상담 내용에 따라)</label>
+        </div>
+        <div class="small-hint">
+          실제 프로그램명과 기간은 상담 시 안내받으신 내용을 그대로 선택해주시면 됩니다.
+        </div>
       </div>
 
       <div class="field">
@@ -259,7 +288,10 @@
           required
           placeholder="예: 480000"
         />
-        <div class="small-hint">숫자만 입력해주세요. 쉼표(,)는 빼고 적으셔도 됩니다.</div>
+        <div class="small-hint">
+          숫자만 입력해주세요. (예: 택배비 포함 총 결제금액)<br />
+          * 실제 금액은 상담 시 안내받으신 최종 금액을 입력하시면 됩니다.
+        </div>
       </div>
 
       <div class="field">
@@ -268,7 +300,9 @@
           <label><input type="radio" name="payment_method" value="카드 결제" required /> 카드 결제</label>
           <label><input type="radio" name="payment_method" value="계좌이체" /> 계좌이체</label>
         </div>
-        <div class="small-hint">계좌이체를 선택하시면, 아래에 입금자명 및 현금영수증 정보를 입력해주시면 됩니다.</div>
+        <div class="small-hint">
+          계좌이체를 선택하시면, 아래에 입금자명 및 현금영수증 정보를 입력해주시면 됩니다.
+        </div>
       </div>
 
       <!-- 계좌이체 선택 시 노출 영역 -->
@@ -356,6 +390,41 @@
       });
     });
 
+    // 주민번호 마스킹 및 유효성 관리
+    let rrn2Real = "";
+
+    function onlyDigits(value, maxLen) {
+      const digits = (value || "").replace(/\D/g, "");
+      return digits.slice(0, maxLen);
+    }
+
+    const rrn1View = document.getElementById("rrn1_view");
+    const rrn2View = document.getElementById("rrn2_view");
+    const rrn1Hidden = document.getElementById("rrn1");
+    const rrn2Hidden = document.getElementById("rrn2");
+
+    rrn1View.addEventListener("input", function() {
+      this.value = onlyDigits(this.value, 6);
+    });
+
+    rrn2View.addEventListener("input", function() {
+      const digits = onlyDigits(this.value, 7);
+      rrn2Real = digits;
+      this.value = digits;
+    });
+
+    rrn2View.addEventListener("blur", function() {
+      if (rrn2Real && rrn2Real.length === 7) {
+        this.value = rrn2Real[0] + "******";
+      }
+    });
+
+    rrn2View.addEventListener("focus", function() {
+      if (this.value.indexOf("*") !== -1) {
+        this.value = rrn2Real;
+      }
+    });
+
     document.getElementById("form3").addEventListener("submit", function(e) {
       e.preventDefault();
 
@@ -367,17 +436,22 @@
         return;
       }
 
-      const rrn1 = (document.getElementById("rrn1").value || "").trim();
-      const rrn2 = (document.getElementById("rrn2").value || "").trim();
+      const rrn1Val = onlyDigits(rrn1View.value, 6);
+      const rrn2Val = rrn2Real ? rrn2Real : onlyDigits(rrn2View.value, 7);
 
-      if (rrn1.length !== 6) {
+      if (rrn1Val.length !== 6) {
         alert("주민등록번호 앞 6자리를 정확히 입력해주세요.");
+        rrn1View.focus();
         return;
       }
-      if (rrn2.length !== 7) {
+      if (rrn2Val.length !== 7) {
         alert("주민등록번호 뒤 7자리를 정확히 입력해주세요.");
+        rrn2View.focus();
         return;
       }
+
+      rrn1Hidden.value = rrn1Val;
+      rrn2Hidden.value = rrn2Val;
 
       const paymentSelected = document.querySelector('input[name="payment_method"]:checked');
       if (!paymentSelected) {
@@ -396,7 +470,7 @@
         body: formData,
         mode: "no-cors"
       }).catch(function(err){
-        console.error("3차 결제정보 전송 오류(전송은 시도됨):", err);
+        console.error("결제정보 전송 오류(전송은 시도됨):", err);
       }).finally(function() {
         alert(
           "결제 및 배송 정보가 전달되었습니다.\n\n상담실에서 내용을 확인한 뒤,\n결제 및 발송 관련 안내를 드리겠습니다."
