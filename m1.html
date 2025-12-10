@@ -137,7 +137,6 @@
       background: #fafbff;
       font-size: 0.85rem;
     }
-    /* 가로배치 → 세로 줄바꿈 */
     .calc-row {
       display: block;
       margin-top: 6px;
@@ -321,17 +320,18 @@
       }
 
       let minLoss = 0, maxLoss = 0;
+      // ★ 변경된 범위 적용
       switch (period) {
         case "2주":
-          minLoss = 1.3; maxLoss = 1.5; break;
+          minLoss = 1.4; maxLoss = 1.6; break;
         case "1달":
-          minLoss = 2.6; maxLoss = 3.2; break;
+          minLoss = 2.7; maxLoss = 3.5; break;
         case "2달":
           minLoss = 5.2; maxLoss = 6.4; break;
         case "3달":
-          minLoss = 7.8; maxLoss = 9.6; break;
+          minLoss = 8.5; maxLoss = 10.1; break;
         case "6달":
-          minLoss = 15.6; maxLoss = 19.2; break;
+          minLoss = 16.1; maxLoss = 20.3; break;
         default:
           alert("원하는 기간을 다시 선택해주세요.");
           return;
@@ -369,7 +369,7 @@
 
       const btn = document.getElementById("submitBtn");
       btn.disabled = true;
-      btn.textContent = "정보확인 중...";
+      btn.textContent = "전송 중...";
 
       const formData = new FormData();
       formData.append("name", name);
