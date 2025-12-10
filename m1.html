@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>바디올핏 DIET </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 16px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, "Noto Sans KR", sans-serif;
+      background: #f1f3f4;
+      color: #202124;
+    }
+    .card {
+      max-width: 480px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 20px 18px 24px;
+      border-radius: 10px;
+      box-shadow: 0 1px 3px rgba(60, 64, 67, 0.3);
+    }
+    h1 {
+      font-size: 1.25rem;
+      margin: 0 0 4px;
+    }
+    .subtitle {
+      font-size: 0.9rem;
+      color: #5f6368;
+      margin-bottom: 16px;
+    }
+    .field {
+      margin: 14px 0 30px;
+    }
+    .label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .required {
+      color: #d93025;
+      margin-left: 3px;
+    }
+    input[type="text"],
+    input[type="tel"],
+    input[type="number"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 4px;
+      border: 1px solid #dadce0;
+      font-size: 0.95rem;
+    }
+    input::placeholder,
+    textarea::placeholder {
+      font-size: 0.85rem;
+      color: #80868b;
+    }
+    textarea {
+      min-height: 70px;
+      resize: vertical;
+    }
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: #1a73e8;
+      box-shadow: 0 0 0 1px rgba(26,115,232,0.2);
+    }
+    .consent {
+      font-size: 0.8rem;
+      background: #eef3ff;
+      padding: 8px;
+      border-radius: 6px;
+      margin-top: 6px;
+      line-height: 1.5;
+    }
+    .consent-row {
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+    }
+    button {
+      width: 100%;
+      margin-top: 16px;
+      padding: 10px 0;
+      border-radius: 6px;
+      border: none;
+      background: #1a73e8;
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    button:disabled {
+      opacity: 0.6;
+      cursor: default;
+    }
+    .hint {
+      font-size: 0.8rem;
+      color: #5f6368;
+      margin-top: 10px;
+      text-align: center;
+      line-height: 1.4;
+    }
+    .hours-box {
+      margin-top: 14px;
+      padding: 10px 10px 8px;
+      border-radius: 8px;
+      background: #f5f7fb;
+      font-size: 0.82rem;
+      line-height: 1.5;
+    }
+    .hours-title {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .hours-row {
+      margin-bottom: 2px;
+    }
+    .hours-note {
+      margin-top: 4px;
+    }
+    .bottom-space {
+      height: 120px;
+    }
+
+    /* 예상 감량치 계산 영역 */
+    .calc-box {
+      margin-top: 8px;
+      padding: 10px 10px 12px;
+      border-radius: 8px;
+      border: 1px solid #dadce0;
+      background: #f8fafc;
+      font-size: 0.85rem;
+    }
+    .calc-row {
+      margin-bottom: 8px;
+    }
+    .calc-row label {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+    .calc-result {
+      margin-top: 10px;
+      padding-top: 8px;
+      border-top: 1px dashed #d0d4dc;
+      font-size: 0.85rem;
+      line-height: 1.4;
+    }
+    .calc-result strong {
+      font-weight: 600;
+    }
+    #calcBtn {
+      width: 100%;
+      margin-top: 8px;
+      padding: 8px 0;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>바디올핏 간편 DIET</h1>
+    <div class="subtitle">
+      아래 설문을 간단히 남겨주시면,<br />
+      절차에 따라, 카톡을 통해 상담예약을 잡아드리겠습니다.
+    </div>
+
+    <form id="leadForm">
+      <!-- 이름 -->
+      <div class="field">
+        <div class="label">
+          이름 <span class="required">*</span>
+        </div>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          required
+          placeholder="실명을 적어주셔야 상담이 원활히 진행됩니다. 예: 장원영"
+        />
+      </div>
+
+      <!-- 알게된 경로 (선택) -->
+      <div class="field">
+        <div class="label">
+          어떻게 바디올핏을 알게되셨나요? (선택)
+        </div>
+        <input
+          type="text"
+          id="referrer"
+          name="referrer"
+          placeholder="예: 인스타 광고, 지인 소개, 블로그, 유튜브 등"
+        />
+      </div>
+
+      <!-- 현재 가장 걱정되는 점 (선택) -->
+      <div class="field">
+        <div class="label">
+          지금 가장 걱정되는 점 (선택)
+        </div>
+        <textarea
+          id="memo"
+          name="memo"
+          placeholder="한 줄만 적어주셔도 좋습니다. 
+예: 요요가 너무 심해요 / 야식 때문에 체중이 안 빠져요"
+        ></textarea>
+      </div>
+
+      <!-- 예상 감량치 계산기 -->
+      <div class="field">
+        <div class="label">
+          예상 감량치 <span class="required">*</span>
+        </div>
+        <div class="calc-box">
+          <div class="calc-row">
+            <label for="weight">현재 체중 (kg) <span class="required">*</span></label>
+            <input
+              type="number"
+              id="weight"
+              name="weight"
+              inputmode="decimal"
+              step="0.1"
+              min="30"
+              max="200"
+              required
+              placeholder="예: 68.5"
+            />
+          </div>
+          <div class="calc-row">
+            <label for="desired_period">원하는 다이어트 기간 <span class="required">*</span></label>
+            <select id="desired_period" name="desired_period" required>
+              <option value="">기간을 선택해주세요</option>
+              <option value="2주">2주</option>
+              <option value="1달">1달</option>
+              <option value="2달">2달</option>
+              <option value="3달">3달</option>
+              <option value="6달">6달</option>
+            </select>
+          </div>
+          <button type="button" id="calcBtn">결과보기</button>
+          <div class="calc-result" id="calcResult" style="display:none;">
+            <div>성공 시 예상 체중: <strong><span id="targetWeight">-</span> kg</strong></div>
+            <div>줄어드는 체중: <strong><span id="lostWeight">-</span> kg</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 개인정보 동의 -->
+      <div class="field">
+        <div class="label">
+          개인정보 수집·이용 동의 <span class="required">*</span>
+        </div>
+        <div class="consent">
+          수집 항목: 성명, 연락처, 나이, 다이어트 관련 간단한 메모<br />
+          이용 목적: 바디올핏 다이어트 상담 및 추가 문진표 등의 안내<br />
+          보유 기간: 상담 종료 후 최대 5년(관련 법령 내)<br />
+          동의를 거부하실 수 있으나, 이 경우, 진료상담 및 처방이 어렵습니다.
+        </div>
+        <div class="consent-row">
+          <input type="checkbox" id="consent" />
+          <label for="consent"><strong>위 내용에 동의합니다.</strong></label>
+        </div>
+      </div>
+
+      <!-- 단계/방문형태 -->
+      <input type="hidden" name="formType" value="1차" />
+      <input type="hidden" name="visit_mode" value="비대면" />
+
+      <div class="hint">
+        제출 후<br />
+        <strong>바디올한의원 카카오 채널</strong>로 자동 이동하며,<br />
+        채팅창에 <strong>“바디올핏”</strong>이라고만 보내주시면<br />
+        상담 직원이 카톡 대화를 통해 안내를 드립니다.<br />
+        * 맨밑에, 상담 가능시간 참고해주세요. <br />
+      </div>
+
+      <button type="submit" id="submitBtn">응답 전송하기</button>
+
+      <div class="hours-box">
+        <div class="hours-title">[상담 가능 시간 안내]</div>
+        <div class="hours-row">
+          <strong style="color:#0b52b8;">평일</strong> 오전 10:00 ~ 오후 8:30
+        </div>
+        <div class="hours-row">
+          <strong style="color:#b11226;">토·일·공휴일</strong> 오전 10:00 ~ 오후 4:00
+        </div>
+        <div class="hours-row">
+          점심시간 오후 1:00 ~ 2:00 (토·일·공휴일 포함)
+        </div>
+        <div class="hours-note">
+          * 설·추석 연휴 기간, 연간 총 6일만 휴무입니다.
+        </div>
+        <div class="hours-note">
+          * 마감 30분전에는 상담요청을 주시는것이 좋습니다.
+        </div>
+      </div>
+
+      <div class="bottom-space"></div>
+    </form>
+  </div>
+
+  <script>
+    // 통합 Web App URL (2차·3차와 동일)
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzlKD52BulhyKf7fo_fZYGtNv2tYXcPCQcBTtYHKQObwoRMCaHPZt2NI8D1bPwqJRhTow/exec";
+    const KAKAO_URL  = "https://pf.kakao.com/_wdtXK/chat";
+
+    function getRandomLoss(period) {
+      const ranges = {
+        "2주": [1.3, 1.5],
+        "1달": [2.6, 3.2],
+        "2달": [5.2, 6.4],
+        "3달": [7.8, 9.6],
+        "6달": [15.6, 19.2]
+      };
+      const range = ranges[period];
+      if (!range) return null;
+      const [min, max] = range;
+      let loss = min + Math.random() * (max - min);
+      loss = Math.round(loss * 10) / 10; // 소수 첫째 자리까지
+      return loss;
+    }
+
+    document.getElementById("calcBtn").addEventListener("click", function () {
+      const weightVal = parseFloat(document.getElementById("weight").value);
+      const period = document.getElementById("desired_period").value;
+
+      if (!weightVal || weightVal <= 0) {
+        alert("현재 체중을 정확히 입력해주세요.");
+        return;
+      }
+      if (!period) {
+        alert("원하는 다이어트 기간을 선택해주세요.");
+        return;
+      }
+
+      const loss = getRandomLoss(period);
+      if (loss === null) {
+        alert("기간 선택에 오류가 있습니다. 다시 선택해주세요.");
+        return;
+      }
+
+      let target = weightVal - loss;
+      if (target < 0) target = 0;
+      target = Math.round(target * 10) / 10;
+
+      document.getElementById("lostWeight").textContent = loss.toFixed(1);
+      document.getElementById("targetWeight").textContent = target.toFixed(1);
+      document.getElementById("calcResult").style.display = "block";
+    });
+
+    document.getElementById("leadForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const name     = document.getElementById("name").value.trim();
+      const referrer = document.getElementById("referrer").value.trim();
+      const memo     = document.getElementById("memo").value.trim();
+      const consentChecked = document.getElementById("consent").checked;
+      const weight   = document.getElementById("weight").value.trim();
+      const period   = document.getElementById("desired_period").value;
+
+      if (!name) {
+        alert("이름을 입력해주세요.");
+        return;
+      }
+      if (!weight) {
+        alert("현재 체중을 입력해주세요.");
+        return;
+      }
+      if (!period) {
+        alert("원하는 다이어트 기간을 선택해주세요.");
+        return;
+      }
+      if (!consentChecked) {
+        alert("개인정보 수집·이용에 동의해주셔야 합니다.");
+        return;
+      }
+
+      const btn = document.getElementById("submitBtn");
+      btn.disabled = true;
+      btn.textContent = "전송 중...";
+
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("referrer", referrer);
+      formData.append("memo", memo);
+      formData.append("weight", weight);             // N열: 체중
+      formData.append("desired_period", period);     // O열: 원하는 감량기간
+      formData.append("consent", "동의함");
+      formData.append("formType", "1차");
+      formData.append("visit_mode", "비대면");
+
+      fetch(SCRIPT_URL, {
+        method: "POST",
+        body: formData,
+        mode: "no-cors"
+      }).catch(function (err) {
+        console.error("응답 전송 오류(전송은 시도됨):", err);
+      }).finally(function () {
+        alert(
+          "응답이 전달되었습니다.\n\n지금 뜨는 카카오 채널에서\n채팅창에 꼭 '바디올핏' 혹은 '바디올핏 상담 원합니다' 라고 카톡 메시지 주셔야 상담이 진행됩니다.\n한의원에서 해당 카톡을 통해\n추가 안내를 드리겠습니다."
+        );
+        window.location.href = KAKAO_URL;
+      });
+    });
+  </script>
+</body>
+</html>
