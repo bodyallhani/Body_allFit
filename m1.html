@@ -137,14 +137,15 @@
       background: #fafbff;
       font-size: 0.85rem;
     }
+    /* 가로배치 → 세로 줄바꿈 */
     .calc-row {
-      display: flex;
-      gap: 8px;
+      display: block;
       margin-top: 6px;
       margin-bottom: 6px;
     }
     .calc-row .half {
-      flex: 1 1 0;
+      width: 100%;
+      margin-top: 6px;
     }
     .calc-result {
       margin-top: 6px;
@@ -389,7 +390,7 @@
         console.error("응답 전송 오류(전송은 시도됨):", err);
       }).finally(function () {
         alert(
-          "완료되었습니다.\n\n지금 뜨는 카카오 채널에서\n채팅창에 꼭 '바디올핏' 혹은 '바디올핏 상담 원합니다' 라고 카톡 메시지 주셔야 상담이 진행됩니다.\n한의원에서 해당 카톡을 통해\n추가 안내를 드리겠습니다."
+          "응답이 전달되었습니다.\n\n지금 뜨는 카카오 채널에서\n채팅창에 꼭 '바디올핏' 혹은 '바디올핏 상담 원합니다' 라고 카톡 메시지 주셔야 상담이 진행됩니다.\n한의원에서 해당 카톡을 통해\n추가 안내를 드리겠습니다."
         );
         window.location.href = KAKAO_URL;
       });
