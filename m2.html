@@ -64,6 +64,10 @@
       min-height: 70px;
       resize: vertical;
     }
+    /* 복용중인 약 설명이 길어지므로 여유 있게 */
+    textarea#med_etc {
+      min-height: 120px;
+    }
     input:focus, textarea:focus, select:focus {
       outline: none;
       border-color: #1a73e8;
@@ -275,7 +279,8 @@
           <label><input type="checkbox" name="med_none" value="복용약 없음" /> 복용약 없음</label>
         </div>
         <textarea id="med_etc" name="med_etc"
-          placeholder="약 이름을 정확히 모르셔도, 대략 어떤 약인지 적어주시면 됩니다."></textarea>
+          placeholder="약 이름을 정확히 모르셔도, 대략 어떤 약인지 적어주시면 됩니다.
+*다이어트 처방 불가 약물류) 암페타민류, 독세---- , --프라민, 노르트-----, 클로니딘류, 코데인류, 테오필린류, 신지로이드류, 아스피린 정기복용 등"></textarea>
       </div>
 
       <div class="field" id="femaleBlock">
@@ -368,12 +373,6 @@
       <input type="hidden" name="visit_mode" value="비대면" />
       <input type="hidden" name="consent" value="동의함" />
 
-      <!-- 요약 영역 (자동 생성 / 복사용) -->
-      <div class="summary-box">
-        <div class="summary-title">예진 요약 내용</div>
-        <textarea id="summary" placeholder="버튼을 누르면 자동으로 생성되며, 병원 카카오톡으로 전송됩니다."></textarea>
-      </div>
-
       <!-- 올인원 버튼 -->
       <button type="button" id="allInOneBtn">최종응답 및 다음단계</button>
 
@@ -381,6 +380,12 @@
         1) 버튼을 누르면, 예진 내용이 자동으로 정리·복사되고<br />
         병원 카카오톡 채널로 이동합니다.<br />
         2) 카카오톡 채팅창이 열리면, 바로 붙여넣기(길게 누르기 또는 Ctrl+V) 하신 뒤 보내주시면 됩니다.
+      </div>
+
+      <!-- 요약 영역 (자동 생성 / 복사용) - 버튼 아래로 이동 -->
+      <div class="summary-box">
+        <div class="summary-title">예진 요약 내용</div>
+        <textarea id="summary" placeholder="버튼을 누르면 자동으로 생성되며, 병원 카카오톡으로 전송됩니다."></textarea>
       </div>
 
       <div class="bottom-space"></div>
