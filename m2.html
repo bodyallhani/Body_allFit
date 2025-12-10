@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>바디올핏 DIET 예진표</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 16px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, "Noto Sans KR", sans-serif;
+      background: #f1f3f4;
+      color: #202124;
+    }
+    .card {
+      max-width: 520px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 20px 18px 24px;
+      border-radius: 10px;
+      box-shadow: 0 1px 3px rgba(60, 64, 67, 0.3);
+    }
+    h1 {
+      font-size: 1.2rem;
+      margin: 0 0 4px;
+    }
+    .subtitle {
+      font-size: 0.9rem;
+      color: #5f6368;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+    .field {
+      margin: 14px 0 24px;
+    }
+    .label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .required {
+      color: #d93025;
+      margin-left: 3px;
+    }
+    input[type="text"],
+    input[type="tel"],
+    input[type="number"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 4px;
+      border: 1px solid #dadce0;
+      font-size: 0.95rem;
+    }
+    input::placeholder,
+    textarea::placeholder {
+      font-size: 0.85rem;
+      color: #80868b;
+    }
+    textarea {
+      min-height: 70px;
+      resize: vertical;
+    }
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: #1a73e8;
+      box-shadow: 0 0 0 1px rgba(26,115,232,0.2);
+    }
+    .inline-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 16px;
+      font-size: 0.85rem;
+      margin-top: 4px;
+    }
+    .inline-options label {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .section-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin: 18px 0 6px;
+      padding-top: 6px;
+      border-top: 1px solid #e0e0e0;
+    }
+    .small-hint {
+      font-size: 0.78rem;
+      color: #80868b;
+      margin-top: 2px;
+      line-height: 1.4;
+    }
+    .consent-box {
+      font-size: 0.8rem;
+      background: #eef3ff;
+      padding: 8px;
+      border-radius: 6px;
+      margin-top: 6px;
+      line-height: 1.5;
+    }
+    .consent-row {
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+    }
+    button {
+      width: 100%;
+      margin-top: 16px;
+      padding: 10px 0;
+      border-radius: 6px;
+      border: none;
+      background: #1a73e8;
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    button:disabled {
+      opacity: 0.6;
+      cursor: default;
+    }
+    .hint {
+      font-size: 0.8rem;
+      color: #5f6368;
+      margin-top: 10px;
+      text-align: center;
+      line-height: 1.5;
+    }
+    .bottom-space {
+      height: 110px;
+    }
+    /* 요약용 hidden input만 활용하므로 별도 요약 박스는 제거 */
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>바디올핏 DIET 예진표</h1>
+    <div class="subtitle">
+      아래 문진은 전화/카톡 상담 전에 미리 확인드리는 내용입니다.<br />
+      3~5분 정도만 시간 내주시면, 이후 상담이 훨씬 수월해집니다.
+    </div>
+
+    <form id="form2">
+      <!-- 기본 정보 -->
+      <div class="section-title">1. 기본 정보</div>
+
+      <div class="field">
+        <div class="label">이름 <span class="required">*</span></div>
+        <input type="text" id="name" name="name" required
+               placeholder="1차 문진에서 적으신 실명과 동일하게 적어주세요. 예: 장원영" />
+      </div>
+
+      <div class="field">
+        <div class="label">연락처 <span class="required">*</span></div>
+        <input type="tel" id="phone" name="phone" inputmode="numeric" pattern="\d*" required
+               placeholder="상담받으실 휴대폰 번호. 예: 01012345678" />
+      </div>
+
+      <div class="field">
+        <div class="label">성별 <span class="required">*</span></div>
+        <div class="inline-options">
+          <label><input type="radio" name="gender" value="여성" required /> 여성</label>
+          <label><input type="radio" name="gender" value="남성" /> 남성</label>
+          <label><input type="radio" name="gender" value="기타/무응답" /> 기타/무응답</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="label">나이 <span class="required">*</span></div>
+        <input type="number" id="age" name="age" inputmode="numeric" pattern="\d*" min="1" max="120" required
+               placeholder="숫자만 입력해주세요. 예: 34" />
+      </div>
+
+      <div class="field">
+        <div class="label">키 / 현재 체중 <span class="required">*</span></div>
+        <div style="display:flex; gap:8px;">
+          <input type="number" id="height" name="height" inputmode="numeric" pattern="\d*"
+                 min="100" max="220" required placeholder="키 (cm)" />
+          <input type="number" id="weight" name="weight" inputmode="numeric" pattern="\d*"
+                 min="30" max="200" required placeholder="현재 체중 (kg)" />
+        </div>
+        <div class="small-hint">정확하지 않아도 괜찮습니다. 대략적인 수치만 적어주세요.</div>
+      </div>
+
+      <!-- 2. 생활 & 직업 -->
+      <div class="section-title">2. 생활 & 직업</div>
+
+      <div class="field">
+        <div class="label">직업 (또는 주된 생활 패턴)</div>
+        <input type="text" id="job" name="job"
+               placeholder="예: 사무직, 서비스직, 교대근무, 전업주부, 학생 등" />
+      </div>
+
+      <div class="field">
+        <div class="label">하루 활동량</div>
+        <div class="inline-options">
+          <label><input type="radio" name="activity" value="대부분 앉아서 지냄" /> 대부분 앉아서 지냄</label>
+          <label><input type="radio" name="activity" value="서있거나 많이 걷는 편" /> 서있거나 많이 걷는 편</label>
+          <label><input type="radio" name="activity" value="육체노동/강도 높은 활동 많음" /> 육체노동/강도 높은 활동 많음</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="label">수면 상태</div>
+        <div class="inline-options">
+          <label><input type="checkbox" name="sleep" value="잠들기 어렵다" /> 잠들기 어렵다</label>
+          <label><input type="checkbox" name="sleep" value="자주 깬다" /> 자주 깬다</label>
+          <label><input type="checkbox" name="sleep" value="자고 일어나도 피곤하다" /> 자고 일어나도 피곤하다</label>
+          <label><input type="checkbox" name="sleep" value="큰 문제 없다" /> 큰 문제 없다</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="label">음주 빈도</div>
+        <select id="drink" name="drink">
+          <option value="">선택하세요</option>
+          <option value="거의 안 마신다">거의 안 마신다</option>
+          <option value="주 1~3회">주 1~3회</option>
+          <option value="주 4회 이상">주 4회 이상</option>
+        </select>
+      </div>
+
+      <!-- 3. 질환 / 복용약 -->
+      <div class="section-title">3. 질환 / 복용약</div>
+
+      <div class="field">
+        <div class="label">현재 진단받은 질환 (복수 선택 가능)</div>
+        <div class="inline-options">
+          <label><input type="checkbox" name="disease" value="고혈압" /> 고혈압</label>
+          <label><input type="checkbox" name="disease" value="당뇨" /> 당뇨</label>
+          <label><input type="checkbox" name="disease" value="심장질환" /> 심장질환</label>
+          <label><input type="checkbox" name="disease" value="갑상선질환" /> 갑상선질환</label>
+          <label><input type="checkbox" name="disease" value="간/신장질환" /> 간/신장질환</label>
+          <label><input type="checkbox" name="disease" value="정신과 진료 중" /> 정신과 진료 중</label>
+          <label><input type="checkbox" name="disease" value="기타" /> 기타</label>
+          <label><input type="checkbox" name="disease_none" value="해당 없음" /> 해당 없음</label>
+        </div>
+        <div class="small-hint">‘기타’에 해당되는 것이 있으면 아래에 간단히 적어주세요.</div>
+        <textarea id="disease_etc" name="disease_etc"
+          placeholder="예: 류마티스 관절염, 심한 위장질환 등"></textarea>
+      </div>
+
+      <div class="field">
+        <div class="label">현재 복용 중인 약</div>
+        <div class="inline-options">
+          <label><input type="checkbox" name="med" value="혈압약" /> 혈압약</label>
+          <label><input type="checkbox" name="med" value="당뇨약" /> 당뇨약</label>
+          <label><input type="checkbox" name="med" value="갑상선약" /> 갑상선약</label>
+          <label><input type="checkbox" name="med" value="정신과 약" /> 정신과 약</label>
+          <label><input type="checkbox" name="med" value="기타" /> 기타</label>
+          <label><input type="checkbox" name="med_none" value="복용약 없음" /> 복용약 없음</label>
+        </div>
+        <textarea id="med_etc" name="med_etc" style="min-height:110px;"
+          placeholder="현재, 혹은 최근까지 드시거나 드시는 약을 전부 써주세요. (성분을 모르시면 특정질환약-고혈압약 같은 식으로 쓰셔도 됩니다.)
+*다이어트 처방 불가) 암페타민류, 독세---- , --프라민, 노르트-----, 클로니딘류, 코데인류, 테오필린류, 신지로이드류, 아스피린 정기복용 등"></textarea>
+      </div>
+
+      <div class="field" id="femaleBlock">
+        <div class="label">임신·출산·수유 관련 (여성 해당)</div>
+        <div class="inline-options">
+          <label><input type="radio" name="preg" value="임신 준비 중" /> 임신 준비 중</label>
+          <label><input type="radio" name="preg" value="임신 중" /> 임신 중</label>
+          <label><input type="radio" name="preg" value="출산 5주 이내" /> 출산 5주 이내</label>
+          <label><input type="radio" name="preg" value="수유 중/예정" /> 수유 중/예정</label>
+          <label><input type="radio" name="preg" value="해당 없음" /> 해당 없음</label>
+        </div>
+      </div>
+
+      <!-- 4. 다이어트 경험 & 목표 -->
+      <div class="section-title">4. 다이어트 경험 & 목표</div>
+
+      <div class="field">
+        <div class="label">이전에 해보신 다이어트 (복수 선택 가능)</div>
+        <div class="inline-options">
+          <label><input type="checkbox" name="diet_exp" value="운동 위주" /> 운동 위주</label>
+          <label><input type="checkbox" name="diet_exp" value="식단 위주" /> 식단 위주</label>
+          <label><input type="checkbox" name="diet_exp" value="다이어트 한약" /> 다이어트 한약</label>
+          <label><input type="checkbox" name="diet_exp" value="다이어트 양약" /> 다이어트 양약</label>
+          <label><input type="checkbox" name="diet_exp" value="기타 프로그램" /> 기타 프로그램</label>
+          <label><input type="checkbox" name="diet_exp" value="거의 해본 적 없음" /> 거의 해본 적 없음</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="label">요요 경험</div>
+        <div class="inline-options">
+          <label><input type="radio" name="yo_yo" value="요요 경험 있다" /> 요요 경험 있다</label>
+          <label><input type="radio" name="yo_yo" value="요요 경험 거의 없다" /> 요요 경험 거의 없다</label>
+          <label><input type="radio" name="yo_yo" value="다이어트 경험 없음" /> 다이어트 경험 없음</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="label">목표 감량 kg수</div>
+        <input type="number" id="goal_weight" name="goal_weight" inputmode="numeric" pattern="\d*"
+               placeholder="예: 8 (kg 정도 빼고 싶어요)" />
+      </div>
+
+      <div class="field">
+        <div class="label">지금 가장 걱정되는 부분</div>
+        <textarea id="main_concern" name="main_concern"
+          placeholder="예: 계속 요요가 온다 / 폭식이 반복된다 / 체력이 너무 떨어져서 걱정된다 등"></textarea>
+      </div>
+
+      <!-- 5. 상담 희망 시간/방법 -->
+      <div class="section-title">5. 상담 희망 시간 & 방법</div>
+
+      <div class="field">
+        <div class="label">상담 희망 시간대</div>
+        <div class="small-hint">가능하신 시간대를 모두 체크해주세요.</div>
+        <div class="inline-options">
+          <label><input type="checkbox" name="consult_time" value="평일 오전(10~12시)" /> 평일 오전(10~12시)</label>
+          <label><input type="checkbox" name="consult_time" value="평일 오후(2~5시)" /> 평일 오후(2~5시)</label>
+          <label><input type="checkbox" name="consult_time" value="평일 저녁(5~8시)" /> 평일 저녁(5~8시)</label>
+          <label><input type="checkbox" name="consult_time" value="주말/공휴일 오전" /> 주말/공휴일 오전</label>
+          <label><input type="checkbox" name="consult_time" value="주말/공휴일 오후" /> 주말/공휴일 오후</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="label">상담 방법</div>
+        <div class="inline-options">
+          <label><input type="radio" name="consult_type" value="전화" /> 전화</label>
+          <label><input type="radio" name="consult_type" value="카카오톡" /> 카카오톡</label>
+          <label><input type="radio" name="consult_type" value="둘 다 괜찮음" /> 둘 다 괜찮음</label>
+        </div>
+      </div>
+
+      <!-- 개인정보 동의 (재확인) -->
+      <div class="field">
+        <div class="label">개인정보 수집·이용 동의 <span class="required">*</span></div>
+        <div class="consent-box">
+          수집 항목: 성명, 연락처, 나이, 건강상태 및 다이어트 관련 정보<br />
+          이용 목적: 바디올핏 다이어트 상담 및 처방 가능 여부 판단<br />
+          보유 기간: 상담 종료 후 최대 5년(관련 법령 내)<br />
+          동의를 거부하실 수 있으나, 이 경우 상담 및 처방이 어려울 수 있습니다.
+        </div>
+        <div class="consent-row">
+          <input type="checkbox" id="consent2" />
+          <label for="consent2"><strong>위 내용에 동의합니다.</strong></label>
+        </div>
+      </div>
+
+      <!-- hidden: 단계/대면여부 + 요약 텍스트 -->
+      <input type="hidden" name="formType" value="2차" />
+      <input type="hidden" name="visit_mode" value="비대면" />
+      <input type="hidden" name="consent" value="동의함" />
+      <input type="hidden" id="kakaoSummary" name="kakao_summary" />
+
+      <!-- 올인원 버튼 -->
+      <button type="submit" id="submitBtn2">최종응답 요약생성</button>
+
+      <div class="hint">
+        버튼을 누르시면<br />
+        ① 예진 내용이 한 번에 정리되어 시트로 전송되고<br />
+        ② 같은 내용이 자동으로 복사된 뒤<br />
+        ③ 병원 카카오톡 채널로 이동합니다.<br />
+        이동 후 바로 붙여넣기(ctrl+v)만 해주시면 됩니다.
+      </div>
+
+      <div class="bottom-space"></div>
+    </form>
+  </div>
+
+  <script>
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzlKD52BulhyKf7fo_fZYGtNv2tYXcPCQcBTtYHKQObwoRMCaHPZt2NI8D1bPwqJRhTow/exec";
+    const KAKAO_URL  = "https://pf.kakao.com/_wdtXK/chat";
+
+    function getCheckedValues(name) {
+      const nodes = document.querySelectorAll(`input[name="${name}"]:checked`);
+      return Array.from(nodes).map(n => n.value);
+    }
+
+    function buildSummary() {
+      const name   = document.getElementById("name").value.trim();
+      const phone  = document.getElementById("phone").value.trim();
+      const age    = document.getElementById("age").value.trim();
+      const height = document.getElementById("height").value.trim();
+      const weight = document.getElementById("weight").value.trim();
+
+      const gender = (document.querySelector('input[name="gender"]:checked') || {}).value || "";
+      const job    = document.getElementById("job").value.trim();
+      const activity = (document.querySelector('input[name="activity"]:checked') || {}).value || "";
+
+      const sleepList = getCheckedValues("sleep");
+      const drink     = document.getElementById("drink").value;
+
+      const diseaseList  = getCheckedValues("disease");
+      const diseaseNone  = getCheckedValues("disease_none");
+      const diseaseEtc   = document.getElementById("disease_etc").value.trim();
+
+      const medList   = getCheckedValues("med");
+      const medNone   = getCheckedValues("med_none");
+      const medEtc    = document.getElementById("med_etc").value.trim();
+
+      const preg = (document.querySelector('input[name="preg"]:checked') || {}).value || "";
+
+      const dietExp   = getCheckedValues("diet_exp");
+      const yoYo      = (document.querySelector('input[name="yo_yo"]:checked') || {}).value || "";
+      const goalWeight = document.getElementById("goal_weight").value.trim();
+      const mainConcern = document.getElementById("main_concern").value.trim();
+
+      const consultTimeList = getCheckedValues("consult_time");
+      const consultType     = (document.querySelector('input[name="consult_type"]:checked') || {}).value || "";
+
+      const lines = [];
+
+      lines.push(`■ 기본정보`);
+      lines.push(`이름: ${name || "-"} / 연락처: ${phone || "-"} / 성별: ${gender || "-"} / 나이: ${age || "-"}`);
+      lines.push(`키/체중: ${height || "-"}cm / ${weight || "-"}kg`);
+      if (job || activity) {
+        lines.push(`직업/활동량: ${job || "-"} / ${activity || "-"}`);
+      }
+
+      if (mainConcern) {
+        lines.push("");
+        lines.push(`■ 현재 가장 걱정되는 부분`);
+        lines.push(mainConcern);
+      }
+
+      if (diseaseList.length || diseaseNone.length || diseaseEtc) {
+        lines.push("");
+        lines.push(`■ 현재 진단받은 질환`);
+        if (diseaseNone.length) {
+          lines.push(`- 해당 없음`);
+        } else {
+          if (diseaseList.length) {
+            lines.push(`- ${diseaseList.join(", ")}`);
+          }
+          if (diseaseEtc) {
+            lines.push(`- 기타: ${diseaseEtc}`);
+          }
+        }
+      }
+
+      if (medList.length || medNone.length || medEtc) {
+        lines.push("");
+        lines.push(`■ 현재 복용 중인 약`);
+        if (medNone.length) {
+          lines.push(`- 복용약 없음`);
+        } else {
+          if (medList.length) {
+            lines.push(`- ${medList.join(", ")}`);
+          }
+          if (medEtc) {
+            lines.push(`- 기타: ${medEtc}`);
+          }
+        }
+      }
+
+      if (gender === "여성" && preg) {
+        lines.push("");
+        lines.push(`■ 임신/출산/수유 관련: ${preg}`);
+      }
+
+      if (sleepList.length || drink) {
+        lines.push("");
+        lines.push(`■ 수면/음주 상태`);
+        if (sleepList.length) {
+          lines.push(`- 수면: ${sleepList.join(", ")}`);
+        }
+        if (drink) {
+          lines.push(`- 음주: ${drink}`);
+        }
+      }
+
+      if (dietExp.length || yoYo || goalWeight) {
+        lines.push("");
+        lines.push(`■ 다이어트 경험 및 목표`);
+        if (dietExp.length) {
+          lines.push(`- 경험: ${dietExp.join(", ")}`);
+        }
+        if (yoYo) {
+          lines.push(`- 요요 경험: ${yoYo}`);
+        }
+        if (goalWeight) {
+          lines.push(`- 목표 감량: 약 ${goalWeight}kg`);
+        }
+      }
+
+      if (consultTimeList.length || consultType) {
+        lines.push("");
+        lines.push(`■ 상담 희망`);
+        if (consultTimeList.length) {
+          lines.push(`- 시간대: ${consultTimeList.join(", ")}`);
+        }
+        if (consultType) {
+          lines.push(`- 방법: ${consultType}`);
+        }
+      }
+
+      const summaryText = lines.join("\n");
+      document.getElementById("kakaoSummary").value = summaryText;
+      return summaryText;
+    }
+
+    document.getElementById("form2").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const age = document.getElementById("age").value.trim();
+      const consentChecked = document.getElementById("consent2").checked;
+      const genderNode = document.querySelector('input[name="gender"]:checked');
+
+      if (!name) { alert("이름을 입력해주세요."); return; }
+      if (!phone) { alert("연락처를 입력해주세요."); return; }
+      if (!age) { alert("나이를 입력해주세요."); return; }
+      if (!genderNode) { alert("성별을 선택해주세요."); return; }
+      if (!consentChecked) { alert("개인정보 수집·이용에 동의해주셔야 합니다."); return; }
+
+      const summaryText = buildSummary();
+
+      const btn = document.getElementById("submitBtn2");
+      btn.disabled = true;
+      btn.textContent = "전송 중...";
+
+      const formData = new FormData(this);
+
+      fetch(SCRIPT_URL, {
+        method: "POST",
+        body: formData,
+        mode: "no-cors"
+      }).catch(function(err) {
+        console.error("2차 문진 전송 오류(전송은 시도됨):", err);
+      }).finally(function() {
+        // 요약 텍스트 클립보드 복사
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(summaryText).catch(function(err){
+            console.warn("Clipboard write failed:", err);
+          }).finally(function() {
+            alert("복사되었습니다.\n해당 요약 복사내용을\n병원 카카오톡에 \n바로 붙여넣기(ctrl+v) 해주시면,\n원장님 상담예약을 도와드리겠습니다");
+            window.location.href = KAKAO_URL;
+          });
+        } else {
+          // fallback
+          const temp = document.createElement("textarea");
+          temp.style.position = "fixed";
+          temp.style.opacity = "0";
+          temp.value = summaryText;
+          document.body.appendChild(temp);
+          temp.select();
+          temp.setSelectionRange(0, 99999);
+          document.execCommand("copy");
+          document.body.removeChild(temp);
+          alert("복사되었습니다.\n해당 요약 복사내용을\n병원 카카오톡에 \n바로 붙여넣기(ctrl+v) 해주시면,\n원장님 상담예약을 도와드리겠습니다");
+          window.location.href = KAKAO_URL;
+        }
+
+        btn.disabled = false;
+        btn.textContent = "최종응답 요약생성";
+      });
+    });
+
+    // 성별이 여성일 때만 임신/수유 블럭 강조 (감추진 않음)
+    document.querySelectorAll('input[name="gender"]').forEach(function(r) {
+      r.addEventListener("change", function() {
+        const femaleBlock = document.getElementById("femaleBlock");
+        if (this.value === "여성") {
+          femaleBlock.style.opacity = "1";
+        } else {
+          femaleBlock.style.opacity = "0.6";
+        }
+      });
+    });
+  </script>
+</body>
+</html>
