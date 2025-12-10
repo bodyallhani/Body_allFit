@@ -337,7 +337,7 @@
       }
 
       const rand = Math.random() * (maxLoss - minLoss) + minLoss;
-      const loss = Math.round(rand * 10) / 10; // 소수 첫째자리
+      const loss = Math.round(rand * 10) / 10;
       const successWeight = Math.round((weight - loss) * 10) / 10;
 
       const lossText = loss.toFixed(1);
@@ -345,7 +345,7 @@
 
       resultEl.innerHTML =
         `성공 시 체중: <strong>${successText} kg</strong><br>` +
-        `줄어드는 체중: <span style="color:#d93025;">-${lossText}</span> kg`;
+        `줄어드는 체중: <strong style="color:#d93025;">-${lossText}</strong> kg`;
     });
 
     document.getElementById("leadForm").addEventListener("submit", function (e) {
@@ -368,7 +368,7 @@
 
       const btn = document.getElementById("submitBtn");
       btn.disabled = true;
-      btn.textContent = "전송 중...";
+      btn.textContent = "정보확인 중...";
 
       const formData = new FormData();
       formData.append("name", name);
@@ -389,7 +389,7 @@
         console.error("응답 전송 오류(전송은 시도됨):", err);
       }).finally(function () {
         alert(
-          "응답이 전달되었습니다.\n\n지금 뜨는 카카오 채널에서\n채팅창에 꼭 '바디올핏' 혹은 '바디올핏 상담 원합니다' 라고 카톡 메시지 주셔야 상담이 진행됩니다.\n한의원에서 해당 카톡을 통해\n추가 안내를 드리겠습니다."
+          "완료되었습니다.\n\n지금 뜨는 카카오 채널에서\n채팅창에 꼭 '바디올핏' 혹은 '바디올핏 상담 원합니다' 라고 카톡 메시지 주셔야 상담이 진행됩니다.\n한의원에서 해당 카톡을 통해\n추가 안내를 드리겠습니다."
         );
         window.location.href = KAKAO_URL;
       });
