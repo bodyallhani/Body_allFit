@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <title>바디올핏 DIET · 3차 결제 정보</title>
+  <title>바디올핏 결제정보 입력</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     * { box-sizing: border-box; }
@@ -218,12 +218,10 @@
     <!-- 상단 카드 -->
     <div class="card">
       <div class="card-header">
-        <h1>바디올핏 3차 · 최종 결제 정보 입력</h1>
+        <h1>바디올핏 결제정보 입력</h1>
         <div class="subtitle">
-          2차 상담 내용을 토대로, 최종 프로그램 선택과 결제 방식을 정리하는 단계입니다.<br />
-          아래 정보를 정확히 입력해주시면, 비대면 처방 및 배송 진행이 가능합니다.<br />
-          <br />
-          <strong>바디올핏 처방을 위해 아래 정보는 필수입니다.</strong>
+          현재까지의 상담내용을 토대로, 최종 프로그램 선택과 결제 방식을 정리하는 단계입니다.<br />
+          아래 내용을 확인 후, 정확히 입력해 주세요.
         </div>
       </div>
 
@@ -240,14 +238,19 @@
             id="name"
             name="name"
             required
-            placeholder="예: 홍길동"
+            placeholder="실명 필수* 예: 장원영"
           />
         </div>
+
+        <!-- 연락처 항목 제거 (지시에 따라) -->
 
         <!-- 주민등록번호 앞/뒤 (마스킹) -->
         <div class="field">
           <div class="field-label">
             주민등록번호 <span class="required-mark">*</span>
+          </div>
+          <div class="field-desc">
+            앞 6자리는 숫자 그대로, 뒤 7자리는 입력 시 자동으로 마스킹 처리됩니다.
           </div>
           <div class="inline-row">
             <div class="inline-field">
@@ -268,7 +271,6 @@
                 id="rrn2_view"
                 maxlength="7"
                 inputmode="numeric"
-                pattern="\d*"
                 required
                 placeholder="뒤 7자리"
               />
@@ -277,8 +279,8 @@
             </div>
           </div>
           <div class="small-note">
-            * 입력 중에는 첫 자리만 숫자로 보이고, 나머지는 <strong>*</strong>로 가려집니다.<br />
-            * 시트에는 실제 7자리 숫자 전체가 저장됩니다.
+            * 입력 중에는 <strong>첫 자리 숫자만</strong> 보이고, 나머지 6자리는 순차적으로 <strong>*</strong>로 가려집니다.<br />
+            * 전송되는 값은 <strong>실제 7자리 숫자 전체</strong>이며, 시트에는 그대로 저장됩니다.
           </div>
         </div>
 
@@ -294,7 +296,7 @@
             id="ship_name"
             name="ship_name"
             required
-            placeholder="예: 홍길동"
+            placeholder="예: 장원영"
           />
         </div>
 
@@ -325,11 +327,10 @@
           ></textarea>
         </div>
 
-        <!-- 3. 프로그램 선택 (img3 구조 반영) -->
+        <!-- 3. 프로그램 선택 (기존 img3 구조) -->
         <div class="section-title">3. 프로그램 선택 및 금액 확인</div>
 
         <div class="image-wrapper">
-          <!-- 기존 img3를 동일 파일명으로 두셨다면 그대로 사용 -->
           <img src="img3.jpg" alt="바디올핏 프로그램 및 이벤트 가격 안내" />
         </div>
 
@@ -417,8 +418,48 @@
           <input type="hidden" id="total_amount" name="total_amount" value="0" />
         </div>
 
-        <!-- 4. 결제 방식 선택 -->
-        <div class="section-title">4. 결제 방식 선택</div>
+        <!-- 4. 상담 시간 / 방식 (선택) -->
+        <div class="section-title">4. 상담 시간 / 방식 (선택)</div>
+
+        <div class="field">
+          <div class="field-label">
+            추가 상담을 원하시면, 편한 시간대를 선택해주세요. (선택)
+          </div>
+          <div class="options">
+            <label>
+              <input type="checkbox" name="consult_time" value="주중 오전" />주중 오전 10시~12시 반
+            </label>
+            <label>
+              <input type="checkbox" name="consult_time" value="주중 오후" />주중 오후 2시~5시
+            </label>
+            <label>
+              <input type="checkbox" name="consult_time" value="주중 저녁" />주중 오후 5시~8시
+            </label>
+            <label>
+              <input type="checkbox" name="consult_time" value="주말 오전" />토·일·공휴일 오전 10시~12시 반
+            </label>
+            <label>
+              <input type="checkbox" name="consult_time" value="주말 오후" />토·일·공휴일 오후 2시~3시 반
+            </label>
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="field-label">
+            상담 방식 (선택)
+          </div>
+          <div class="options-inline">
+            <label>
+              <input type="radio" name="consult_type" value="일반 전화통화" checked />일반 전화통화
+            </label>
+            <label>
+              <input type="radio" name="consult_type" value="영상통화" />영상통화
+            </label>
+          </div>
+        </div>
+
+        <!-- 5. 결제 방식 선택 -->
+        <div class="section-title">5. 결제 방식 선택</div>
 
         <div class="field">
           <div class="field-label">
@@ -432,10 +473,6 @@
             <label>
               <input type="radio" name="payment_method" value="계좌이체" />
               계좌이체 (무통장 입금)
-            </label>
-            <label>
-              <input type="radio" name="payment_method" value="상담 후 결정" />
-              아직 결정 못함 · 상담 후 결정
             </label>
           </div>
 
@@ -460,7 +497,7 @@
               </div>
               <div class="field-desc">
                 전화번호 또는 사업자번호 중 한 가지를 선택 후 번호를 적어주세요.<br />
-                (비워두시면, 병원에서 별도 안내 후 처리합니다.)
+                (비워두시면, 알려주신 연락처로 현금영수증 발행됩니다)
               </div>
               <div class="inline-row">
                 <div class="inline-field">
@@ -481,16 +518,11 @@
                 </div>
               </div>
             </div>
-
-            <div class="small-note" style="margin-top:4px;">
-              <strong>&lt;바디올한의원 입금계좌&gt;</strong><br />
-              예금주: 이동해 / 신한 110-522-009056
-            </div>
           </div>
         </div>
 
-        <!-- 5. 개인정보 동의 -->
-        <div class="section-title">5. 개인정보 수집·이용 동의</div>
+        <!-- 개인정보 동의 -->
+        <div class="section-title">6. 개인정보 수집·이용 동의</div>
 
         <div class="field">
           <div class="field-label">
@@ -512,6 +544,8 @@
         <!-- 숨겨진 공통 필드 -->
         <input type="hidden" name="visit_mode" value="비대면" />
         <input type="hidden" name="formType" value="3차" />
+        <!-- 연락처는 택배 수령인 연락처로 대체 -->
+        <input type="hidden" id="phone" name="phone" value="" />
 
         <!-- 완료 버튼 -->
         <div class="button-row">
@@ -521,7 +555,7 @@
         </div>
 
         <div class="small-note">
-          3차 응답이 완료되면, 직원이 결제 및 발송 일정을 확인한 뒤<br />
+          현재 설문 응답이 완료되면, 직원이 결제 및 발송 일정을 확인한 뒤<br />
           카카오톡 또는 전화로 한 번 더 안내드립니다.
         </div>
       </form>
@@ -529,68 +563,76 @@
   </div>
 
   <script>
-    // 공통 Web App URL (1차와 동일)
     const SCRIPT_URL =
       "https://script.google.com/macros/s/AKfycbzlKD52BulhyKf7fo_fZYGtNv2tYXcPCQcBTtYHKQObwoRMCaHPZt2NI8D1bPwqJRhTow/exec";
 
-    // 주민번호 유효성 검사 (대한민국 기준)
-    function isValidRRN(rrn1, rrn2) {
-      const s = (rrn1 || "") + (rrn2 || "");
+    // 주민번호 유효성 검사 (간단한 한국식 검증)
+    function isValidKRRN(rrn1, rrn2) {
+      const s = rrn1 + rrn2;
       if (!/^\d{13}$/.test(s)) return false;
-
-      const weights = [2,3,4,5,6,7,8,9,2,3,4,5];
+      const weight = [2,3,4,5,6,7,8,9,2,3,4,5];
       let sum = 0;
       for (let i = 0; i < 12; i++) {
-        sum += parseInt(s.charAt(i), 10) * weights[i];
+        sum += parseInt(s.charAt(i), 10) * weight[i];
       }
-      const mod = sum % 11;
-      const check = (11 - mod) % 10;
-      return check === parseInt(s.charAt(12), 10);
+      const mod = (11 - (sum % 11)) % 10;
+      return mod === parseInt(s.charAt(12), 10);
     }
 
-    // 1) 주민번호 뒷자리 마스킹 로직
+    // 1) 주민번호 뒷자리 마스킹 로직 (keydown 기반, 실제 값은 realValue에만 저장)
     (function setupRrnMasking() {
       const rrn2View = document.getElementById("rrn2_view");
       const rrn2Hidden = document.getElementById("rrn2");
+      let realValue = "";
 
-      let realValue = ""; // 실제 숫자 7자리 저장용
-
-      rrn2View.addEventListener("input", function (e) {
-        const raw = rrn2View.value.replace(/\D/g, ""); // 숫자만
-        if (!raw) {
-          realValue = "";
+      function updateView() {
+        const len = realValue.length;
+        if (len === 0) {
           rrn2View.value = "";
-          rrn2Hidden.value = "";
           return;
         }
+        const first = realValue.charAt(0);
+        const stars = "*".repeat(Math.max(0, len - 1));
+        rrn2View.value = first + stars;
+      }
 
-        // 최대 7자리까지만 허용
-        const limited = raw.slice(0, 7);
-        realValue = limited;
-        const len = limited.length;
-
-        // 표시용: 첫 자리는 실제 숫자, 나머지는 * 로
-        if (len === 1) {
-          rrn2View.value = limited;
-        } else {
-          const first = limited.charAt(0);
-          const stars = "*".repeat(len - 1);
-          rrn2View.value = first + stars;
+      rrn2View.addEventListener("keydown", function (e) {
+        const key = e.key;
+        if (key === "Tab") {
+          return; // 기본 탭 이동 허용
         }
-
-        // hidden에는 항상 실제 숫자 저장
-        rrn2Hidden.value = realValue;
+        if (key === "Backspace") {
+          if (realValue.length > 0) {
+            realValue = realValue.slice(0, -1);
+            updateView();
+          }
+          e.preventDefault();
+          return;
+        }
+        if (key >= "0" && key <= "9") {
+          if (realValue.length >= 7) {
+            e.preventDefault();
+            return;
+          }
+          realValue += key;
+          updateView();
+          e.preventDefault();
+          return;
+        }
+        // 숫자/백스페이스/탭 이외 입력 차단
+        e.preventDefault();
       });
 
       rrn2View.addEventListener("blur", function () {
         if (realValue.length > 0 && realValue.length !== 7) {
           alert("주민등록번호 뒷자리는 7자리 숫자로 입력해주세요.");
           rrn2View.focus();
-        } else if (realValue.length === 7) {
-          // blur 시 최종 형태는 첫 자리 + 6개의 * => 총 7자
-          rrn2View.value = realValue.charAt(0) + "******";
         }
+        rrn2Hidden.value = realValue;
       });
+
+      // 폼 제출 시를 대비해 항상 hidden 갱신
+      rrn2Hidden.value = realValue;
     })();
 
     // 2) 프로그램 선택 → 총액 계산
@@ -606,8 +648,7 @@
 
       function validateProgramSelection(programArr) {
         if (!programArr.length) {
-          // 아직 선택 전 단계에서는 경고 없이 0원만 표시
-          return true;
+          return true; // 제출 시 별도 체크
         }
         // 장해독 단독 선택 방지
         const mainPrograms = programArr.filter(v =>
@@ -738,10 +779,14 @@
         document.getElementById("rrn2_view").focus();
         return;
       }
-      if (!isValidRRN(rrn1, rrn2)) {
-        alert("유효하지 않은 주민등록번호입니다. 다시 확인해주세요.");
-        document.getElementById("rrn1").focus();
-        return;
+
+      // 주민번호 실제 유효성 검증
+      if (!isValidKRRN(rrn1, rrn2)) {
+        const confirmInvalid = confirm("입력하신 주민등록번호가 형식상 유효하지 않을 수 있습니다.\n다시 한 번 확인하시겠습니까?");
+        if (!confirmInvalid) {
+          document.getElementById("rrn1").focus();
+          return;
+        }
       }
 
       // 프로그램 선택 검증
@@ -751,6 +796,28 @@
         alert("희망 프로그램을 최소 1개 이상 선택해주세요.");
         return;
       }
+
+      // 장해독 단독 선택 방지 한 번 더 체크
+      const mainPrograms = programArr.filter(v =>
+        v.startsWith("4주(") ||
+        v.startsWith("8주(") ||
+        v.startsWith("12주(") ||
+        v.startsWith("요요2x") ||
+        v.startsWith("요요3x")
+      );
+      const detox = programArr.filter(v =>
+        v.startsWith("장해독1달") || v.startsWith("장해독3달")
+      );
+      if (detox.length > 0 && mainPrograms.length === 0) {
+        alert("장해독환은 다이어트 프로그램과 함께만 처방 가능합니다.\n4·8·12주 또는 요요방지 프로그램을 함께 선택해주세요.");
+        return;
+      }
+
+      // 선택한 상담시간 / 상담방법 / 결제수단
+      const consultTimeNodes = document.querySelectorAll('input[name="consult_time"]:checked');
+      const consultTimeArr = Array.from(consultTimeNodes).map(n => n.value);
+
+      const consultType = (document.querySelector('input[name="consult_type"]:checked') || {}).value || "";
 
       const paymentRadio = document.querySelector('input[name="payment_method"]:checked');
       const paymentMethod = paymentRadio ? paymentRadio.value : "";
@@ -768,9 +835,14 @@
       const consentChecked = document.getElementById("consent").checked;
       const consentText = consentChecked ? "동의함" : "미동의";
 
+      // 숨겨진 phone 필드에 택배 수령인 연락처를 넣어, 시트의 K열(연락처)에 들어가게 함
+      document.getElementById("phone").value = shipPhone;
+
+      // 숨겨진 공통 필드
       const visitMode = "비대면";
       const formType = "3차";
 
+      // 전송 버튼 상태 변경
       const btn = document.getElementById("submitBtn");
       btn.disabled = true;
       btn.textContent = "전송 중...";
@@ -784,14 +856,14 @@
         gender: "",
         rrn1: rrn1,
         rrn2: rrn2,
-        phone: "",       // 3차에서는 별도 수집하지 않음
+        phone: shipPhone,
         age: "",
         height: "",
         weight: "",
         main_concern: "",
         referrer: "",
-        consult_time: [],   // 3차에서는 상담시간/방법 별도 수집 안함
-        consult_type: "",
+        consult_time: consultTimeArr,
+        consult_type: consultType,
         ship_name: shipName,
         ship_phone: shipPhone,
         ship_address: shipAddress,
@@ -800,15 +872,13 @@
         payment_method: paymentMethod,
         depositor_name: depositorName,
         receipt_type: receiptType,
-        receipt_value: receiptValue,
-        desired_period: "",   // 3차에서는 사용 안함
-        kakao_summary: ""     // 3차에서는 사용 안함
+        receipt_value: receiptValue
       };
 
       sendToSheet(payload);
 
       alert(
-        "응답이 정상적으로 전송되었습니다.\n\n직원이 결제 및 발송 일정을 확인한 뒤,\n카카오톡 또는 전화로 한 번 더 안내드리겠습니다."
+        "현재 설문 응답이 정상적으로 전송되었습니다.\n\n직원이 결제 및 발송 일정을 확인한 뒤,\n카카오톡 또는 전화로 한 번 더 안내드리겠습니다."
       );
 
       btn.disabled = false;
