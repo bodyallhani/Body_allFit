@@ -141,11 +141,6 @@
       padding-top: 14px;
       border-top: 1px solid #e0e0e0;
     }
-    .summary-title {
-      font-size: 0.9rem;
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
     #summary {
       width: 100%;
       min-height: 120px;
@@ -169,6 +164,16 @@
     </div>
 
     <form id="form2">
+      <!-- 바디올 내원 여부 (새 문항, 기본정보 앞에 위치) -->
+      <div class="field">
+        <div class="label">바디올한의원에 내원하신 적이 있으신가요?</div>
+        <div class="inline-options">
+          <label><input type="radio" name="visit_history" value="예" required /> 예</label>
+          <label><input type="radio" name="visit_history" value="아니오" /> 아니오</label>
+          <label><input type="radio" name="visit_history" value="잘 모름" /> 잘 모름</label>
+        </div>
+      </div>
+
       <!-- 기본 정보 -->
       <div class="section-title">1. 기본 정보</div>
 
@@ -373,19 +378,18 @@
       <input type="hidden" name="visit_mode" value="비대면" />
       <input type="hidden" name="consent" value="동의함" />
 
+      <!-- 설명 먼저, 버튼 뒤로 위치 변경 -->
+      <div class="hint">
+        1) 버튼을 누르면, <strong>예진 내용이 자동으로 정리·복사</strong>되고<br />
+        2) <strong>카카오톡 채팅창이 열리면, 바로 붙여넣기</strong>(길게 누르기 또는 Ctrl+V) 하신 뒤 보내주시면 됩니다.
+      </div>
+
       <!-- 올인원 버튼 -->
       <button type="button" id="allInOneBtn">최종응답 및 다음단계</button>
 
-      <div class="hint">
-        1) 버튼을 누르면, 예진 내용이 자동으로 정리·복사되고<br />
-        병원 카카오톡 채널로 이동합니다.<br />
-        2) 카카오톡 채팅창이 열리면, 바로 붙여넣기(길게 누르기 또는 Ctrl+V) 하신 뒤 보내주시면 됩니다.
-      </div>
-
-      <!-- 요약 영역 (자동 생성 / 복사용) - 버튼 아래로 이동 -->
-      <div class="summary-box">
-        <div class="summary-title">예진 요약 내용</div>
-        <textarea id="summary" placeholder="최종응답 버튼을 누르면 요약내용이 자동으로 생성 및 복사됩니다. 이후 자동으로 연결되는 병원 카톡을 통해, 복사된 내용을 붙여넣기(Ctrl+V) 해주세요."></textarea>
+      <!-- 요약 영역: 기능 유지를 위해 숨김 처리 (UI 공란 제거) -->
+      <div class="summary-box" style="display:none;">
+        <textarea id="summary"></textarea>
       </div>
 
       <div class="bottom-space"></div>
@@ -402,6 +406,9 @@
     }
 
     function buildSummary() {
+      // 새 문항: 바디올 내원 여부
+      const visitHistory = (document.querySelector('input[name="visit_history"]:checked') || {}).value || "";
+
       const name   = document.getElementById("name").value.trim();
       const phone  = document.getElementById("phone").value.trim();
       const age    = document.getElementById("age").value.trim();
@@ -436,6 +443,12 @@
       const consultType     = (document.querySelector('input[name="consult_type"]:checked') || {}).value || "";
 
       const lines = [];
+
+      // 요약 첫 줄: 바디올 내원 여부
+      if (visitHistory) {
+        lines.push(`■ 바디올 내원 여부: ${visitHistory}`);
+        lines.push("");
+      }
 
       lines.push(`■ 기본정보`);
       lines.push(`이름: ${name || "-"} / 연락처: ${phone || "-"} / 성별: ${gender || "-"} / 나이: ${age || "-"}`);
@@ -522,25 +535,32 @@
       }
 
       const summaryText = lines.join("\n");
-      document.getElementById("summary").value = summaryText;
+      const summaryEl = document.getElementById("summary");
+      if (summaryEl) {
+        summaryEl.value = summaryText;
+      }
       return summaryText;
     }
 
     function copySummary(text) {
-      const textarea = document.getElementById("summary");
+      // 숨겨진 textarea 대신, 필요 시 임시 textarea 사용
+      const temp = document.createElement("textarea");
+      temp.style.position = "fixed";
+      temp.style.opacity = "0";
+      temp.value = text;
+      document.body.appendChild(temp);
+      temp.focus();
+      temp.select();
       try {
-        textarea.focus();
-        textarea.select();
-        textarea.setSelectionRange(0, textarea.value.length);
-        const success = document.execCommand("copy");
-        if (!success && navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(text).catch(function(err){
-            console.warn("clipboard.writeText 실패:", err);
+        document.execCommand("copy");
+      } catch (err) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).catch(function(e){
+            console.warn("clipboard.writeText 실패:", e);
           });
         }
-      } catch (err) {
-        console.error("요약 복사 중 오류:", err);
       }
+      document.body.removeChild(temp);
     }
 
     // 성별이 여성일 때만 임신/수유 블럭 강조(감추진 않음)
@@ -580,6 +600,7 @@
 
       // 폼 데이터 + 요약 텍스트
       const formData = new FormData(form);
+      formData.append("visit_history", (document.querySelector('input[name="visit_history"]:checked') || {}).value || "");
       formData.append("kakao_summary", summaryText);
       formData.append("summary", summaryText);
       formData.append("summary_text", summaryText);
