@@ -378,9 +378,9 @@
       <button type="button" id="allInOneBtn">최종응답 및 다음단계</button>
 
       <div class="hint">
-        2) 버튼을 누르면, 예진 내용이 자동으로 정리·복사되고<br />
+        1) 버튼을 누르면, 예진 내용이 자동으로 정리·복사되고<br />
         병원 카카오톡 채널로 이동합니다.<br />
-        3) 카카오톡 채팅창이 열리면, 바로 붙여넣기(길게 누르기 또는 Ctrl+V) 하신 뒤 보내주시면 됩니다.
+        2) 카카오톡 채팅창이 열리면, 바로 붙여넣기(길게 누르기 또는 Ctrl+V) 하신 뒤 보내주시면 됩니다.
       </div>
 
       <div class="bottom-space"></div>
@@ -522,33 +522,23 @@
     }
 
     function copySummary(text) {
+      const textarea = document.getElementById("summary");
       try {
-        if (navigator.clipboard && navigator.clipboard.writeText) {
+        textarea.focus();
+        textarea.select();
+        textarea.setSelectionRange(0, textarea.value.length);
+        const success = document.execCommand("copy");
+        if (!success && navigator.clipboard && navigator.clipboard.writeText) {
           navigator.clipboard.writeText(text).catch(function(err){
-            console.warn("clipboard.writeText 실패, execCommand로 재시도:", err);
-            const temp = document.createElement("textarea");
-            temp.value = text;
-            document.body.appendChild(temp);
-            temp.select();
-            temp.setSelectionRange(0, 99999);
-            document.execCommand("copy");
-            document.body.removeChild(temp);
+            console.warn("clipboard.writeText 실패:", err);
           });
-        } else {
-          const temp = document.createElement("textarea");
-          temp.value = text;
-          document.body.appendChild(temp);
-          temp.select();
-          temp.setSelectionRange(0, 99999);
-          document.execCommand("copy");
-          document.body.removeChild(temp);
         }
       } catch (err) {
         console.error("요약 복사 중 오류:", err);
       }
     }
 
-    // 성별이 여성일 때만 임신/수유 블럭 강조 (감추진 않음)
+    // 성별이 여성일 때만 임신/수유 블럭 강조(감추진 않음)
     document.querySelectorAll('input[name="gender"]').forEach(function(r) {
       r.addEventListener("change", function() {
         const femaleBlock = document.getElementById("femaleBlock");
@@ -564,7 +554,6 @@
       const form = document.getElementById("form2");
       const btn = document.getElementById("allInOneBtn");
 
-      // HTML5 필수항목 검증
       if (!form.checkValidity()) {
         form.reportValidity();
         return;
@@ -580,11 +569,14 @@
       const originalText = btn.textContent;
       btn.textContent = "요약 생성중...";
 
-      // 요약 생성
+      // 요약 생성 및 복사
       const summaryText = buildSummary();
+      copySummary(summaryText);
 
-      // 폼 데이터 생성 + 요약 텍스트 포함
+      // 폼 데이터 + 요약 텍스트
       const formData = new FormData(form);
+      formData.append("kakao_summary", summaryText);
+      formData.append("summary", summaryText);
       formData.append("summary_text", summaryText);
 
       // 서버 전송 시도
@@ -596,10 +588,6 @@
         console.error("예진 전송 오류(전송은 시도됨):", err);
       });
 
-      // 요약 내용 복사
-      copySummary(summaryText);
-
-      // 안내 후 카카오 이동
       alert(
         "복사되었습니다.\n해당 요약 복사내용을\n병원 카카오톡에 \n바로 붙여넣기(ctrl+v) 해주시면,\n원장님 상담예약을 도와드리겠습니다."
       );
