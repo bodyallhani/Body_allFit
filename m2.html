@@ -129,21 +129,39 @@
       font-size: 0.8rem;
       color: #5f6368;
       margin-top: 10px;
-      text-align: center;
+      text-align: left;
       line-height: 1.5;
+    }
+    .summary-box {
+      margin-top: 24px;
+      padding-top: 14px;
+      border-top: 1px solid #e0e0e0;
+    }
+    .summary-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    #summary {
+      width: 100%;
+      min-height: 120px;
+      padding: 8px 10px;
+      border-radius: 4px;
+      border: 1px solid #dadce0;
+      font-size: 0.85rem;
+      white-space: pre-wrap;
     }
     .bottom-space {
       height: 110px;
     }
-    /* 요약용 hidden input만 활용하므로 별도 요약 박스는 제거 */
   </style>
 </head>
 <body>
   <div class="card">
     <h1>바디올핏 DIET 예진표</h1>
     <div class="subtitle">
-      아래 문진은 전화/카톡 상담 전에 미리 확인드리는 내용입니다.<br />
-      3~5분 정도만 시간 내주시면, 이후 상담이 훨씬 수월해집니다.
+      전화/카톡 상담 전에 미리 확인드리는 내용입니다.<br />
+      3~5분 정도만 시간 내주시면, 상담이 훨씬 수월해집니다.
     </div>
 
     <form id="form2">
@@ -153,7 +171,7 @@
       <div class="field">
         <div class="label">이름 <span class="required">*</span></div>
         <input type="text" id="name" name="name" required
-               placeholder="1차 문진에서 적으신 실명과 동일하게 적어주세요. 예: 장원영" />
+               placeholder="'실명'으로 써주세요. 예: 장원영" />
       </div>
 
       <div class="field">
@@ -165,8 +183,8 @@
       <div class="field">
         <div class="label">성별 <span class="required">*</span></div>
         <div class="inline-options">
-          <label><input type="radio" name="gender" value="여성" required /> 여성</label>
-          <label><input type="radio" name="gender" value="남성" /> 남성</label>
+          <label><input type="radio" name="gender" value="남성" required /> 남성</label>
+          <label><input type="radio" name="gender" value="여성" /> 여성</label>
           <label><input type="radio" name="gender" value="기타/무응답" /> 기타/무응답</label>
         </div>
       </div>
@@ -198,11 +216,11 @@
       </div>
 
       <div class="field">
-        <div class="label">하루 활동량</div>
+        <div class="label">하루 활동량 (복수 선택 가능)</div>
         <div class="inline-options">
-          <label><input type="radio" name="activity" value="대부분 앉아서 지냄" /> 대부분 앉아서 지냄</label>
-          <label><input type="radio" name="activity" value="서있거나 많이 걷는 편" /> 서있거나 많이 걷는 편</label>
-          <label><input type="radio" name="activity" value="육체노동/강도 높은 활동 많음" /> 육체노동/강도 높은 활동 많음</label>
+          <label><input type="checkbox" name="activity" value="대부분 앉아서 지냄" /> 대부분 앉아서 지냄</label>
+          <label><input type="checkbox" name="activity" value="서있거나 많이 걷는 편" /> 서있거나 많이 걷는 편</label>
+          <label><input type="checkbox" name="activity" value="육체노동/강도 높은 활동 많음" /> 육체노동/강도 높은 활동 많음</label>
         </div>
       </div>
 
@@ -256,9 +274,8 @@
           <label><input type="checkbox" name="med" value="기타" /> 기타</label>
           <label><input type="checkbox" name="med_none" value="복용약 없음" /> 복용약 없음</label>
         </div>
-        <textarea id="med_etc" name="med_etc" style="min-height:110px;"
-          placeholder="현재, 혹은 최근까지 드시거나 드시는 약을 전부 써주세요. (성분을 모르시면 특정질환약-고혈압약 같은 식으로 쓰셔도 됩니다.)
-*다이어트 처방 불가) 암페타민류, 독세---- , --프라민, 노르트-----, 클로니딘류, 코데인류, 테오필린류, 신지로이드류, 아스피린 정기복용 등"></textarea>
+        <textarea id="med_etc" name="med_etc"
+          placeholder="약 이름을 정확히 모르셔도, 대략 어떤 약인지 적어주시면 됩니다."></textarea>
       </div>
 
       <div class="field" id="femaleBlock">
@@ -297,7 +314,7 @@
       </div>
 
       <div class="field">
-        <div class="label">목표 감량 kg수</div>
+        <div class="label">목표감량 kg수</div>
         <input type="number" id="goal_weight" name="goal_weight" inputmode="numeric" pattern="\d*"
                placeholder="예: 8 (kg 정도 빼고 싶어요)" />
       </div>
@@ -324,11 +341,10 @@
       </div>
 
       <div class="field">
-        <div class="label">상담 방법</div>
+        <div class="label">희망 상담 방법</div>
         <div class="inline-options">
           <label><input type="radio" name="consult_type" value="전화" /> 전화</label>
-          <label><input type="radio" name="consult_type" value="카카오톡" /> 카카오톡</label>
-          <label><input type="radio" name="consult_type" value="둘 다 괜찮음" /> 둘 다 괜찮음</label>
+          <label><input type="radio" name="consult_type" value="영상통화" /> 영상통화</label>
         </div>
       </div>
 
@@ -347,21 +363,24 @@
         </div>
       </div>
 
-      <!-- hidden: 단계/대면여부 + 요약 텍스트 -->
+      <!-- hidden: 단계/대면여부 -->
       <input type="hidden" name="formType" value="2차" />
       <input type="hidden" name="visit_mode" value="비대면" />
       <input type="hidden" name="consent" value="동의함" />
-      <input type="hidden" id="kakaoSummary" name="kakao_summary" />
+
+      <!-- 요약 영역 (자동 생성 / 복사용) -->
+      <div class="summary-box">
+        <div class="summary-title">예진 요약 내용</div>
+        <textarea id="summary" placeholder="버튼을 누르면 자동으로 생성되며, 병원 카카오톡으로 전송됩니다."></textarea>
+      </div>
 
       <!-- 올인원 버튼 -->
-      <button type="submit" id="submitBtn2">최종응답 요약생성</button>
+      <button type="button" id="allInOneBtn">최종응답 및 다음단계</button>
 
       <div class="hint">
-        버튼을 누르시면<br />
-        ① 예진 내용이 한 번에 정리되어 시트로 전송되고<br />
-        ② 같은 내용이 자동으로 복사된 뒤<br />
-        ③ 병원 카카오톡 채널로 이동합니다.<br />
-        이동 후 바로 붙여넣기(ctrl+v)만 해주시면 됩니다.
+        2) 버튼을 누르면, 예진 내용이 자동으로 정리·복사되고<br />
+        병원 카카오톡 채널로 이동합니다.<br />
+        3) 카카오톡 채팅창이 열리면, 바로 붙여넣기(길게 누르기 또는 Ctrl+V) 하신 뒤 보내주시면 됩니다.
       </div>
 
       <div class="bottom-space"></div>
@@ -386,7 +405,9 @@
 
       const gender = (document.querySelector('input[name="gender"]:checked') || {}).value || "";
       const job    = document.getElementById("job").value.trim();
-      const activity = (document.querySelector('input[name="activity"]:checked') || {}).value || "";
+
+      const activityList = getCheckedValues("activity");
+      const activity = activityList.join(", ");
 
       const sleepList = getCheckedValues("sleep");
       const drink     = document.getElementById("drink").value;
@@ -491,72 +512,41 @@
           lines.push(`- 시간대: ${consultTimeList.join(", ")}`);
         }
         if (consultType) {
-          lines.push(`- 방법: ${consultType}`);
+          lines.push(`- 희망 상담 방법: ${consultType}`);
         }
       }
 
       const summaryText = lines.join("\n");
-      document.getElementById("kakaoSummary").value = summaryText;
+      document.getElementById("summary").value = summaryText;
       return summaryText;
     }
 
-    document.getElementById("form2").addEventListener("submit", function(e) {
-      e.preventDefault();
-
-      const name = document.getElementById("name").value.trim();
-      const phone = document.getElementById("phone").value.trim();
-      const age = document.getElementById("age").value.trim();
-      const consentChecked = document.getElementById("consent2").checked;
-      const genderNode = document.querySelector('input[name="gender"]:checked');
-
-      if (!name) { alert("이름을 입력해주세요."); return; }
-      if (!phone) { alert("연락처를 입력해주세요."); return; }
-      if (!age) { alert("나이를 입력해주세요."); return; }
-      if (!genderNode) { alert("성별을 선택해주세요."); return; }
-      if (!consentChecked) { alert("개인정보 수집·이용에 동의해주셔야 합니다."); return; }
-
-      const summaryText = buildSummary();
-
-      const btn = document.getElementById("submitBtn2");
-      btn.disabled = true;
-      btn.textContent = "전송 중...";
-
-      const formData = new FormData(this);
-
-      fetch(SCRIPT_URL, {
-        method: "POST",
-        body: formData,
-        mode: "no-cors"
-      }).catch(function(err) {
-        console.error("2차 문진 전송 오류(전송은 시도됨):", err);
-      }).finally(function() {
-        // 요약 텍스트 클립보드 복사
+    function copySummary(text) {
+      try {
         if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(summaryText).catch(function(err){
-            console.warn("Clipboard write failed:", err);
-          }).finally(function() {
-            alert("복사되었습니다.\n해당 요약 복사내용을\n병원 카카오톡에 \n바로 붙여넣기(ctrl+v) 해주시면,\n원장님 상담예약을 도와드리겠습니다");
-            window.location.href = KAKAO_URL;
+          navigator.clipboard.writeText(text).catch(function(err){
+            console.warn("clipboard.writeText 실패, execCommand로 재시도:", err);
+            const temp = document.createElement("textarea");
+            temp.value = text;
+            document.body.appendChild(temp);
+            temp.select();
+            temp.setSelectionRange(0, 99999);
+            document.execCommand("copy");
+            document.body.removeChild(temp);
           });
         } else {
-          // fallback
           const temp = document.createElement("textarea");
-          temp.style.position = "fixed";
-          temp.style.opacity = "0";
-          temp.value = summaryText;
+          temp.value = text;
           document.body.appendChild(temp);
           temp.select();
           temp.setSelectionRange(0, 99999);
           document.execCommand("copy");
           document.body.removeChild(temp);
-          alert("복사되었습니다.\n해당 요약 복사내용을\n병원 카카오톡에 \n바로 붙여넣기(ctrl+v) 해주시면,\n원장님 상담예약을 도와드리겠습니다");
-          window.location.href = KAKAO_URL;
         }
-
-        btn.disabled = false;
-        btn.textContent = "최종응답 요약생성";
-      });
-    });
+      } catch (err) {
+        console.error("요약 복사 중 오류:", err);
+      }
+    }
 
     // 성별이 여성일 때만 임신/수유 블럭 강조 (감추진 않음)
     document.querySelectorAll('input[name="gender"]').forEach(function(r) {
@@ -568,6 +558,55 @@
           femaleBlock.style.opacity = "0.6";
         }
       });
+    });
+
+    document.getElementById("allInOneBtn").addEventListener("click", function () {
+      const form = document.getElementById("form2");
+      const btn = document.getElementById("allInOneBtn");
+
+      // HTML5 필수항목 검증
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      const consentChecked = document.getElementById("consent2").checked;
+      if (!consentChecked) {
+        alert("개인정보 수집·이용에 동의해주셔야 합니다.");
+        return;
+      }
+
+      btn.disabled = true;
+      const originalText = btn.textContent;
+      btn.textContent = "요약 생성중...";
+
+      // 요약 생성
+      const summaryText = buildSummary();
+
+      // 폼 데이터 생성 + 요약 텍스트 포함
+      const formData = new FormData(form);
+      formData.append("summary_text", summaryText);
+
+      // 서버 전송 시도
+      fetch(SCRIPT_URL, {
+        method: "POST",
+        body: formData,
+        mode: "no-cors"
+      }).catch(function(err){
+        console.error("예진 전송 오류(전송은 시도됨):", err);
+      });
+
+      // 요약 내용 복사
+      copySummary(summaryText);
+
+      // 안내 후 카카오 이동
+      alert(
+        "복사되었습니다.\n해당 요약 복사내용을\n병원 카카오톡에 \n바로 붙여넣기(ctrl+v) 해주시면,\n원장님 상담예약을 도와드리겠습니다."
+      );
+
+      btn.disabled = false;
+      btn.textContent = originalText;
+      window.location.href = KAKAO_URL;
     });
   </script>
 </body>
