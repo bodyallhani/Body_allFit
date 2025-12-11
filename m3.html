@@ -240,6 +240,9 @@
             placeholder="뒤 7자리"
           />
         </div>
+        <div class="small-hint">
+          <em>주민등록번호는, <strong>환자차트 작성</strong>과 <strong>바디올핏 처방을 위한 필수정보</strong>로만 쓰이게 됩니다.</em>
+        </div>
         <!-- 에러메시지 표시 영역 -->
         <div id="rrn2Error" class="error-text"></div>
         <!-- 실제 전송용 hidden 필드 (doPost용) -->
@@ -284,7 +287,7 @@
         ></textarea>
       </div>
 
-      <!-- 3. 결제 정보: 프로그램 선택 + 금액 계산 -->
+      <!-- 3. 결제 정보 -->
       <div class="section-title">3. 결제 정보</div>
 
       <!-- 프로그램 안내 이미지 -->
@@ -562,7 +565,7 @@
       rrn2View.style.borderColor = "#dadce0";
     });
 
-    // ✅ 주민등록번호 형식 유효성 검사 함수 (추가)
+    // ✅ 주민등록번호 형식 유효성 검사 함수
     function isValidRRN(rrn1, rrn2) {
       // 길이 및 숫자 체크
       if (rrn1.length !== 6 || rrn2.length !== 7) return false;
@@ -715,7 +718,7 @@
 
       const rrn2Val = rrn2Real;
 
-      // ✅ 형식 유효성 검사 추가
+      // 형식 유효성 검사
       if (!isValidRRN(rrn1Val, rrn2Val)) {
         rrn2Error.textContent = "실제 발급 형식과 다른 주민등록번호입니다. 다시 확인해주세요.";
         rrn2View.style.borderColor = "#d93025";
@@ -780,7 +783,7 @@
       const originalText = btn.textContent;
       btn.textContent = "전송 중...";
 
-      // 시트 전송용 FormData (phone은 이번 단계에서는 미수집 → 빈 값으로 보냄 또는 스킵 가능)
+      // 시트 전송용 FormData (phone은 이번 단계에서는 미수집 → 빈 값으로 보냄)
       const formData = new FormData();
       formData.append("name", name);
       formData.append("phone", "");  // 기존 시트 구조 유지용 (값은 공백)
@@ -807,7 +810,7 @@
         console.error("결제정보 전송 오류(전송은 시도됨):", err);
       }).finally(function() {
         alert(
-          "결제 및 배송 정보가 전달되었습니다.\n\n한의원 카톡으로 이동하면, '설문완료'하셨다고 꼭 알려주세요.\n\n상담실에서 내용을 확인한 뒤,\n결제 및 발송 관련 안내를 드리겠습니다."
+          "한의원 카톡으로 이동하면, '설문완료'하셨다고 꼭 알려주세요.\n\n상담실에서 내용을 확인한 뒤,\n결제 및 발송 관련 안내를 드리겠습니다."
         );
         btn.disabled = false;
         btn.textContent = originalText;
