@@ -329,6 +329,20 @@
                placeholder="예: 8 (kg 정도 빼고 싶어요)" />
       </div>
 
+      <!-- 새 문항: 희망 다이어트 기간 -->
+      <div class="field">
+        <div class="label">원하시는 희망 다이어트 기간</div>
+        <input type="text" id="diet_period" name="diet_period"
+               placeholder="예: 2주, 1달, 2달, 3달, 6달 등" />
+      </div>
+
+      <!-- 새 문항: 가능한 예산 범위 -->
+      <div class="field">
+        <div class="label">가능한 예산 범위</div>
+        <input type="text" id="budget_range" name="budget_range"
+               placeholder="예: 최대 10만원, 20~30만원 등" />
+      </div>
+
       <div class="field">
         <div class="label">지금 가장 걱정되는 부분</div>
         <textarea id="main_concern" name="main_concern"
@@ -347,14 +361,6 @@
           <label><input type="checkbox" name="consult_time" value="평일 저녁(5~8시)" /> 평일 저녁(5~8시)</label>
           <label><input type="checkbox" name="consult_time" value="주말/공휴일 오전" /> 주말/공휴일 오전</label>
           <label><input type="checkbox" name="consult_time" value="주말/공휴일 오후" /> 주말/공휴일 오후</label>
-        </div>
-      </div>
-
-      <div class="field">
-        <div class="label">희망 상담 방법</div>
-        <div class="inline-options">
-          <label><input type="radio" name="consult_type" value="전화" /> 전화</label>
-          <label><input type="radio" name="consult_type" value="영상통화" /> 영상통화</label>
         </div>
       </div>
 
@@ -437,10 +443,13 @@
       const dietExp   = getCheckedValues("diet_exp");
       const yoYo      = (document.querySelector('input[name="yo_yo"]:checked') || {}).value || "";
       const goalWeight = document.getElementById("goal_weight").value.trim();
+
+      const dietPeriod   = document.getElementById("diet_period").value.trim();
+      const budgetRange  = document.getElementById("budget_range").value.trim();
+
       const mainConcern = document.getElementById("main_concern").value.trim();
 
       const consultTimeList = getCheckedValues("consult_time");
-      const consultType     = (document.querySelector('input[name="consult_type"]:checked') || {}).value || "";
 
       const lines = [];
 
@@ -523,14 +532,21 @@
         }
       }
 
-      if (consultTimeList.length || consultType) {
+      if (consultTimeList.length) {
         lines.push("");
         lines.push(`■ 상담 희망`);
-        if (consultTimeList.length) {
-          lines.push(`- 시간대: ${consultTimeList.join(", ")}`);
+        lines.push(`- 시간대: ${consultTimeList.join(", ")}`);
+      }
+
+      // 새 문항: 항상 요약의 마지막에 배치
+      if (dietPeriod || budgetRange) {
+        lines.push("");
+        lines.push(`■ 다이어트 기간 & 예산`);
+        if (dietPeriod) {
+          lines.push(`- 희망 기간: ${dietPeriod}`);
         }
-        if (consultType) {
-          lines.push(`- 희망 상담 방법: ${consultType}`);
+        if (budgetRange) {
+          lines.push(`- 가능 예산: ${budgetRange}`);
         }
       }
 
@@ -615,7 +631,7 @@
       });
 
       alert(
-        "복사되었습니다.\n해당 요약 복사내용을\n병원 카카오톡에 \n바로 붙여넣기(ctrl+v) 해주시면,\n원장님 상담예약을 도와드리겠습니다."
+        "응답 요약이 복사되었습니다.\n\n카카오톡 채팅창이 열리면, 바로 붙여넣기(길게 누르기 또는 Ctrl+V) 하신 뒤, 보내주시면 됩니다."
       );
 
       btn.disabled = false;
