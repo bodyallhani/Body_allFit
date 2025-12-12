@@ -144,7 +144,6 @@
       padding-top: 2px;
     }
 
-    /* 3. 프로그램 선택/금액/택배비용 표시용 스타일 */
     .image-wrapper {
       text-align: center;
       margin: 8px 0 10px;
@@ -219,8 +218,6 @@
         />
       </div>
 
-      <!-- 연락처 문항 삭제 완료 -->
-
       <div class="field">
         <div class="label">주민등록번호 <span class="required">*</span></div>
         <div class="rrn-row">
@@ -233,19 +230,17 @@
           />
           <span class="rrn-dash">-</span>
           <input
-            type="tel"
+            type="text"
             id="rrn2_view"
             inputmode="numeric"
-            maxlength="7"
+            autocomplete="off"
             placeholder="뒤 7자리"
           />
         </div>
         <div class="small-hint">
           <em>주민등록번호는, <strong>환자차트 작성</strong>과 <strong>바디올핏 처방을 위한 필수정보</strong>로만 쓰이게 됩니다.</em>
         </div>
-        <!-- 에러메시지 표시 영역 -->
         <div id="rrn2Error" class="error-text"></div>
-        <!-- 실제 전송용 hidden 필드 (doPost용) -->
         <input type="hidden" id="rrn1" name="rrn1" />
         <input type="hidden" id="rrn2" name="rrn2" />
       </div>
@@ -290,7 +285,6 @@
       <!-- 3. 결제 정보 -->
       <div class="section-title">3. 결제 정보</div>
 
-      <!-- 프로그램 안내 이미지 -->
       <div class="field">
         <div class="image-wrapper">
           <img
@@ -301,7 +295,6 @@
         </div>
       </div>
 
-      <!-- 프로그램 선택 -->
       <div class="field">
         <div class="label">
           희망 다이어트 프로그램을 선택해주세요. <span class="required">*</span>
@@ -380,11 +373,9 @@
         <div class="total-amount">
           총 결제 예상금액: <span id="totalAmountText">0원</span>
         </div>
-        <!-- 택배비 포함 총액 (시트 전송용) -->
         <input type="hidden" id="total_amount" name="total_amount" value="0" />
       </div>
 
-      <!-- 결제 방식 선택 -->
       <div class="field">
         <div class="label">결제 방식 <span class="required">*</span></div>
         <div class="inline-options">
@@ -396,7 +387,6 @@
         </div>
       </div>
 
-      <!-- 계좌이체 선택 시 노출 영역 -->
       <div id="bankBlock" class="hidden">
         <div class="field">
           <div class="label">입금자명</div>
@@ -435,7 +425,6 @@
         </div>
       </div>
 
-      <!-- 개인정보 동의 (최종 확인용) -->
       <div class="field">
         <div class="label">개인정보 수집·이용 동의</div>
         <div class="consent-box">
@@ -447,7 +436,6 @@
         </div>
       </div>
 
-      <!-- 단계 / 비대면 표시 -->
       <input type="hidden" name="formType" value="3차" />
       <input type="hidden" name="visit_mode" value="비대면" />
       <input type="hidden" name="consent" value="동의함" />
@@ -468,7 +456,6 @@
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzlKD52BulhyKf7fo_fZYGtNv2tYXcPCQcBTtYHKQObwoRMCaHPZt2NI8D1bPwqJRhTow/exec";
     const KAKAO_URL  = "https://pf.kakao.com/_wdtXK/chat";
 
-    // 결제 방식 선택 시 계좌이체 블럭 노출/숨김
     document.querySelectorAll('input[name="payment_method"]').forEach(function(radio) {
       radio.addEventListener("change", function() {
         const bankBlock = document.getElementById("bankBlock");
@@ -480,7 +467,6 @@
       });
     });
 
-    // 숫자만 추출 유틸
     function onlyDigits(value, maxLen) {
       const digits = (value || "").replace(/\D/g, "");
       return maxLen ? digits.slice(0, maxLen) : digits;
@@ -492,44 +478,90 @@
     const rrn2Hidden = document.getElementById("rrn2");
     const rrn2Error  = document.getElementById("rrn2Error");
 
-    // 앞 6자리: 숫자만
     rrn1View.addEventListener("input", function() {
       this.value = onlyDigits(this.value, 6);
     });
 
-    // 주민번호 뒷자리: 실제값과 표시값 분리 (input 이벤트 기반)
+    // ▼ 주민번호 뒷자리: keydown 기반 마스킹 처리
     let rrn2Real = "";
 
-    rrn2View.addEventListener("input", function() {
-      // 사용자가 입력한 값에서 숫자만 추출 (최대 7자리)
-      const digits = onlyDigits(rrn2View.value, 7);
-      rrn2Real = digits;
+    function maskDuringInput(digits) {
+      if (!digits) return "";
+      if (digits.length === 1) return digits;
+      const first = digits[0];
+      const last  = digits[digits.length - 1];
+      const middleMask = "*".repeat(digits.length - 2);
+      return first + middleMask + last;
+    }
 
-      if (!digits) {
+    function maskOnBlur(digits) {
+      if (!digits) return "";
+      return digits[0] + "*".repeat(digits.length - 1);
+    }
+
+    rrn2View.addEventListener("keydown", function(e) {
+      const key = e.key;
+
+      // 허용: Tab, 화살표 이동
+      if (key === "Tab" ||
+          key === "ArrowLeft" || key === "ArrowRight" ||
+          key === "ArrowUp"   || key === "ArrowDown") {
+        return;
+      }
+
+      // Backspace 처리
+      if (key === "Backspace") {
+        e.preventDefault();
+        if (rrn2Real.length > 0) {
+          rrn2Real = rrn2Real.slice(0, -1);
+        }
+        rrn2View.value = maskDuringInput(rrn2Real);
+        rrn2Hidden.value = rrn2Real;
+        if (!rrn2Real) {
+          rrn2Error.textContent = "";
+          rrn2View.style.borderColor = "#dadce0";
+        }
+        return;
+      }
+
+      // 숫자 입력
+      if (key.length === 1 && /\d/.test(key)) {
+        e.preventDefault();
+        if (rrn2Real.length >= 7) {
+          return; // 7자리 이상은 무시
+        }
+        rrn2Real += key;
+        rrn2View.value = maskDuringInput(rrn2Real);
+        rrn2Hidden.value = rrn2Real;
+        if (rrn2Error.textContent) {
+          rrn2Error.textContent = "";
+          rrn2View.style.borderColor = "#dadce0";
+        }
+        return;
+      }
+
+      // 그 외 입력(문자 등)은 차단
+      e.preventDefault();
+    });
+
+    rrn2View.addEventListener("paste", function(e) {
+      e.preventDefault();
+    });
+
+    rrn2View.addEventListener("drop", function(e) {
+      e.preventDefault();
+    });
+
+    rrn2View.addEventListener("blur", function() {
+      if (!rrn2Real) {
         rrn2View.value = "";
         rrn2Hidden.value = "";
         return;
       }
-
-      // 화면에는 첫 자리만 노출, 나머지는 마스킹
-      if (digits.length === 1) {
-        rrn2View.value = digits;
-      } else {
-        rrn2View.value = digits[0] + "*".repeat(digits.length - 1);
-      }
-
-      // 실제 값은 hidden에 그대로 저장
+      rrn2View.value = maskOnBlur(rrn2Real);
       rrn2Hidden.value = rrn2Real;
 
-      // 입력이 이뤄지면 에러 표시 초기화
-      if (rrn2Error.textContent) {
-        rrn2Error.textContent = "";
-        rrn2View.style.borderColor = "#dadce0";
-      }
-    });
-
-    rrn2View.addEventListener("blur", function() {
-      if (rrn2Real && rrn2Real.length !== 7) {
+      if (rrn2Real.length !== 7) {
         rrn2Error.textContent = "주민등록번호 뒷자리를 형식에 맞게 다시 적어주세요.";
         rrn2View.style.borderColor = "#d93025";
       }
@@ -537,16 +569,15 @@
 
     rrn2View.addEventListener("focus", function() {
       rrn2View.style.borderColor = "#dadce0";
+      rrn2Error.textContent = "";
+      rrn2View.value = maskDuringInput(rrn2Real);
     });
 
-    // ✅ 주민등록번호 형식 유효성 검사 함수
     function isValidRRN(rrn1, rrn2) {
-      // 길이 및 숫자 체크
       if (rrn1.length !== 6 || rrn2.length !== 7) return false;
       const rrn = rrn1 + rrn2;
       if (!/^\d{13}$/.test(rrn)) return false;
 
-      // 생년월일 + 성별코드 기반 연도 계산
       const yy = parseInt(rrn.substr(0, 2), 10);
       const mm = parseInt(rrn.substr(2, 2), 10);
       const dd = parseInt(rrn.substr(4, 2), 10);
@@ -558,7 +589,7 @@
       } else if ([3,4,7,8].includes(s7)) {
         year = 2000 + yy;
       } else {
-        return false; // 잘못된 성별/세대 코드
+        return false;
       }
 
       if (mm < 1 || mm > 12) return false;
@@ -568,10 +599,9 @@
         date.getMonth() !== mm - 1 ||
         date.getDate() !== dd
       ) {
-        return false; // 존재할 수 없는 날짜
+        return false;
       }
 
-      // 검증번호(체크섬) 확인
       const multipliers = [2,3,4,5,6,7,8,9,2,3,4,5];
       let sum = 0;
       for (let i = 0; i < 12; i++) {
@@ -582,7 +612,6 @@
       return check === lastDigit;
     }
 
-    // 프로그램 선택 → 총액 계산
     (function setupProgramCalc() {
       const programContainer = document.getElementById("programOptions");
       const totalAmountText = document.getElementById("totalAmountText");
@@ -599,7 +628,6 @@
           totalAmountInput.value = "0";
           return false;
         }
-        // 장해독 단독 선택 방지
         const mainPrograms = programArr.filter(v =>
           v.startsWith("4주(") ||
           v.startsWith("8주(") ||
@@ -637,7 +665,6 @@
           v.startsWith("12주(") || v.startsWith("요요2x") || v.startsWith("요요3x")
         );
 
-        // 4·8주만 있고 무료배송 프로그램이 없으면 택배비 4,000원 추가
         if (has4or8 && !hasFreeShip) {
           total += 4000;
         }
@@ -668,13 +695,11 @@
       const form = document.getElementById("form3");
       const btn  = document.getElementById("submitBtn3");
 
-      // HTML5 필수항목 검증 (rrn2_view는 pattern/required 안 걸려 있음)
       if (!form.checkValidity()) {
         form.reportValidity();
         return;
       }
 
-      // 주민번호 앞자리
       const rrn1Val = onlyDigits(rrn1View.value, 6);
       if (rrn1Val.length !== 6) {
         rrn1View.focus();
@@ -682,7 +707,6 @@
         return;
       }
 
-      // 주민번호 뒷자리: 실제값 기준 검증 (길이)
       if (!rrn2Real || rrn2Real.length !== 7) {
         rrn2Error.textContent = "주민등록번호 뒷자리를 형식에 맞게 다시 적어주세요.";
         rrn2View.style.borderColor = "#d93025";
@@ -692,7 +716,6 @@
 
       const rrn2Val = rrn2Real;
 
-      // 형식 유효성 검사
       if (!isValidRRN(rrn1Val, rrn2Val)) {
         rrn2Error.textContent = "실제 발급 형식과 다른 주민등록번호입니다. 다시 확인해주세요.";
         rrn2View.style.borderColor = "#d93025";
@@ -700,14 +723,12 @@
         return;
       }
 
-      // 검증 통과 시 에러 제거
       rrn2Error.textContent = "";
       rrn2View.style.borderColor = "#dadce0";
 
       rrn1Hidden.value = rrn1Val;
       rrn2Hidden.value = rrn2Val;
 
-      // 프로그램 선택 검증
       const programNodes = document.querySelectorAll('input[name="program"]:checked');
       const programArr = Array.from(programNodes).map(n => n.value);
       if (!programArr.length) {
@@ -715,7 +736,6 @@
         return;
       }
 
-      // 장해독 단독 방지 로직 한 번 더
       const mainPrograms = programArr.filter(v =>
         v.startsWith("4주(") ||
         v.startsWith("8주(") ||
@@ -750,24 +770,22 @@
       const consentHidden  = document.querySelector('input[name="consent"]').value || "동의함";
       const total_amount   = document.getElementById("total_amount").value.trim() || "0";
 
-      // 프로그램 명칭 요약 (시트용)
       const programSummary = programArr.join(", ");
 
       btn.disabled = true;
       const originalText = btn.textContent;
       btn.textContent = "전송 중...";
 
-      // 시트 전송용 FormData (phone은 이번 단계에서는 미수집 → 빈 값으로 보냄)
       const formData = new FormData();
       formData.append("name", name);
-      formData.append("phone", "");  // 기존 시트 구조 유지용 (값은 공백)
+      formData.append("phone", "");  // 시트 구조 유지용
       formData.append("rrn1", rrn1Val);
       formData.append("rrn2", rrn2Val);
       formData.append("ship_name", ship_name);
       formData.append("ship_phone", ship_phone);
       formData.append("ship_address", ship_address);
-      formData.append("program", programSummary);       // 선택 프로그램 요약
-      formData.append("total_amount", total_amount);    // 택배비 포함 총액
+      formData.append("program", programSummary);
+      formData.append("total_amount", total_amount);
       formData.append("payment_method", payment_method);
       formData.append("depositor_name", depositor_name);
       formData.append("receipt_type", receipt_type);
