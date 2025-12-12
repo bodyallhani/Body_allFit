@@ -102,6 +102,13 @@
       margin-top: 6px;
       line-height: 1.5;
     }
+    .consent-row {
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+    }
     button {
       width: 100%;
       margin-top: 16px;
@@ -425,14 +432,19 @@
         </div>
       </div>
 
+      <!-- 개인정보 동의 -->
       <div class="field">
-        <div class="label">개인정보 수집·이용 동의</div>
+        <div class="label">개인정보 수집·이용 동의 <span class="required">*</span></div>
         <div class="consent-box">
           수집 항목: 성명, 연락처, 주민등록번호, 주소, 결제 및 배송 정보<br />
           이용 목적: 바디올핏 처방 및 결제, 택배 발송, 세무 신고를 위한 현금영수증 발급 등<br />
           보유 기간: 관련 법령에서 정한 기간 동안 보관 후 파기<br />
           이미 이전 단계에서 동의하신 내용을 바탕으로 진행되며,<br />
           추가적인 활용은 위 목적에 한정됩니다.
+        </div>
+        <div class="consent-row">
+          <input type="checkbox" id="final_consent" />
+          <label for="final_consent"><strong>위 내용에 동의합니다.</strong></label>
         </div>
       </div>
 
@@ -477,12 +489,13 @@
     const rrn1Hidden = document.getElementById("rrn1");
     const rrn2Hidden = document.getElementById("rrn2");
     const rrn2Error  = document.getElementById("rrn2Error");
+    const finalConsent = document.getElementById("final_consent");
 
     rrn1View.addEventListener("input", function() {
       this.value = onlyDigits(this.value, 6);
     });
 
-    // ▼ 주민번호 뒷자리: 모바일 호환 input 기반 마스킹
+    // 주민번호 뒷자리: 모바일 호환 input 기반 마스킹
     let rrn2Real = "";
 
     function maskDuringInput(digits) {
@@ -504,7 +517,6 @@
       const data = e.data;
 
       if (inputType === "deleteContentBackward" || inputType === "deleteContentForward") {
-        // 뒤에서 1자리 삭제
         rrn2Real = rrn2Real.slice(0, -1);
       } else if (inputType === "insertText" || inputType === "insertCompositionText") {
         if (data && /\d/.test(data) && rrn2Real.length < 7) {
@@ -514,7 +526,6 @@
         const digits = (rrn2View.value || "").replace(/\D/g, "").slice(0, 7);
         rrn2Real = digits;
       } else {
-        // 그 외 타입은 현재 value에서 숫자만 추려서 동기화
         const digits = (rrn2View.value || "").replace(/\D/g, "").slice(0, 7);
         rrn2Real = digits;
       }
@@ -552,7 +563,6 @@
       rrn2View.value = maskDuringInput(rrn2Real);
     });
 
-    // 붙여넣기·드래그 입력 차단 (강제 digits만)
     rrn2View.addEventListener("paste", function(e) {
       e.preventDefault();
     });
@@ -560,6 +570,7 @@
       e.preventDefault();
     });
 
+    // ▶ 주민번호 유효성 검사: 길이 + 날짜 + 7번째 자리(성별/세대 코드)만 검사, 체크섬은 제외
     function isValidRRN(rrn1, rrn2) {
       if (rrn1.length !== 6 || rrn2.length !== 7) return false;
       const rrn = rrn1 + rrn2;
@@ -576,7 +587,7 @@
       } else if ([3,4,7,8].includes(s7)) {
         year = 2000 + yy;
       } else {
-        return false;
+        return false; // 잘못된 성별/세대 코드
       }
 
       if (mm < 1 || mm > 12) return false;
@@ -586,17 +597,11 @@
         date.getMonth() !== mm - 1 ||
         date.getDate() !== dd
       ) {
-        return false;
+        return false; // 존재할 수 없는 날짜
       }
 
-      const multipliers = [2,3,4,5,6,7,8,9,2,3,4,5];
-      let sum = 0;
-      for (let i = 0; i < 12; i++) {
-        sum += parseInt(rrn.charAt(i), 10) * multipliers[i];
-      }
-      const check = (11 - (sum % 11)) % 10;
-      const lastDigit = parseInt(rrn.charAt(12), 10);
-      return check === lastDigit;
+      // 체크섬 검사는 제거 → 형식만 검사
+      return true;
     }
 
     (function setupProgramCalc() {
@@ -684,6 +689,13 @@
 
       if (!form.checkValidity()) {
         form.reportValidity();
+        return;
+      }
+
+      // 개인정보 동의 체크
+      if (!finalConsent.checked) {
+        alert("개인정보 수집·이용에 동의해주셔야 합니다.");
+        finalConsent.focus();
         return;
       }
 
