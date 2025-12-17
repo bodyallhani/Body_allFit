@@ -167,8 +167,8 @@
       절차에 따라, 카톡을 통해 상담예약을 잡아드리겠습니다.<br>
     <br>
       ★★★★필독★★★★★<br>
-      ★<strong>설문을 마친후, 카톡으로 '바디올핏' 이라고 보내주셔야 '상담예약이 완료'됩니다.</strong><br>
-      ★<strong>병원카톡</strong>은 마지막에 설문을 마치고 버튼을 누르면 <strong>자동으로 뜹니다.</strong><br>  
+      <strong>설문을 마친후, 카톡으로 '바디올핏' 이라고 보내주셔야 '상담예약이 완료'됩니다.</strong><br>
+      <strong>병원카톡</strong>은 마지막 하단의 '응답 전송 및 카톡연결' 버튼을 누르면 <strong>자동으로 뜹니다.</strong><br>  
     </div>
 
     <form id="leadForm">
@@ -276,7 +276,7 @@
         * 맨밑에, 상담 가능시간 참고해주세요. <br />
       </div>
 
-      <button type="submit" id="submitBtn">응답 전송하기</button>
+      <button type="submit" id="submitBtn">응답전송 및 카톡연결</button>
 
       <div class="hours-box">
         <div class="hours-title">[상담 가능 시간 안내]</div>
@@ -373,7 +373,7 @@
 
       const btn = document.getElementById("submitBtn");
       btn.disabled = true;
-      btn.textContent = "전송 중...";
+      btn.textContent = "전송중...";
 
       const formData = new FormData();
       formData.append("name", name);
