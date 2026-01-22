@@ -399,6 +399,20 @@
           />
         </div>
 
+        <!-- 연락처 (2번 코드에서 추가) -->
+        <div class="field">
+          <label class="label" for="phone">
+            연락처 <span class="required">*</span>
+          </label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            required
+            placeholder="예: 010-1234-5678"
+          />
+        </div>
+
         <div class="divider"></div>
 
         <!-- 알게된 경로 -->
@@ -578,10 +592,12 @@
       resultEl.classList.add("show");
     });
 
+    // 폼 제출 (2번 코드의 연락처 검증 포함)
     document.getElementById("leadForm").addEventListener("submit", function (e) {
       e.preventDefault();
 
       const name     = document.getElementById("name").value.trim();
+      const phone    = document.getElementById("phone").value.trim();
       const referrer = document.getElementById("referrer").value.trim();
       const memo     = document.getElementById("memo").value.trim();
       const desiredPeriod = document.getElementById("desiredPeriod").value;
@@ -589,6 +605,10 @@
 
       if (!name) {
         alert("이름을 입력해주세요.");
+        return;
+      }
+      if (!phone) {
+        alert("연락처를 입력해주세요.");
         return;
       }
       if (!consentChecked) {
@@ -602,6 +622,7 @@
 
       const formData = new FormData();
       formData.append("name", name);
+      formData.append("phone", phone);
       formData.append("referrer", referrer);
       formData.append("memo", memo);
       formData.append("consent", "동의함");
