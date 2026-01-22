@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>바디올핏 DIET</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    * { 
+      box-sizing: border-box; 
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, "Noto Sans KR", sans-serif;
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      color: #212529;
+      padding: 20px 16px 60px;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    /* Header Card */
+    .header-card {
+      background: #ffffff;
+      padding: 28px 24px;
+      border-radius: 16px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      margin-bottom: 16px;
+      text-align: center;
+      border-top: 4px solid #2c5aa0;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #2c5aa0;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: #495057;
+    }
+
+    .subtitle strong {
+      color: #2c5aa0;
+      font-weight: 600;
+    }
+
+    .notice-box {
+      background: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 12px 14px;
+      border-radius: 8px;
+      margin-top: 16px;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      color: #856404;
+    }
+
+    .notice-box strong {
+      display: block;
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+
+    /* Form Card */
+    .form-card {
+      background: #ffffff;
+      padding: 28px 24px 32px;
+      border-radius: 16px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .field {
+      margin-bottom: 24px;
+    }
+
+    .label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #343a40;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .required {
+      color: #dc3545;
+      margin-left: 2px;
+    }
+
+    input[type="text"],
+    input[type="tel"],
+    input[type="number"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 8px;
+      border: 1.5px solid #dee2e6;
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+      background: #f8f9fa;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      font-size: 0.85rem;
+      color: #adb5bd;
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+      font-family: inherit;
+    }
+
+    input:focus, 
+    textarea:focus, 
+    select:focus {
+      outline: none;
+      border-color: #2c5aa0;
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(44, 90, 160, 0.1);
+    }
+
+    /* Consent Section */
+    .consent-section {
+      background: #f1f7ff;
+      border: 1.5px solid #cfe2ff;
+      padding: 16px;
+      border-radius: 12px;
+      margin-top: 8px;
+    }
+
+    .consent {
+      font-size: 0.8rem;
+      line-height: 1.6;
+      color: #495057;
+    }
+
+    .consent-row {
+      margin-top: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .consent-row input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+      accent-color: #2c5aa0;
+    }
+
+    .consent-row label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #212529;
+      cursor: pointer;
+    }
+
+    /* Submit Button */
+    button {
+      width: 100%;
+      margin-top: 24px;
+      padding: 16px 0;
+      border-radius: 12px;
+      border: none;
+      background: linear-gradient(135deg, #2c5aa0 0%, #1e4078 100%);
+      color: #ffffff;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(44, 90, 160, 0.3);
+      letter-spacing: -0.01em;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(44, 90, 160, 0.4);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: #e9ecef;
+      margin: 24px 0;
+    }
+
+    /* Responsive Design */
+    @media (min-width: 1024px) {
+      body {
+        padding: 40px 20px 80px;
+      }
+
+      .header-card {
+        padding: 36px 32px;
+      }
+
+      .form-card {
+        padding: 36px 32px 40px;
+      }
+
+      h1 {
+        font-size: 1.75rem;
+      }
+
+      .subtitle {
+        font-size: 1rem;
+      }
+
+      button {
+        padding: 18px 0;
+        font-size: 1.05rem;
+      }
+    }
+
+    /* Accessibility */
+    *:focus-visible {
+      outline: 2px solid #2c5aa0;
+      outline-offset: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header Section -->
+    <div class="header-card">
+      <h1>바디올핏 간편 DIET</h1>
+      <div class="subtitle">
+        아래 설문을 간단히 남겨주시면,<br />
+        절차에 따라, 카톡을 통해 상담예약을 잡아드리겠습니다.
+      </div>
+      <div class="notice-box">
+        <strong>★★★★ 필독 ★★★★</strong>
+        설문을 마친 후, 병원카톡으로 <strong>'바디올핏'</strong> 이라고 보내주셔야 <strong>상담예약이 완료</strong>됩니다.<br>
+        병원카톡은 마지막 하단의 '응답 전송 및 카톡연결' 버튼을 누르면, 자동으로 뜹니다.
+      </div>
+    </div>
+
+    <!-- Form Section -->
+    <div class="form-card">
+      <form id="leadForm">
+        <!-- 이름 -->
+        <div class="field">
+          <label class="label" for="name">
+            이름 <span class="required">*</span>
+          </label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            placeholder="실명을 적어주셔야 상담이 원활히 진행됩니다. 예: 장원영"
+          />
+        </div>
+
+        <!-- 연락처 -->
+        <div class="field">
+          <label class="label" for="phone">
+            연락처 <span class="required">*</span>
+          </label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            required
+            placeholder="예: 010-1234-5678"
+          />
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- 알게된 경로 -->
+        <div class="field">
+          <label class="label" for="referrer">
+            어떻게 바디올핏을 알게되셨나요? (선택)
+          </label>
+          <input
+            type="text"
+            id="referrer"
+            name="referrer"
+            placeholder="예: 인스타 광고, 지인 소개, 블로그, 유튜브 등"
+          />
+        </div>
+
+        <!-- 현재 가장 걱정되는 점 -->
+        <div class="field">
+          <label class="label" for="memo">
+            지금 가장 걱정되는 점 (선택)
+          </label>
+          <textarea
+            id="memo"
+            name="memo"
+            placeholder="한 줄만 적어주셔도 좋습니다. 예: 요요가 너무 심해요 / 야식 때문에 체중이 안 빠져요"
+          ></textarea>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- 개인정보 동의 -->
+        <div class="field">
+          <label class="label">
+            개인정보 수집·이용 동의 <span class="required">*</span>
+          </label>
+          <div class="consent-section">
+            <div class="consent">
+              수집 항목: 성명, 다이어트 관련 간단한 메모, (선택) 바디올핏 인지 경로, 원하는 감량기간<br />
+              이용 목적: 바디올핏 다이어트 상담 및 추가 문진표 등의 안내<br />
+              보유 기간: 상담 종료 후 최대 5년(관련 법령 내)<br />
+              동의를 거부하실 수 있으나, 이 경우, 진료상담 및 처방이 어렵습니다.
+            </div>
+            <div class="consent-row">
+              <input type="checkbox" id="consent" />
+              <label for="consent">위 내용에 동의합니다.</label>
+            </div>
+          </div>
+        </div>
+
+        <input type="hidden" name="formType" value="1차" />
+        <input type="hidden" name="visit_mode" value="비대면" />
+
+        <button type="submit" id="submitBtn">응답전송 및 카톡연결</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzlKD52BulhyKf7fo_fZYGtNv2tYXcPCQcBTtYHKQObwoRMCaHPZt2NI8D1bPwqJRhTow/exec";
+    const KAKAO_URL  = "https://pf.kakao.com/_wdtXK/chat";
+
+    document.getElementById("leadForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const name  = document.getElementById("name").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const referrer = document.getElementById("referrer").value.trim();
+      const memo = document.getElementById("memo").value.trim();
+      const consentChecked = document.getElementById("consent").checked;
+
+      if (!name) {
+        alert("이름을 입력해주세요.");
+        return;
+      }
+      if (!phone) {
+        alert("연락처를 입력해주세요.");
+        return;
+      }
+      if (!consentChecked) {
+        alert("개인정보 수집·이용에 동의해주셔야 합니다.");
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("phone", phone);
+      formData.append("referrer", referrer);
+      formData.append("memo", memo);
+      formData.append("consent", "동의함");
+      formData.append("formType", "1차");
+      formData.append("visit_mode", "비대면");
+
+      fetch(SCRIPT_URL, {
+        method: "POST",
+        body: formData,
+        mode: "no-cors"
+      }).finally(function () {
+        alert(
+          "이어지는 카카오채널 채팅창에 꼭\n'바디올핏' 이라고 메시지 보내주세요.\n\n곧 안내 도와드리겠습니다."
+        );
+        window.location.href = KAKAO_URL;
+      });
+    });
+  </script>
+</body>
+</html>
