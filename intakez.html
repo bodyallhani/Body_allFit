@@ -7,18 +7,17 @@
   <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/bodyallhani/gen-intake/main/bodyall.png">
   <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/bodyallhani/gen-intake/main/bodyall.png">
   <style>
-    /* 프리미엄 메디컬 디자인 시스템 */
+    /* 프리미엄 클리닉 디자인 시스템 */
     :root {
-      --bg: #f8fafc;
+      --bg: #f4f7f9;
       --card-bg: #ffffff;
-      --primary: #1e293b; /* 딥 네이비 */
-      --accent: #c29f5d;  /* 프리미엄 골드 */
-      --text-main: #334155;
-      --text-sub: #64748b;
-      --border: #e2e8f0;
-      --required: #ef4444;
+      --primary: #1e293b; 
+      --accent: #c29f5d;  
+      --text-main: #202124;
+      --text-sub: #5f6368;
+      --border: #dadce0;
+      --required: #d93025;
       --radius: 12px;
-      --input-bg: #fdfdfd;
     }
 
     * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
@@ -26,207 +25,94 @@
     body {
       margin: 0;
       padding: 20px 16px 120px;
-      font-family: "Pretendard Variable", Pretendard, -apple-system, system-ui, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", sans-serif;
       background: var(--bg);
       color: var(--text-main);
-      line-height: 1.6;
+      line-height: 1.5;
     }
 
-    .container {
-      max-width: 560px;
-      margin: 0 auto;
-    }
+    .container { max-width: 540px; margin: 0 auto; }
 
-    /* 헤더 영역 */
-    header {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-    .logo {
-      width: 60px;
-      margin-bottom: 12px;
-    }
-    h1 {
-      font-size: 1.4rem;
-      font-weight: 800;
-      color: var(--primary);
-      margin: 0 0 8px;
-      letter-spacing: -0.5px;
-    }
-    .subtitle {
-      font-size: 0.95rem;
-      color: var(--text-sub);
-      word-break: keep-all;
-    }
+    header { text-align: center; margin-bottom: 25px; }
+    .logo { width: 50px; margin-bottom: 10px; }
+    h1 { font-size: 1.3rem; font-weight: 800; color: var(--primary); margin: 0 0 6px; }
+    .subtitle { font-size: 0.9rem; color: var(--text-sub); word-break: keep-all; }
 
-    /* 카드/섹션 스타일 */
     .section-card {
       background: var(--card-bg);
-      padding: 28px 24px;
+      padding: 24px 20px;
       border-radius: var(--radius);
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-      margin-bottom: 24px;
-      border: 1px solid var(--border);
+      box-shadow: 0 1px 3px rgba(60, 64, 67, 0.2);
+      margin-bottom: 20px;
     }
 
     .section-title {
-      font-size: 1.1rem;
-      font-weight: 800;
+      font-size: 1rem;
+      font-weight: 700;
       color: var(--primary);
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .section-title::before {
-      content: '';
-      display: block;
-      width: 4px;
-      height: 18px;
-      background: var(--accent);
-      border-radius: 2px;
+      margin-bottom: 18px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
     }
 
-    /* 필드 스타일 */
-    .field {
-      margin-bottom: 24px;
-    }
+    .field { margin-bottom: 22px; }
     .field:last-child { margin-bottom: 0; }
     
-    .label {
+    .label { font-size: 0.9rem; font-weight: 600; margin-bottom: 6px; }
+    .required { color: var(--required); margin-left: 2px; }
+    .small-hint { font-size: 0.8rem; color: var(--text-sub); margin-top: 4px; line-height: 1.4; }
+
+    input[type="text"], input[type="tel"], input[type="number"], textarea, select {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
       font-size: 0.95rem;
-      font-weight: 700;
-      margin-bottom: 8px;
-      color: var(--primary);
+      background: #fafafa;
     }
-    .required {
-      color: var(--required);
-      margin-left: 2px;
-    }
-    .field-desc {
-      font-size: 0.85rem;
-      color: var(--text-sub);
-      margin-bottom: 10px;
-      line-height: 1.4;
-    }
+    input:focus, textarea:focus { outline: none; border-color: #1a73e8; background: #fff; }
 
-    /* 입력 요소 */
-    input[type="text"],
-    input[type="tel"],
-    input[type="number"],
-    textarea,
-    select {
-      width: 100%;
-      padding: 12px 14px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      background: var(--input-bg);
-      font-size: 1rem;
-      transition: all 0.2s;
-    }
-    input:focus, textarea:focus, select:focus {
-      outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(194, 159, 93, 0.1);
-    }
+    .inline-options { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 6px; }
+    label { display: inline-flex; align-items: center; gap: 5px; font-size: 0.88rem; cursor: pointer; }
+    input[type="radio"], input[type="checkbox"] { width: 17px; height: 17px; accent-color: var(--accent); }
 
-    /* 선택지 옵션 (버튼 느낌) */
-    .options-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 10px;
-      margin-top: 8px;
-    }
-    .inline-options {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px 16px;
-      margin-top: 8px;
-    }
-    label {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.9rem;
-      cursor: pointer;
-    }
-    input[type="radio"], input[type="checkbox"] {
-      width: 18px;
-      height: 18px;
-      accent-color: var(--accent);
-    }
+    .image-wrapper { text-align: center; margin-bottom: 15px; border-radius: 8px; overflow: hidden; }
+    .image-wrapper img { max-width: 100%; display: block; }
 
-    /* 안내 이미지 */
-    .image-wrapper {
-      margin: 10px 0 20px;
-      border-radius: 8px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-    }
-    .image-wrapper img {
-      width: 100%;
-      display: block;
-    }
-
-    /* 특수 박스 */
     .highlight-box {
-      background: #fffcf5;
-      border-left: 4px solid var(--accent);
-      padding: 16px;
-      border-radius: 8px;
-      margin: 15px 0;
-      font-size: 0.88rem;
-      color: #7c5e20;
-    }
-    .consent-box {
-      background: #f1f5f9;
-      padding: 16px;
-      border-radius: 8px;
+      background: #fdf2f2;
+      border-left: 4px solid var(--required);
+      padding: 14px;
+      border-radius: 6px;
       font-size: 0.82rem;
-      color: var(--text-sub);
-      border: 1px solid var(--border);
+      color: #3c4043;
+      margin: 12px 0;
     }
 
-    /* 금액 표시 */
-    .total-display {
+    .total-amount-box {
+      margin-top: 15px;
+      padding: 15px;
       background: var(--primary);
+      border-radius: 10px;
       color: #fff;
-      padding: 20px;
-      border-radius: 12px;
       text-align: center;
-      margin-top: 20px;
     }
-    .total-display .amount-label { font-size: 0.9rem; opacity: 0.8; }
-    .total-display .amount-value { font-size: 1.5rem; font-weight: 800; color: #fff; }
-    .total-display span { color: var(--accent); }
+    .total-amount-box span { color: var(--accent); font-size: 1.4rem; font-weight: 800; }
 
-    /* 버튼 */
     #allInOneBtn {
-      background: var(--primary);
+      width: 100%;
+      background: #1a73e8;
       color: #fff;
       border: none;
-      padding: 18px;
-      border-radius: var(--radius);
-      font-size: 1.1rem;
-      font-weight: 800;
-      cursor: pointer;
-      width: 100%;
-      margin-top: 30px;
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-      transition: transform 0.2s;
-    }
-    #allInOneBtn:active { transform: scale(0.98); }
-    #allInOneBtn:disabled { background: #cbd5e1; }
-
-    .hint-step {
-      font-size: 0.85rem;
-      background: #fff;
-      padding: 12px;
+      padding: 16px;
       border-radius: 8px;
-      border: 1px dashed var(--accent);
-      margin-bottom: 20px;
-      color: var(--primary);
+      font-size: 1.05rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 25px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
+    #allInOneBtn:disabled { opacity: 0.5; }
 
     .hidden { display: none; }
   </style>
@@ -235,26 +121,25 @@
 
 <div class="container">
   <header>
-    <img class="logo" src="https://raw.githubusercontent.com/bodyallhani/gen-intake/main/bodyall.png" alt="로고">
-    <h1>바디올핏 다이어트 문진표</h1>
-    <p class="subtitle">개개인의 건강 상태에 맞춘 정밀한 처방을 위해<br>아래 문항을 꼼꼼히 작성해 주세요.</p>
+    <img class="logo" src="https://raw.githubusercontent.com/bodyallhani/gen-intake/main/bodyall.png" alt="logo">
+    <h1>바디올핏 다이어트 문진표 (대면용)</h1>
+    <div class="subtitle">대면 진료 전, 처방에 필요한 정보를 정리하는 단계입니다.</div>
   </header>
 
   <form id="faceForm">
     <div class="section-card">
-      <div class="section-title">기본 인적 사항</div>
-      <div class="image-wrapper">
-        <img src="img1.jpg" alt="바디올핏 안내">
-      </div>
-
+      <div class="section-title">1. 기본 정보</div>
+      <div class="image-wrapper"><img src="img1.jpg" alt="안내"></div>
+      
       <div class="field">
         <div class="label">이름 <span class="required">*</span></div>
-        <input type="text" id="name" name="name" required placeholder="예: 장원영" />
+        <input type="text" id="name" name="name" required placeholder="'실명'으로 써주세요. 예: 장원영" />
       </div>
 
       <div class="field">
-        <div class="label">생년월일 (앞 6자리) <span class="required">*</span></div>
+        <div class="label">생년월일 (주민번호 앞 6자리) <span class="required">*</span></div>
         <input type="text" id="rrn1" name="rrn1" inputmode="numeric" pattern="\d{6}" maxlength="6" required placeholder="예: 950101" />
+        <div class="small-hint">주민등록번호 앞 6자리(YYMMDD)를 숫자만 입력해주세요.</div>
       </div>
 
       <div class="field">
@@ -267,41 +152,44 @@
       </div>
 
       <div class="field">
-        <div class="label">키(cm) / 현재 체중(kg) <span class="required">*</span></div>
-        <div style="display:flex; gap:10px;">
-          <input type="number" id="height" name="height" required placeholder="키" />
-          <input type="number" id="weight" name="weight" required placeholder="체중" />
+        <div class="label">키 / 현재 체중 <span class="required">*</span></div>
+        <div style="display:flex; gap:8px;">
+          <input type="number" id="height" name="height" required placeholder="키 (cm)" />
+          <input type="number" id="weight" name="weight" required placeholder="체중 (kg)" />
         </div>
       </div>
 
       <div class="field">
-        <div class="label">직업 및 활동량</div>
-        <input type="text" id="job" name="job" placeholder="예: 사무직, 전업주부 등" style="margin-bottom:10px;" />
+        <div class="label">직업 (또는 주된 생활 패턴)</div>
+        <input type="text" id="job" name="job" placeholder="예: 사무직, 전업주부, 학생 등" />
+      </div>
+
+      <div class="field">
+        <div class="label">하루 활동량 (복수 선택 가능)</div>
         <div class="inline-options">
-          <label><input type="checkbox" name="activity" value="좌식 생활" /> 대부분 앉아있음</label>
-          <label><input type="checkbox" name="activity" value="활동적" /> 서거나 걷는 편</label>
-          <label><input type="checkbox" name="activity" value="강도 높음" /> 활동량 매우 많음</label>
+          <label><input type="checkbox" name="activity" value="대부분 앉아서 지냄" /> 앉아서 지냄</label>
+          <label><input type="checkbox" name="activity" value="서있거나 많이 걷는 편" /> 많이 걷는 편</label>
+          <label><input type="checkbox" name="activity" value="육체노동/강도 높은 활동 많음" /> 강도 높은 활동</label>
         </div>
       </div>
     </div>
 
     <div class="section-card">
-      <div class="section-title">생활 습관 지표</div>
+      <div class="section-title">2. 수면 & 음주</div>
       <div class="field">
-        <div class="label">수면 패턴</div>
+        <div class="label">수면 상태</div>
         <div class="inline-options">
-          <label><input type="checkbox" name="sleep" value="입면 곤란" /> 잠들기 힘듦</label>
-          <label><input type="checkbox" name="sleep" value="잦은 각성" /> 자주 깸</label>
-          <label><input type="checkbox" name="sleep" value="기상 후 피로" /> 자도 피곤함</label>
-          <label><input type="checkbox" name="sleep" value="양호" /> 문제 없음</label>
+          <label><input type="checkbox" name="sleep" value="잠들기 어렵다" /> 잠들기 어려움</label>
+          <label><input type="checkbox" name="sleep" value="자주 깬다" /> 자주 깸</label>
+          <label><input type="checkbox" name="sleep" value="자고 일어나도 피곤하다" /> 기상 후 피곤</label>
+          <label><input type="checkbox" name="sleep" value="큰 문제 없다" /> 문제 없음</label>
         </div>
       </div>
-
       <div class="field">
         <div class="label">음주 빈도</div>
         <select id="drink" name="drink">
           <option value="">선택하세요</option>
-          <option value="거의 안 마심">거의 안 마심</option>
+          <option value="거의 안 마신다">거의 안 마신다</option>
           <option value="주 1~3회">주 1~3회</option>
           <option value="주 4회 이상">주 4회 이상</option>
         </select>
@@ -309,122 +197,125 @@
     </div>
 
     <div class="section-card">
-      <div class="section-title">건강 및 기왕력</div>
+      <div class="section-title">3. 질환 / 복용약</div>
       <div class="field">
-        <div class="label">진단받은 질환</div>
-        <div class="options-grid">
+        <div class="label">현재 진단받은 질환 (중복 가능)</div>
+        <div class="inline-options">
           <label><input type="checkbox" name="disease" value="고혈압" /> 고혈압</label>
           <label><input type="checkbox" name="disease" value="당뇨" /> 당뇨</label>
-          <label><input type="checkbox" name="disease" value="심장" /> 심장질환</label>
-          <label><input type="checkbox" name="disease" value="갑상선" /> 갑상선</label>
-          <label><input type="checkbox" name="disease" value="정신과" /> 정신과</label>
-          <label><input type="checkbox" name="disease_none" value="해당없음" /> 해당 없음</label>
+          <label><input type="checkbox" name="disease" value="심장질환" /> 심장질환</label>
+          <label><input type="checkbox" name="disease" value="갑상선질환" /> 갑상선</label>
+          <label><input type="checkbox" name="disease" value="간/신장질환" /> 간/신장</label>
+          <label><input type="checkbox" name="disease" value="정신과 진료 중" /> 정신과</label>
+          <label><input type="checkbox" name="disease_none" value="해당 없음" /> 해당 없음</label>
         </div>
-        <textarea id="disease_etc" name="disease_etc" placeholder="기타 질환이 있다면 적어주세요." style="margin-top:10px;"></textarea>
+        <textarea id="disease_etc" name="disease_etc" placeholder="기타 질환 내용 적기" style="margin-top:8px; height:60px;"></textarea>
       </div>
 
       <div class="field">
-        <div class="label">복용 중인 약</div>
-        <div class="field-desc">처방 불가 약물 포함 여부 확인을 위해 상세히 적어주세요.</div>
+        <div class="label">현재 복용 중인 약</div>
         <div class="inline-options">
           <label><input type="checkbox" name="med" value="혈압약" /> 혈압약</label>
           <label><input type="checkbox" name="med" value="당뇨약" /> 당뇨약</label>
           <label><input type="checkbox" name="med" value="갑상선약" /> 갑상선약</label>
-          <label><input type="checkbox" name="med_none" value="없음" /> 없음</label>
+          <label><input type="checkbox" name="med_none" value="복용약 없음" /> 없음</label>
         </div>
-        <textarea id="med_etc" name="med_etc" placeholder="약 이름을 모르셔도 대략 어떤 용도인지 적어주세요." style="margin-top:10px;"></textarea>
+        <textarea id="med_etc" name="med_etc" style="margin-top:8px; height:100px;" placeholder="약 이름을 정확히 모르셔도 대략 어떤 약인지 적어주세요.
+*다이어트 처방 불가 약물류) 암페타민류, 독세---- , --프라민, 노르트-----, 클로니딘류, 코데인류, 테오필린류, 신지로이드류, 아스피린 정기복용 등"></textarea>
       </div>
 
       <div class="field" id="femaleBlock">
-        <div class="label">부인과 관련 (여성 해당)</div>
+        <div class="label">임신·출산·수유 관련 (여성 해당)</div>
         <div class="inline-options">
-          <label><input type="radio" name="preg" value="임신 준비" /> 임신 준비</label>
+          <label><input type="radio" name="preg" value="임신 준비 중" /> 임신 준비</label>
           <label><input type="radio" name="preg" value="임신 중" /> 임신 중</label>
-          <label><input type="radio" name="preg" value="수유 중" /> 수유 중</label>
-          <label><input type="radio" name="preg" value="해당없음" /> 해당 없음</label>
+          <label><input type="radio" name="preg" value="수유 중/예정" /> 수유 중</label>
+          <label><input type="radio" name="preg" value="해당 없음" /> 해당 없음</label>
         </div>
       </div>
     </div>
 
     <div class="section-card">
-      <div class="section-title">다이어트 목표</div>
+      <div class="section-title">4. 다이어트 경험 & 목표</div>
       <div class="field">
-        <div class="label">다이어트 경험</div>
+        <div class="label">이전에 해보신 다이어트</div>
         <div class="inline-options">
-          <label><input type="checkbox" name="diet_exp" value="운동" /> 운동</label>
-          <label><input type="checkbox" name="diet_exp" value="식단" /> 식단</label>
-          <label><input type="checkbox" name="diet_exp" value="한약" /> 한약</label>
-          <label><input type="checkbox" name="diet_exp" value="양약" /> 양약</label>
+          <label><input type="checkbox" name="diet_exp" value="운동 위주" /> 운동</label>
+          <label><input type="checkbox" name="diet_exp" value="식단 위주" /> 식단</label>
+          <label><input type="checkbox" name="diet_exp" value="다이어트 한약" /> 한약</label>
+          <label><input type="checkbox" name="diet_exp" value="다이어트 양약" /> 양약</label>
+          <label><input type="checkbox" name="diet_exp" value="거의 해본 적 없음" /> 없음</label>
         </div>
       </div>
       <div class="field">
-        <div class="label">요요 경험 여부</div>
+        <div class="label">요요 경험</div>
         <div class="inline-options">
-          <label><input type="radio" name="yo_yo" value="유" /> 경험 있음</label>
-          <label><input type="radio" name="yo_yo" value="무" /> 경험 없음</label>
+          <label><input type="radio" name="yo_yo" value="요요 경험 있다" /> 있음</label>
+          <label><input type="radio" name="yo_yo" value="요요 경험 거의 없다" /> 없음</label>
         </div>
       </div>
       <div class="field">
-        <div class="label">목표 감량 (kg)</div>
-        <input type="number" id="goal_weight" name="goal_weight" placeholder="예: 8" />
+        <div class="label">목표감량 kg수</div>
+        <input type="number" id="goal_weight" name="goal_weight" placeholder="예: 8 (kg)" />
       </div>
+
       <div class="field">
-        <div class="label">고민되는 지점</div>
-        <textarea id="main_concern" name="main_concern" placeholder="예: 요요, 폭식, 정체기 등"></textarea>
+        <div class="label">가능한 예산 범위</div>
+        <input type="text" id="budget_range" name="budget_range" placeholder="예: 최대 10만원, 20~30만원 등" />
+      </div>
+
+      <div class="field">
+        <div class="label">지금 가장 걱정되는 부분</div>
+        <textarea id="main_concern" name="main_concern" placeholder="예: 요요, 폭식, 체력 저하 걱정 등"></textarea>
       </div>
     </div>
 
     <div class="section-card">
-      <div class="section-title">프로그램 선택</div>
-      <div class="image-wrapper">
-        <img src="img3.jpg" alt="가격 안내">
-      </div>
-      
-      <div class="field" id="programOptions">
-        <div class="label">희망 프로그램 <span class="required">*</span></div>
-        <div class="field-desc">중복 선택 시 합계 금액이 하단에 표시됩니다.</div>
-        
-        <div style="font-weight:700; font-size:0.85rem; margin-bottom:8px; color:var(--accent);">[바디올핏 다이어트]</div>
-        <label style="display:block; margin-bottom:10px;"><input type="checkbox" name="program" value="4주(2+1)" /> 4주 (3통) - 98,000원</label>
-        <label style="display:block; margin-bottom:10px;"><input type="checkbox" name="program" value="8주(4+2)" /> 8주 (6통) - 187,000원</label>
-        <label style="display:block; margin-bottom:15px;"><input type="checkbox" name="program" value="12주(8+3)" /> 12주 (11통) - 317,000원</label>
-
-        <div style="font-weight:700; font-size:0.85rem; margin-bottom:8px; color:var(--accent);">[요요방지 6개월]</div>
-        <label style="display:block; margin-bottom:10px;"><input type="checkbox" name="program" value="요요2x(16+4)" /> Double(2x) 20통 - 547,000원</label>
-        <label style="display:block; margin-bottom:15px;"><input type="checkbox" name="program" value="요요3x(24+5)" /> Triplet(3x) 29통 - 752,000원</label>
-
-        <div style="font-weight:700; font-size:0.85rem; margin-bottom:8px; color:var(--accent);">[보조 요법]</div>
-        <label style="display:block; margin-bottom:10px;"><input type="checkbox" name="program" value="장해독1달(1통)" /> 장해독환 1달 - 10,000원</label>
-        <label style="display:block;"><input type="checkbox" name="program" value="장해독3달(3통)" /> 장해독환 3달 - 20,000원</label>
-      </div>
-
-      <div class="highlight-box">
-        <b>💡 필독:</b> 4·8주 프로그램은 택배비 4,000원이 추가되며, 12주/요요방지 프로그램은 무료배송입니다. (비대면 시 장해독환 단독 처방 불가)
-      </div>
-
-      <div class="total-display">
-        <div class="amount-label">최종 결제 예상금액</div>
-        <div class="amount-value"><span id="totalAmountText">0</span>원</div>
-      </div>
-      <input type="hidden" id="total_amount" name="total_amount" value="0" />
-    </div>
-
-    <div class="section-card">
-      <div class="section-title">수령 및 결제</div>
+      <div class="section-title">5. 택배 수령 정보</div>
       <div class="field">
         <div class="label">수령인 성함 <span class="required">*</span></div>
         <input type="text" id="ship_name" name="ship_name" required />
       </div>
       <div class="field">
-        <div class="label">연락처 <span class="required">*</span></div>
-        <input type="tel" id="ship_phone" name="ship_phone" required placeholder="하이픈 없이 숫자만" />
+        <div class="label">수령인 연락처 <span class="required">*</span></div>
+        <input type="tel" id="ship_phone" name="ship_phone" required placeholder="숫자만 입력" />
       </div>
       <div class="field">
-        <div class="label">배송 주소 <span class="required">*</span></div>
-        <textarea id="ship_address" name="ship_address" required></textarea>
+        <div class="label">택배 수령 주소 <span class="required">*</span></div>
+        <textarea id="ship_address" name="ship_address" required placeholder="지번/도로명 주소 및 상세주소"></textarea>
+      </div>
+    </div>
+
+    <div class="section-card">
+      <div class="section-title">6. 프로그램 선택 & 결제 정보</div>
+      <div class="image-wrapper"><img src="img3.jpg" alt="프로그램"></div>
+      
+      <div class="field" id="programOptions">
+        <div class="label">희망 다이어트 프로그램 <span class="required">*</span></div>
+        <div style="font-weight:700; color:var(--accent); font-size:0.85rem; margin-top:10px;">★ 다이어트 프로그램</div>
+        <label style="display:block; margin:8px 0;"><input type="checkbox" name="program" value="4주(2+1)" /> 4주 (2+1) - 98,000원</label>
+        <label style="display:block; margin:8px 0;"><input type="checkbox" name="program" value="8주(4+2)" /> 8주 (4+2) - 187,000원</label>
+        <label style="display:block; margin:8px 0;"><input type="checkbox" name="program" value="12주(8+3)" /> 12주 (8+3) - 317,000원</label>
+
+        <div style="font-weight:700; color:var(--accent); font-size:0.85rem; margin-top:15px;">☆ 요요방지 프로그램</div>
+        <label style="display:block; margin:8px 0;"><input type="checkbox" name="program" value="요요2x(16+4)" /> Double(2x) 20통 - 547,000원</label>
+        <label style="display:block; margin:8px 0;"><input type="checkbox" name="program" value="요요3x(24+5)" /> Triplet(3x) 29통 - 752,000원</label>
+
+        <div style="font-weight:700; color:var(--accent); font-size:0.85rem; margin-top:15px;">보조: 장해독환</div>
+        <label style="display:block; margin:8px 0;"><input type="checkbox" name="program" value="장해독1달(1통)" /> 장해독환 1달 1통 - 10,000원</label>
+        <label style="display:block; margin:8px 0;"><input type="checkbox" name="program" value="장해독3달(3통)" /> 장해독환 3달 3통 - 20,000원</label>
       </div>
 
-      <div class="field">
+      <div class="highlight-box">
+        비대면의 경우 4·8주 프로그램은 <b>4,000원의 택배비</b>가 추가되며, 12주 이상 프로그램은 <b>무료 배송</b>입니다.
+      </div>
+
+      <div class="total-amount-box">
+        총 결제 예상금액: <span id="totalAmountText">0원</span>
+      </div>
+      <input type="hidden" id="total_amount" name="total_amount" value="0" />
+
+      <div class="field" style="margin-top:25px;">
         <div class="label">결제 방식 <span class="required">*</span></div>
         <div class="inline-options">
           <label><input type="radio" name="payment_method" value="카드 결제" required /> 카드 결제</label>
@@ -432,41 +323,36 @@
         </div>
       </div>
 
-      <div id="bankBlock" class="hidden">
-        <div class="highlight-box" style="background:#f8fafc; border-color:var(--border);">
-          <div class="field">
-            <div class="label">입금자명</div>
-            <input type="text" id="depositor_name" name="depositor_name" />
+      <div id="bankBlock" class="hidden" style="background:#f8fafc; padding:15px; border-radius:8px; margin-top:15px;">
+        <div class="field">
+          <div class="label">입금자명</div>
+          <input type="text" id="depositor_name" name="depositor_name" />
+        </div>
+        <div class="field">
+          <div class="label">현금영수증 종류</div>
+          <div class="inline-options">
+            <label><input type="radio" name="receipt_type" value="휴대폰 번호" /> 휴대폰</label>
+            <label><input type="radio" name="receipt_type" value="사업자 번호" /> 사업자</label>
           </div>
-          <div class="field">
-            <div class="label">현금영수증</div>
-            <div class="inline-options">
-              <label><input type="radio" name="receipt_type" value="휴대폰" /> 개인</label>
-              <label><input type="radio" name="receipt_type" value="사업자" /> 사업자</label>
-            </div>
-            <input type="tel" id="receipt_value" name="receipt_value" placeholder="번호 입력" style="margin-top:10px;" />
-          </div>
+          <input type="tel" id="receipt_value" name="receipt_value" placeholder="번호 입력" style="margin-top:10px;" />
         </div>
       </div>
     </div>
 
     <div class="section-card">
-      <div class="section-title">최종 확인</div>
-      <div class="consent-box">
-        수집 목적: 다이어트 한약 진단·상담·처방 및 결제·택배 발송용<br>
-        보유 기간: 법령에 따른 보존 기간 종료 후 즉시 파기
+      <div class="section-title">7. 개인정보 수집·이용 동의</div>
+      <div style="font-size:0.8rem; background:#eef3ff; padding:12px; border-radius:6px; line-height:1.5;">
+        수집 목적: 다이어트 한약 진단·상담·처방 및 결제·발송 업무<br>
+        수집 항목: 성명, 연락처, 건강상태 등 문진 내용 일체<br>
+        보유 기간: 법령에 따른 보관 후 파기
       </div>
       <div style="margin-top:15px; text-align:center;">
-        <label style="font-weight:800; font-size:1rem;">
-          <input type="checkbox" id="consent2" /> 위 내용에 동의합니다.
-        </label>
+        <label style="font-weight:700;"><input type="checkbox" id="consent2" /> 위 내용에 동의합니다.</label>
       </div>
-
-      <div class="hint-step" style="margin-top:20px;">
-        버튼을 누르면 <b>문진 내용이 자동 복사</b>됩니다. 카톡창이 열리면 <b>붙여넣기</b> 후 전송해 주세요.
+      <button type="button" id="allInOneBtn">최종응답 및 다음단계</button>
+      <div class="small-hint" style="text-align:center; margin-top:15px;">
+        버튼을 누르면 내용이 자동 복사되어 카카오톡으로 연결됩니다.
       </div>
-
-      <button type="button" id="allInOneBtn">최종응답 및 전송하기</button>
     </div>
 
     <input type="hidden" name="consent" value="동의함" />
@@ -475,63 +361,46 @@
 </div>
 
 <script>
-  /* [기존 로직 유지] SCRIPT_URL, KAKAO_URL 등 */
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzlKD52BulhyKf7fo_fZYGtNv2tYXcPCQcBTtYHKQObwoRMCaHPZt2NI8D1bPwqJRhTow/exec";
   const KAKAO_URL  = "https://pf.kakao.com/_wdtXK/chat";
 
   function getCheckedValues(name) {
-    const nodes = document.querySelectorAll('input[name="' + name + '"]:checked');
-    return Array.from(nodes).map(n => n.value);
+    return Array.from(document.querySelectorAll(`input[name="${name}"]:checked`)).map(n => n.value);
   }
 
   function buildSummary() {
-    /* 기존 buildSummary 로직 유지 */
-    const name    = document.getElementById("name").value.trim();
-    const gender  = (document.querySelector('input[name="gender"]:checked') || {}).value || "";
-    const height  = document.getElementById("height").value.trim();
-    const weight  = document.getElementById("weight").value.trim();
-    const job     = document.getElementById("job").value.trim();
-    const activity = getCheckedValues("activity").join(", ");
-    const sleep = getCheckedValues("sleep").join(", ");
-    const drink   = document.getElementById("drink").value;
-    const disease = [...getCheckedValues("disease"), document.getElementById("disease_etc").value.trim()].filter(x=>x).join(", ");
-    const meds = [...getCheckedValues("med"), document.getElementById("med_etc").value.trim()].filter(x=>x).join(", ");
-    const preg = (document.querySelector('input[name="preg"]:checked') || {}).value || "";
-    const dietExp = getCheckedValues("diet_exp").join(", ");
-    const yoYo = (document.querySelector('input[name="yo_yo"]:checked') || {}).value || "";
-    const goalWeight = document.getElementById("goal_weight").value.trim();
-    const mainConcern = document.getElementById("main_concern").value.trim();
-    const shipName = document.getElementById("ship_name").value.trim();
-    const shipPhone = document.getElementById("ship_phone").value.trim();
-    const shipAddress = document.getElementById("ship_address").value.trim();
-    const programList = getCheckedValues("program").join(", ");
-    const totalAmountVal = document.getElementById("total_amount").value;
-    const paymentMethod = (document.querySelector('input[name="payment_method"]:checked') || {}).value || "";
+    const name = document.getElementById("name").value.trim();
+    const gender = (document.querySelector('input[name="gender"]:checked') || {}).value || "-";
+    const height = document.getElementById("height").value.trim();
+    const weight = document.getElementById("weight").value.trim();
+    const job = document.getElementById("job").value.trim();
+    const budgetRange = document.getElementById("budget_range").value.trim(); // 복구 완료
 
     const lines = [
       "■ [바디올핏 대면 문진]",
-      "이름: " + name + " / 성별: " + gender,
-      "스펙: " + height + "cm / " + weight + "kg",
-      "직업/활동: " + job + " / " + activity,
+      `성함/성별: ${name} / ${gender}`,
+      `스펙: ${height}cm / ${weight}kg`,
+      `직업/활동: ${job} / ${getCheckedValues("activity").join(", ")}`,
       "",
       "■ 건강상태",
-      "질환: " + (disease || "없음"),
-      "복용약: " + (meds || "없음"),
-      "부인과: " + (preg || "-"),
-      "수면/음주: " + sleep + " / " + drink,
+      `수면/음주: ${getCheckedValues("sleep").join(", ")} / ${document.getElementById("drink").value}`,
+      `질환: ${getCheckedValues("disease").join(", ")} ${document.getElementById("disease_etc").value.trim()}`,
+      `복용약: ${getCheckedValues("med").join(", ")} ${document.getElementById("med_etc").value.trim()}`,
+      `부인과: ${(document.querySelector('input[name="preg"]:checked') || {}).value || "-"}`,
       "",
-      "■ 목표",
-      "경험/요요: " + dietExp + " / 요요 " + yoYo,
-      "목표/고민: " + goalWeight + "kg / " + mainConcern,
+      "■ 다이어트 정보",
+      `경험: ${getCheckedValues("diet_exp").join(", ")}`,
+      `요요: ${(document.querySelector('input[name="yo_yo"]:checked') || {}).value || "-"}`,
+      `목표: ${document.getElementById("goal_weight").value}kg`,
+      `예산: ${budgetRange}`, // 복구 완료
+      `고민: ${document.getElementById("main_concern").value.trim()}`,
       "",
-      "■ 신청프로그램",
-      "프로그램: " + programList,
-      "총금액: " + Number(totalAmountVal).toLocaleString() + "원",
-      "결제방식: " + paymentMethod,
-      "",
-      "■ 배송정보",
-      "수령인: " + shipName + " (" + shipPhone + ")",
-      "주소: " + shipAddress
+      "■ 결제 및 배송",
+      `프로그램: ${getCheckedValues("program").join(", ")}`,
+      `총금액: ${document.getElementById("total_amount").value.toLocaleString()}원`,
+      `결제: ${(document.querySelector('input[name="payment_method"]:checked') || {}).value}`,
+      `배송: ${document.getElementById("ship_name").value} (${document.getElementById("ship_phone").value})`,
+      `주소: ${document.getElementById("ship_address").value.trim()}`
     ];
 
     const summaryText = lines.join("\n");
@@ -539,68 +408,58 @@
     return summaryText;
   }
 
-  function copySummary(text) {
-    const temp = document.createElement("textarea");
-    temp.style.position = "fixed";
-    temp.value = text;
-    document.body.appendChild(temp);
-    temp.select();
+  function copyToClipboard(text) {
+    const t = document.createElement("textarea");
+    document.body.appendChild(t);
+    t.value = text;
+    t.select();
     document.execCommand("copy");
-    document.body.removeChild(temp);
+    document.body.removeChild(t);
   }
 
-  /* 가격 계산기 - 기존 로직 유지 */
-  (function setupProgramCalc() {
-    const programContainer = document.getElementById("programOptions");
-    const totalAmountText = document.getElementById("totalAmountText");
-    const totalAmountInput = document.getElementById("total_amount");
-
-    programContainer.addEventListener("change", function() {
-      const nodes = programContainer.querySelectorAll('input[name="program"]:checked');
-      const programArr = Array.from(nodes).map(n => n.value);
-      
-      let total = 0;
-      programArr.forEach(v => {
-        if (v.startsWith("4주(")) total += 98000;
-        else if (v.startsWith("8주(")) total += 187000;
-        else if (v.startsWith("12주(")) total += 317000;
-        else if (v.startsWith("요요2x")) total += 547000;
-        else if (v.startsWith("요요3x")) total += 752000;
-        else if (v.startsWith("장해독1달")) total += 10000;
-        else if (v.startsWith("장해독3달")) total += 20000;
-      });
-
-      const has4or8 = programArr.some(v => v.startsWith("4주(") || v.startsWith("8주("));
-      const hasFreeShip = programArr.some(v => v.startsWith("12주(") || v.startsWith("요요2x") || v.startsWith("요요3x"));
-      if (has4or8 && !hasFreeShip) total += 4000;
-
-      totalAmountText.textContent = total.toLocaleString();
-      totalAmountInput.value = total;
+  // 가격 계산기 (기존 배송비 정책 100% 반영)
+  document.getElementById("programOptions").addEventListener("change", function() {
+    const programArr = getCheckedValues("program");
+    let total = 0;
+    programArr.forEach(v => {
+      if (v.startsWith("4주")) total += 98000;
+      else if (v.startsWith("8주")) total += 187000;
+      else if (v.startsWith("12주")) total += 317000;
+      else if (v.startsWith("요요2x")) total += 547000;
+      else if (v.startsWith("요요3x")) total += 752000;
+      else if (v.startsWith("장해독1달")) total += 10000;
+      else if (v.startsWith("장해독3달")) total += 20000;
     });
-  })();
 
-  /* 계좌이체 블록 제어 */
-  document.querySelectorAll('input[name="payment_method"]').forEach(radio => {
-    radio.addEventListener("change", function() {
+    const has4or8 = programArr.some(v => v.startsWith("4주") || v.startsWith("8주"));
+    const hasFree = programArr.some(v => v.startsWith("12주") || v.startsWith("요요"));
+    if (has4or8 && !hasFree) total += 4000;
+
+    document.getElementById("totalAmountText").textContent = total.toLocaleString() + "원";
+    document.getElementById("total_amount").value = total;
+  });
+
+  document.querySelectorAll('input[name="payment_method"]').forEach(r => {
+    r.addEventListener("change", function() {
       document.getElementById("bankBlock").classList.toggle("hidden", this.value !== "계좌이체");
     });
   });
 
-  /* 최종 제출 - 기존 로직 유지 */
   document.getElementById("allInOneBtn").addEventListener("click", function() {
     const form = document.getElementById("faceForm");
     if (!form.checkValidity()) { form.reportValidity(); return; }
-    if (!document.getElementById("consent2").checked) { alert("동의 체크가 필요합니다."); return; }
+    if (!document.getElementById("consent2").checked) { alert("개인정보 동의가 필요합니다."); return; }
     
+    this.disabled = true;
     const summaryText = buildSummary();
-    copySummary(summaryText);
+    copyToClipboard(summaryText);
 
     const formData = new FormData(form);
     formData.append("summary_text", summaryText);
 
     fetch(SCRIPT_URL, { method: "POST", body: formData, mode: "no-cors" });
 
-    alert("응답 요약이 복사되었습니다.\n카톡창에 붙여넣어 주세요!");
+    alert("응답 요약이 복사되었습니다.\n확인 버튼을 누르면 카카오톡으로 연결됩니다.");
     window.location.href = KAKAO_URL;
   });
 </script>
