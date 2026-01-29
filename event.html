@@ -15,10 +15,12 @@
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
 
+    // 기본 설정
     gtag('config', 'G-390KQ62CTL', {
       send_page_view: true
     });
 
+    // 버튼 클릭 이벤트(버튼별 구분)
     function trackCtaClick(label, url) {
       try {
         gtag('event', 'cta_click', {
@@ -55,16 +57,15 @@
       background:var(--card);
       border:1px solid var(--line);
       border-radius: 18px;
-      padding: 30px 18px 22px; /* 상단 여백 추가 */
+      padding: 22px 18px;
       box-shadow: 0 10px 30px rgba(2,6,23,.06);
-      text-align: center; /* 로고와 제목 중앙 정렬 */
+      text-align: center; /* 카드 내용 기본 중앙 정렬 */
     }
     
-    /* 로고 스타일 추가 */
-    .logo {
-      width: 60px;
-      height: auto;
-      margin-bottom: 20px;
+    /* 뱃지 전용 컨테이너: 좌측 정렬 복원 */
+    .badge-wrap {
+      text-align: left;
+      margin-bottom: 14px;
     }
 
     .badge{
@@ -78,44 +79,48 @@
       font-weight: 700;
       font-size: 13px;
     }
+
+    /* 로고 스타일: 제목 아래 배치 및 중앙 정렬 */
+    .logo {
+      width: 60px;
+      height: auto;
+      margin: 10px auto 20px;
+      display: block;
+    }
+
     h1{
-      margin:18px 0 10px;
-      font-size: 32px;
-      line-height: 1.2;
+      margin:0 0 10px;
+      font-size: 34px;
+      line-height: 1.15;
       letter-spacing: -0.02em;
-      word-break: keep-all;
     }
     .sub{
-      margin:0 0 20px;
+      margin:0 0 18px;
       color: var(--muted);
       font-size: 16px;
       line-height: 1.6;
-      word-break: keep-all;
     }
-    .hr{height:1px;background:var(--line);margin:20px 0;}
-    
+    .hr{height:1px;background:var(--line);margin:16px 0;}
     .kv{
       display:grid;
       grid-template-columns: 1fr;
       gap: 10px;
       margin-top: 6px;
-      text-align: left; /* 정보창은 좌측 정렬 */
     }
     .kv .row{
       display:flex;
       justify-content: space-between;
       align-items: baseline;
       gap: 12px;
-      padding: 12px 14px;
+      padding: 10px 12px;
       border-radius: 12px;
       background: #f8fafc;
       border:1px solid #eef2f7;
     }
-    .k{color:#334155;font-weight:700; font-size: 14px;}
-    .v{color:#0f172a;font-weight:800; font-size: 14px;}
-    
+    .k{color:#334155;font-weight:700;}
+    .v{color:#0f172a;font-weight:800;}
     .note{
-      margin-top: 14px;
+      margin-top: 12px;
       color: #64748b;
       font-size: 13px;
       line-height: 1.6;
@@ -124,8 +129,8 @@
     .btns{
       display:grid;
       grid-template-columns: 1fr;
-      gap: 12px;
-      margin-top: 20px;
+      gap: 10px;
+      margin-top: 16px;
     }
     a.btn{
       display:flex;
@@ -133,19 +138,15 @@
       align-items:center;
       gap:10px;
       text-decoration:none;
-      padding: 16px 14px;
+      padding: 14px 14px;
       border-radius: 14px;
       font-weight: 900;
       letter-spacing: -0.01em;
       border:1px solid transparent;
-      transition: transform 0.2s;
     }
-    a.btn:active { transform: scale(0.98); }
-
     .primary{
       background: var(--brand);
       color:#fff;
-      box-shadow: 0 4px 12px rgba(31, 59, 118, 0.2);
     }
     .ghost{
       background:#fff;
@@ -153,7 +154,7 @@
       border-color: rgba(31,59,118,.25);
     }
     .footer{
-      margin-top: 20px;
+      margin-top: 14px;
       text-align:center;
       color:#94a3b8;
       font-size: 12px;
@@ -164,11 +165,14 @@
 <body>
   <main class="wrap">
     <section class="card">
-      <img src="https://raw.githubusercontent.com/bodyallhani/gen-intake/main/bodyall.png" alt="바디올한의원" class="logo">
-
-      <div class="badge">바디올핏 2026 새해 이벤트</div>
+      <div class="badge-wrap">
+        <div class="badge">바디올핏 2026 새해 이벤트</div>
+      </div>
 
       <h1>새해에 시작한 3개월이<br/>여름 몸매가 됩니다.</h1>
+
+      <img src="https://raw.githubusercontent.com/bodyallhani/gen-intake/main/bodyall.png" alt="바디올한의원" class="logo">
+
       <p class="sub">
         급하게 빼는 다이어트가 아니라,<br/>
         <b>여름까지 유지되는 몸</b>을 만드는 기준으로 설계했습니다.
