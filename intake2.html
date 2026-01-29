@@ -7,23 +7,23 @@
   <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/bodyallhani/gen-intake/main/bodyall.png">
   <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/bodyallhani/gen-intake/main/bodyall.png">
   <style>
-    /* 럭셔리 메디컬 클리닉 디자인 시스템 */
+    /* 프리미엄 클리닉 디자인 시스템 */
     :root {
       --bg: #f8fafc;
       --card: #ffffff;
-      --primary: #1a73e8; /* 메인 블루 */
+      --primary: #1a73e8; 
       --text: #202124;
       --sub-text: #5f6368;
       --border: #dadce0;
-      --accent: #d93025; /* 필수 표시용 레드 */
-      --radius: 12px;
+      --accent: #d93025;
+      --radius: 14px;
     }
 
     * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
     
     body {
       margin: 0;
-      padding: 24px 16px 120px;
+      padding: 30px 16px 120px;
       font-family: "Pretendard", -apple-system, system-ui, sans-serif;
       background-color: var(--bg);
       color: var(--text);
@@ -35,67 +35,70 @@
       margin: 0 auto;
     }
 
+    /* [변경 구간] 세련된 헤더 디자인 */
+    .intro-header {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+    .intro-logo {
+      width: 70px; /* 로고 크기 조절 */
+      height: auto;
+      margin-bottom: 20px;
+    }
+    h1 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      margin: 0 0 12px;
+      color: #111;
+      letter-spacing: -1px;
+    }
+    .subtitle {
+      font-size: 0.95rem;
+      color: var(--sub-text);
+      word-break: keep-all;
+      padding: 0 10px;
+      line-height: 1.7;
+    }
+
+    /* 카드 베이스 */
     .card {
       background: var(--card);
       padding: 32px 24px;
       border-radius: var(--radius);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
       border: 1px solid var(--border);
     }
 
-    h1 {
-      font-size: 1.4rem;
-      font-weight: 800;
-      margin: 0 0 8px;
-      letter-spacing: -0.5px;
-      color: #111;
-    }
-
-    .subtitle {
-      font-size: 0.95rem;
-      color: var(--sub-text);
-      margin-bottom: 24px;
-      word-break: keep-all;
-    }
-
-    /* 이미지 스타일 */
     .image-wrapper {
       text-align: center;
-      margin-bottom: 20px;
-      border-radius: 8px;
+      margin-bottom: 25px;
+      border-radius: 10px;
       overflow: hidden;
       border: 1px solid var(--border);
     }
     .image-wrapper img { width: 100%; display: block; }
 
-    /* 섹션 타이틀 */
     .section-title {
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       font-weight: 800;
-      margin: 32px 0 12px;
+      margin: 35px 0 15px;
       padding-bottom: 8px;
-      border-bottom: 2px solid #eee;
+      border-bottom: 2px solid #f1f3f4;
       color: #111;
     }
 
-    /* 필드 레이아웃 */
-    .field { margin-bottom: 24px; }
-    .label { font-size: 0.95rem; font-weight: 700; margin-bottom: 8px; display: block; }
+    .field { margin-bottom: 26px; }
+    .label { font-size: 0.95rem; font-weight: 700; margin-bottom: 10px; display: block; }
     .required { color: var(--accent); margin-left: 3px; }
 
-    /* 입력 폼 요소 */
-    input[type="text"],
-    input[type="tel"],
-    input[type="number"],
-    textarea,
-    select {
+    input[type="text"], input[type="tel"], input[type="number"], textarea, select {
       width: 100%;
       padding: 12px 14px;
       border-radius: 8px;
       border: 1px solid var(--border);
       font-size: 1rem;
       transition: all 0.2s;
-      background: #fdfdfd;
+      background: #fafafa;
     }
     input:focus, textarea:focus, select:focus {
       outline: none;
@@ -104,89 +107,68 @@
       background: #fff;
     }
 
-    textarea { min-height: 80px; resize: vertical; }
+    textarea { min-height: 85px; resize: vertical; }
     #med_etc { min-height: 140px; }
 
-    /* 옵션 스타일 (라디오/체크박스) */
-    .inline-options {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px 20px;
-      margin-top: 8px;
-    }
-    .inline-options label {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.9rem;
-      cursor: pointer;
-    }
-    input[type="radio"], input[type="checkbox"] {
-      width: 18px;
-      height: 18px;
-      accent-color: var(--primary);
-      margin: 0;
-    }
+    .inline-options { display: flex; flex-wrap: wrap; gap: 12px 20px; margin-top: 8px; }
+    .inline-options label { display: inline-flex; align-items: center; gap: 6px; font-size: 0.9rem; cursor: pointer; }
+    input[type="radio"], input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--primary); margin: 0; }
 
-    .options-block label { display: block; margin-bottom: 10px; cursor: pointer; font-size: 0.9rem; }
-    .options-block strong { display: block; margin: 20px 0 10px; font-size: 0.95rem; color: var(--primary); }
+    .options-block label { display: block; margin-bottom: 12px; cursor: pointer; font-size: 0.9rem; }
+    .options-block strong { display: block; margin: 25px 0 12px; font-size: 1rem; color: var(--primary); }
 
-    /* 안내 메시지 */
     .small-hint { font-size: 0.82rem; color: #70757a; margin-top: 6px; line-height: 1.4; }
     .highlight-box {
       background: #fff8f8;
-      padding: 16px;
-      border-radius: 8px;
+      padding: 18px;
+      border-radius: 10px;
       border-left: 4px solid var(--accent);
-      font-size: 0.85rem;
-      margin: 20px 0;
+      font-size: 0.88rem;
+      margin: 25px 0;
       color: #444;
       line-height: 1.6;
     }
 
-    /* 금액 박스 */
     .total-amount {
-      background: #f1f3f4;
-      padding: 20px;
-      border-radius: 10px;
+      background: #f8f9fa;
+      padding: 22px;
+      border-radius: 12px;
       text-align: center;
       font-size: 1rem;
       font-weight: 700;
-      margin-top: 12px;
+      margin-top: 15px;
+      border: 1px solid #eee;
     }
-    .total-amount span { color: var(--accent); font-size: 1.4rem; }
+    .total-amount span { color: var(--accent); font-size: 1.5rem; }
 
-    /* 동의 영역 */
     .consent-box {
-      font-size: 0.8rem;
-      background: #f0f4ff;
-      padding: 16px;
-      border-radius: 8px;
-      color: #445;
+      font-size: 0.82rem;
+      background: #f1f5f9;
+      padding: 18px;
+      border-radius: 10px;
+      color: #475569;
       line-height: 1.6;
     }
-    .consent-row { margin-top: 12px; display: flex; align-items: center; gap: 8px; font-weight: 700; }
+    .consent-row { margin-top: 15px; display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 0.95rem; }
 
-    /* 버튼 시스템 */
     button {
       width: 100%;
-      margin-top: 24px;
-      padding: 18px 0;
-      border-radius: 10px;
+      margin-top: 30px;
+      padding: 20px 0;
+      border-radius: 12px;
       border: none;
       background: var(--primary);
       color: #fff;
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       font-weight: 800;
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(26, 115, 232, 0.2);
-      transition: transform 0.2s, opacity 0.2s;
+      box-shadow: 0 4px 15px rgba(26, 115, 232, 0.25);
+      transition: all 0.2s;
     }
     button:active { transform: scale(0.98); }
-    button:disabled { opacity: 0.5; cursor: not-allowed; }
+    button:disabled { background: #cbd5e1; cursor: not-allowed; }
 
-    .hint { font-size: 0.85rem; color: var(--sub-text); margin-top: 16px; text-align: center; }
-
+    .kakao-hint { font-size: 0.85rem; color: var(--sub-text); margin-top: 18px; text-align: center; word-break: keep-all; line-height: 1.5; }
     .hidden { display: none; }
     .bottom-space { height: 60px; }
   </style>
@@ -194,13 +176,15 @@
 <body>
 
 <div class="container">
-  <div class="card">
-    <h1>바디올핏 다이어트 문진표 (대면용)</h1>
+  <div class="intro-header">
+    <img src="https://raw.githubusercontent.com/bodyallhani/gen-intake/main/bodyall.png" class="intro-logo" alt="Bodyall Logo">
+    <h1>바디올핏 다이어트 문진</h1>
     <div class="subtitle">
-      대면 진료 전에, 다이어트 한약 처방에 필요한 기본 정보를 정리하는 문진입니다.<br />
-      3~5분 정도만 작성해주시면, 상담과 처방 설명이 훨씬 수월해집니다.
+      대면 진료 전, 다이어트 한약 처방에 필요한 정보를 정리하는 단계입니다.<br />
+      약 3~5분 정도 소요되며, 작성해주신 내용은 정밀한 상담의 기초가 됩니다.
     </div>
-
+  </div>
+  <div class="card">
     <div class="image-wrapper">
       <img id="img1" src="img1.jpg" alt="바디올핏 안내 이미지" />
     </div>
@@ -216,7 +200,7 @@
       <div class="field">
         <label class="label">생년월일 (주민번호 앞 6자리) <span class="required">*</span></label>
         <input type="text" id="rrn1" name="rrn1" inputmode="numeric" pattern="\d{6}" maxlength="6" required placeholder="예: 950101" />
-        <div class="small-hint">주민등록번호 앞 6자리(YYMMDD)를 숫자만 입력해주세요. 예: 950101</div>
+        <div class="small-hint">주민등록번호 앞 6자리(YYMMDD)를 숫자만 입력해주세요.</div>
       </div>
 
       <div class="field">
@@ -234,20 +218,20 @@
           <input type="number" id="height" name="height" inputmode="numeric" pattern="\d*" min="100" max="220" required placeholder="키 (cm)" />
           <input type="number" id="weight" name="weight" inputmode="numeric" pattern="\d*" min="30" max="200" required placeholder="체중 (kg)" />
         </div>
-        <div class="small-hint">정확하지 않아도 괜찮습니다. 대략적인 수치만 적어주세요.</div>
+        <div class="small-hint">대략적인 수치만 적어주셔도 괜찮습니다.</div>
       </div>
 
       <div class="field">
         <label class="label">직업 (또는 주된 생활 패턴)</label>
-        <input type="text" id="job" name="job" placeholder="예: 사무직, 서비스직, 교대근무 등" />
+        <input type="text" id="job" name="job" placeholder="예: 사무직, 서비스직, 전업주부, 학생 등" />
       </div>
 
       <div class="field">
         <label class="label">하루 활동량 (복수 선택 가능)</label>
         <div class="inline-options">
-          <label><input type="checkbox" name="activity" value="대부분 앉어서 지냄" /> 대부분 앉아서 지냄</label>
+          <label><input type="checkbox" name="activity" value="대부분 앉아서 지냄" /> 대부분 앉아서 지냄</label>
           <label><input type="checkbox" name="activity" value="서있거나 많이 걷는 편" /> 서있거나 많이 걷는 편</label>
-          <label><input type="checkbox" name="activity" value="육체노동/강도 높은 활동 많음" /> 강도 높은 활동</label>
+          <label><input type="checkbox" name="activity" value="육체노동/강도 높은 활동 많음" /> 육체노동/강도 높은 활동</label>
         </div>
       </div>
 
@@ -287,8 +271,7 @@
           <label><input type="checkbox" name="disease" value="기타" /> 기타</label>
           <label><input type="checkbox" name="disease_none" value="해당 없음" /> 해당 없음</label>
         </div>
-        <div class="small-hint">‘기타’에 해당되는 것이 있으면 아래에 적어주세요.</div>
-        <textarea id="disease_etc" name="disease_etc" placeholder="예: 류마티스 관절염, 심한 위장질환 등"></textarea>
+        <textarea id="disease_etc" name="disease_etc" placeholder="‘기타’ 선택 시 상세 질환을 적어주세요."></textarea>
       </div>
 
       <div class="field">
@@ -301,7 +284,7 @@
           <label><input type="checkbox" name="med" value="기타" /> 기타</label>
           <label><input type="checkbox" name="med_none" value="복용약 없음" /> 복용약 없음</label>
         </div>
-        <textarea id="med_etc" name="med_etc" placeholder="약 이름을 정확히 모르셔도 대략 어떤 약인지 적어주세요.&#10;*다이어트 처방 불가 약물류) 암페타민류, 독세---- , --프라민, 노르트-----, 클로니딘류, 코데인류, 테오필린류, 신지로이드류, 아스피린 정기복용 등"></textarea>
+        <textarea id="med_etc" name="med_etc" placeholder="약 이름을 모르셔도 대략 어떤 용도인지 적어주시면 됩니다.&#10;*처방 불가 약물군: 암페타민류, 독세핀, 노르트립틸린, 클로니딘, 코데인, 테오필린, 신지로이드, 아스피린 등"></textarea>
       </div>
 
       <div class="field" id="femaleBlock">
@@ -340,7 +323,7 @@
 
       <div class="field">
         <label class="label">목표감량 kg수</label>
-        <input type="number" id="goal_weight" name="goal_weight" inputmode="numeric" pattern="\d*" placeholder="예: 8 (kg 정도 빼고 싶어요)" />
+        <input type="number" id="goal_weight" name="goal_weight" inputmode="numeric" pattern="\d*" placeholder="예: 8 (kg)" />
       </div>
 
       <div class="field">
@@ -350,7 +333,7 @@
 
       <div class="field">
         <label class="label">지금 가장 걱정되는 부분</label>
-        <textarea id="main_concern" name="main_concern" placeholder="예: 계속 요요가 온다 / 폭식이 반복된다 / 체력이 너무 떨어져서 걱정된다 등"></textarea>
+        <textarea id="main_concern" name="main_concern" placeholder="예: 계속 요요가 온다 / 폭식이 반복된다 / 체력이 떨어져서 걱정된다 등"></textarea>
       </div>
 
       <div class="section-title">5. 택배 수령 정보</div>
@@ -362,29 +345,29 @@
 
       <div class="field">
         <label class="label">수령인 연락처 <span class="required">*</span></label>
-        <input type="tel" id="ship_phone" name="ship_phone" inputmode="numeric" pattern="\d*" required placeholder="예: 01012345678 (하이픈 없이)" />
+        <input type="tel" id="ship_phone" name="ship_phone" inputmode="numeric" pattern="\d*" required placeholder="예: 01012345678 (숫자만)" />
       </div>
 
       <div class="field">
         <label class="label">택배 수령 주소 <span class="required">*</span></label>
-        <textarea id="ship_address" name="ship_address" required placeholder="예: (우편번호) 수원시 XX구 XX로 00, 000동 000호"></textarea>
+        <textarea id="ship_address" name="ship_address" required placeholder="우편번호 및 상세주소를 포함하여 적어주세요."></textarea>
       </div>
 
       <div class="section-title">6. 프로그램 선택 & 결제 정보</div>
 
       <div class="image-wrapper">
-        <img id="img3" src="img3.jpg" alt="바디올핏 프로그램 및 이벤트 가격 안내" />
+        <img id="img3" src="img3.jpg" alt="바디올핏 프로그램 안내" />
       </div>
 
       <div class="field">
         <label class="label">희망 다이어트 프로그램을 선택해주세요. <span class="required">*</span></label>
-        <div class="small-hint">중복 선택 가능합니다. 선택 즉시 아래에서 예상금액을 확인하실 수 있습니다.</div>
+        <div class="small-hint">중복 선택 시 아래에서 최종 합계 금액을 확인하실 수 있습니다.</div>
 
         <div class="options-block" id="programOptions">
           <strong>★ 다이어트 프로그램</strong>
-          <label><input type="checkbox" name="program" value="4주(2+1)" /> 4주 프로그램 (바디올핏 3통 2+1) – 98,000원</label>
-          <label><input type="checkbox" name="program" value="8주(4+2)" /> 8주 프로그램 (바디올핏 6통 4+2) – 187,000원</label>
-          <label><input type="checkbox" name="program" value="12주(8+3)" /> 12주 프로그램 (바디올핏 11통 8+3) – 317,000원</label>
+          <label><input type="checkbox" name="program" value="4주(2+1)" /> 4주 프로그램 (3통 2+1) – 기간한정가 98,000원</label>
+          <label><input type="checkbox" name="program" value="8주(4+2)" /> 8주 프로그램 (6통 4+2) – 기간한정가 187,000원</label>
+          <label><input type="checkbox" name="program" value="12주(8+3)" /> 12주 프로그램 (11통 8+3) – 기간한정가 317,000원</label>
 
           <strong>☆ 요요방지 프로그램 (6개월)</strong>
           <label><input type="checkbox" name="program" value="요요2x(16+4)" /> Double(2x) 요요방지 – 20통 / 547,000원</label>
@@ -396,9 +379,9 @@
         </div>
 
         <div class="highlight-box">
-          <strong>[처방 구매 시 필독사항]</strong><br />
-          비대면의 경우, 체험 프로그램 및 장해독환 단독 처방은 불가합니다.<br />
-          4·8주 프로그램은 4,000원의 택배비가 추가되며, 12주 이상은 무료배송입니다.
+          <strong>[처방 및 배송 안내]</strong><br />
+          비대면 시 체험판 및 장해독환 단독 처방은 불가합니다.<br />
+          4·8주 프로그램은 택배비 4,000원 추가, 12주 이상은 무료배송입니다.
         </div>
 
         <div class="total-amount">
@@ -416,17 +399,15 @@
       </div>
 
       <div id="bankBlock" class="hidden">
-        <div class="field">
+        <div class="field" style="background:#f9fafb; padding:18px; border-radius:10px; border:1px dashed var(--border);">
           <label class="label">입금자명</label>
-          <input type="text" id="depositor_name" name="depositor_name" placeholder="실제 송금자 이름" />
-        </div>
-        <div class="field">
-          <label class="label">현금영수증 정보</label>
+          <input type="text" id="depositor_name" name="depositor_name" placeholder="실제 송금인 성함" />
+          <label class="label" style="margin-top:15px;">현금영수증 신청</label>
           <div class="inline-options">
-            <label><input type="radio" name="receipt_type" value="휴대폰 번호" /> 휴대폰 번호</label>
-            <label><input type="radio" name="receipt_type" value="사업자 번호" /> 사업자 번호</label>
+            <label><input type="radio" name="receipt_type" value="휴대폰 번호" /> 개인용</label>
+            <label><input type="radio" name="receipt_type" value="사업자 번호" /> 사업자용</label>
           </div>
-          <input type="tel" id="receipt_value" name="receipt_value" inputmode="numeric" pattern="\d*" placeholder="번호 입력" style="margin-top:10px;" />
+          <input type="tel" id="receipt_value" name="receipt_value" inputmode="numeric" pattern="\d*" placeholder="번호 입력" style="margin-top:12px;" />
         </div>
       </div>
 
@@ -434,23 +415,23 @@
 
       <div class="field">
         <div class="consent-box">
-          수집 항목: 성명, 성별, 키·체중, 건강상태, 주소, 결제 및 배송 정보<br />
-          이용 목적: 진단·상담·처방 및 결제·택배 발송을 위한 활용<br />
-          보유 기간: 법령에 따른 기간 동안 보관 후 파기
+          수집 항목: 성명, 성별, 신체정보, 건강상태, 주소, 연락처 등 문진 내용 일체<br />
+          이용 목적: 한약 진단·상담·처방 및 결제·택배 발송 업무<br />
+          보유 기간: 관련 법령에 따른 보관 후 즉시 파기
         </div>
         <div class="consent-row">
           <input type="checkbox" id="consent2" />
-          <label for="consent2">위 내용에 동의합니다.</label>
+          <label for="consent2">위 내용을 확인하였으며 이에 동의합니다.</label>
         </div>
       </div>
 
       <input type="hidden" name="consent" value="동의함" />
 
-      <button type="button" id="allInOneBtn">최종응답 및 다음단계</button>
+      <button type="button" id="allInOneBtn">최종응답 및 전송하기</button>
 
-      <div class="hint">
-        버튼 클릭 시 내용이 자동 복사됩니다.<br />
-        카카오톡 채팅창에 <strong>붙여넣기</strong> 후 보내주세요.
+      <div class="kakao-hint">
+        버튼을 누르면 <strong>내용이 자동 복사</strong>되어 카카오톡으로 연결됩니다.<br />
+        채팅창이 열리면 <strong>'붙여넣기'</strong> 후 메시지를 전송해 주세요.
       </div>
 
       <div class="summary-box hidden">
@@ -472,55 +453,32 @@
   }
 
   function buildSummary() {
-    const name = document.getElementById("name").value.trim();
-    const gender = (document.querySelector('input[name="gender"]:checked') || {}).value || "";
-    const height = document.getElementById("height").value.trim();
-    const weight = document.getElementById("weight").value.trim();
-    const job = document.getElementById("job").value.trim();
-    const activity = getCheckedValues("activity").join(", ");
-    const sleep = getCheckedValues("sleep").join(", ");
-    const drink = document.getElementById("drink").value;
-    const disease = getCheckedValues("disease").join(", ") + " " + document.getElementById("disease_etc").value.trim();
-    const med = getCheckedValues("med").join(", ") + " " + document.getElementById("med_etc").value.trim();
-    const preg = (document.querySelector('input[name="preg"]:checked') || {}).value || "";
-    const dietExp = getCheckedValues("diet_exp").join(", ");
-    const yoYo = (document.querySelector('input[name="yo_yo"]:checked') || {}).value || "";
-    const goalWeight = document.getElementById("goal_weight").value.trim();
-    const budgetRange = document.getElementById("budget_range").value.trim();
-    const mainConcern = document.getElementById("main_concern").value.trim();
-    const shipName = document.getElementById("ship_name").value.trim();
-    const shipPhone = document.getElementById("ship_phone").value.trim();
-    const shipAddress = document.getElementById("ship_address").value.trim();
-    const programList = getCheckedValues("program").join(", ");
-    const totalAmountVal = document.getElementById("total_amount").value;
-    const paymentMethod = (document.querySelector('input[name="payment_method"]:checked') || {}).value || "";
+    const f = (id) => document.getElementById(id).value.trim();
+    const r = (name) => (document.querySelector(`input[name="${name}"]:checked`) || {value:""}).value;
 
     const lines = [
-      "■ 기본정보",
-      "이름: " + name + " / 성별: " + gender,
-      "키/체중: " + height + "cm / " + weight + "kg",
-      "직업/활동량: " + job + " / " + activity,
+      "■ [바디올핏 대면 문진]",
+      `성함/성별: ${f("name")} / ${r("gender")}`,
+      `스펙: ${f("height")}cm / ${f("weight")}kg`,
+      `직업/활동량: ${f("job")} / ${getCheckedValues("activity").join(", ")}`,
       "",
       "■ 건강상태",
-      "걱정부분: " + mainConcern,
-      "질환: " + disease,
-      "복용약: " + med,
-      "부인과: " + preg,
-      "수면: " + sleep + " / 음주: " + drink,
+      `질환: ${getCheckedValues("disease").join(", ")} / 기타: ${f("disease_etc")}`,
+      `복용약: ${getCheckedValues("med").join(", ")} / 상세: ${f("med_etc")}`,
+      `부인과: ${r("preg")}`,
+      `수면: ${getCheckedValues("sleep").join(", ")} / 음주: ${f("drink")}`,
       "",
       "■ 다이어트 경험/목표",
-      "경험: " + dietExp,
-      "요요: " + yoYo,
-      "목표감량: " + goalWeight + "kg / 예산: " + budgetRange,
+      `경험: ${getCheckedValues("diet_exp").join(", ")} / 요요: ${r("yo_yo")}`,
+      `목표: ${f("goal_weight")}kg / 예산: ${f("budget_range")}`,
+      `주요고민: ${f("main_concern")}`,
       "",
-      "■ 주문정보",
-      "프로그램: " + programList,
-      "총예상금액: " + Number(totalAmountVal).toLocaleString() + "원",
-      "결제방식: " + paymentMethod,
-      "",
-      "■ 배송정보",
-      "수령인: " + shipName + " / 연락처: " + shipPhone,
-      "주소: " + shipAddress
+      "■ 결제 및 배송",
+      `프로그램: ${getCheckedValues("program").join(", ")}`,
+      `총금액: ${Number(f("total_amount")).toLocaleString()}원`,
+      `결제방식: ${r("payment_method")}`,
+      `수령인: ${f("ship_name")} (${f("ship_phone")})`,
+      `주소: ${f("ship_address")}`
     ];
 
     const summaryText = lines.join("\n");
@@ -540,21 +498,16 @@
     document.body.removeChild(temp);
   }
 
-  // 결제 방식 제어
   document.querySelectorAll('input[name="payment_method"]').forEach(function(radio) {
     radio.addEventListener("change", function() {
-      const bankBlock = document.getElementById("bankBlock");
-      bankBlock.classList.toggle("hidden", this.value !== "계좌이체");
+      document.getElementById("bankBlock").classList.toggle("hidden", this.value !== "계좌이체");
     });
   });
 
-  // 금액 계산기
   (function setupProgramCalc() {
     const programContainer = document.getElementById("programOptions");
     programContainer.addEventListener("change", function() {
-      const nodes = programContainer.querySelectorAll('input[name="program"]:checked');
-      const programArr = Array.from(nodes).map(n => n.value);
-      
+      const programArr = getCheckedValues("program");
       let total = 0;
       programArr.forEach(v => {
         if (v.startsWith("4주")) total += 98000;
@@ -575,7 +528,6 @@
     });
   })();
 
-  // 최종 버튼 클릭
   document.getElementById("allInOneBtn").addEventListener("click", function () {
     const form = document.getElementById("faceForm");
     if (!form.checkValidity()) { form.reportValidity(); return; }
@@ -583,7 +535,7 @@
 
     const btn = document.getElementById("allInOneBtn");
     btn.disabled = true;
-    btn.textContent = "처리 중...";
+    btn.textContent = "전송 처리 중...";
 
     const summaryText = buildSummary();
     copySummary(summaryText);
@@ -598,9 +550,9 @@
       body: formData,
       mode: "no-cors"
     }).finally(() => {
-      alert("응답 요약이 복사되었습니다.\n\n카카오톡 채팅창이 열리면, 바로 붙여넣기 하신 뒤 보내주시면 됩니다.");
+      alert("문진 내용이 복사되었습니다.\n\n확인 버튼을 누르면 카카오톡 채팅창으로 연결됩니다. 메시지를 '붙여넣기'하여 전송해 주세요.");
       btn.disabled = false;
-      btn.textContent = "최종응답 및 다음단계";
+      btn.textContent = "최종응답 및 전송하기";
       window.location.href = KAKAO_URL;
     });
   });
